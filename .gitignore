@@ -1,0 +1,10 @@
+/target
+/build
+/third_party
+/imgui-wasm-core/third_party
+/example
+*.o
+*.a
+imgui.ini
+__pycache__/
+.venv/

@@ -1,0 +1,4852 @@
+{
+  "functions": [
+    {
+      "opname": "igAcceptDragDropPayload",
+      "opcode": 1,
+      "const": "OP_IG_ACCEPT_DRAG_DROP_PAYLOAD",
+      "funcname": "AcceptDragDropPayload",
+      "raw_name": "AcceptDragDropPayload__raw",
+      "location": "imgui:1015",
+      "args": [
+        {
+          "name": "type",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiDragDropFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "flags": "0"
+      },
+      "ret": "const ImGuiPayload*"
+    },
+    {
+      "opname": "igAlignTextToFramePadding",
+      "opcode": 2,
+      "const": "OP_IG_ALIGN_TEXT_TO_FRAME_PADDING",
+      "funcname": "AlignTextToFramePadding",
+      "raw_name": "AlignTextToFramePadding__raw",
+      "location": "imgui:596",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igArrowButton",
+      "opcode": 3,
+      "const": "OP_IG_ARROW_BUTTON",
+      "funcname": "ArrowButton",
+      "raw_name": "ArrowButton__raw",
+      "location": "imgui:645",
+      "args": [
+        {
+          "name": "str_id",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "dir",
+          "type": "ImGuiDir",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {},
+      "ret": "bool"
+    },
+    {
+      "opname": "igBegin",
+      "opcode": 4,
+      "const": "OP_IG_BEGIN",
+      "funcname": "Begin",
+      "raw_name": "Begin__raw",
+      "location": "imgui:442",
+      "args": [
+        {
+          "name": "name",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "p_open",
+          "type": "bool*",
+          "cat": "ptr_out_scalar",
+          "width": 1
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiWindowFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "p_open": "NULL",
+        "flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igBeginChildID",
+      "opcode": 5,
+      "const": "OP_IG_BEGIN_CHILD_ID",
+      "funcname": "BeginChild",
+      "raw_name": "BeginChild__raw",
+      "location": "imgui:464",
+      "args": [
+        {
+          "name": "id",
+          "type": "ImGuiID",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int",
+          "rust_type": "u32"
+        },
+        {
+          "name": "size",
+          "type": "ImVec2",
+          "cat": "vec2"
+        },
+        {
+          "name": "child_flags",
+          "type": "ImGuiChildFlags",
+          "cat": "enum"
+        },
+        {
+          "name": "window_flags",
+          "type": "ImGuiWindowFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "size": "ImVec2(0, 0)",
+        "child_flags": "0",
+        "window_flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igBeginChild",
+      "opcode": 6,
+      "const": "OP_IG_BEGIN_CHILD",
+      "funcname": "BeginChild",
+      "raw_name": "BeginChild__raw",
+      "location": "imgui:463",
+      "args": [
+        {
+          "name": "str_id",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "size",
+          "type": "ImVec2",
+          "cat": "vec2"
+        },
+        {
+          "name": "child_flags",
+          "type": "ImGuiChildFlags",
+          "cat": "enum"
+        },
+        {
+          "name": "window_flags",
+          "type": "ImGuiWindowFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "size": "ImVec2(0, 0)",
+        "child_flags": "0",
+        "window_flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igBeginCombo",
+      "opcode": 7,
+      "const": "OP_IG_BEGIN_COMBO",
+      "funcname": "BeginCombo",
+      "raw_name": "BeginCombo__raw",
+      "location": "imgui:669",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "preview_value",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiComboFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igBeginDisabled",
+      "opcode": 8,
+      "const": "OP_IG_BEGIN_DISABLED",
+      "funcname": "BeginDisabled",
+      "raw_name": "BeginDisabled__raw",
+      "location": "imgui:1024",
+      "args": [
+        {
+          "name": "disabled",
+          "type": "bool",
+          "cat": "scalar",
+          "width": 1,
+          "cpp_type": "bool",
+          "rust_type": "bool"
+        }
+      ],
+      "defaults": {
+        "disabled": "true"
+      },
+      "ret": "void"
+    },
+    {
+      "opname": "igBeginDragDropSource",
+      "opcode": 9,
+      "const": "OP_IG_BEGIN_DRAG_DROP_SOURCE",
+      "funcname": "BeginDragDropSource",
+      "raw_name": "BeginDragDropSource__raw",
+      "location": "imgui:1011",
+      "args": [
+        {
+          "name": "flags",
+          "type": "ImGuiDragDropFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igBeginDragDropTarget",
+      "opcode": 10,
+      "const": "OP_IG_BEGIN_DRAG_DROP_TARGET",
+      "funcname": "BeginDragDropTarget",
+      "raw_name": "BeginDragDropTarget__raw",
+      "location": "imgui:1014",
+      "args": [],
+      "defaults": {},
+      "ret": "bool"
+    },
+    {
+      "opname": "igBeginGroup",
+      "opcode": 11,
+      "const": "OP_IG_BEGIN_GROUP",
+      "funcname": "BeginGroup",
+      "raw_name": "BeginGroup__raw",
+      "location": "imgui:594",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igBeginItemTooltip",
+      "opcode": 12,
+      "const": "OP_IG_BEGIN_ITEM_TOOLTIP",
+      "funcname": "BeginItemTooltip",
+      "raw_name": "BeginItemTooltip__raw",
+      "location": "imgui:842",
+      "args": [],
+      "defaults": {},
+      "ret": "bool"
+    },
+    {
+      "opname": "igBeginListBox",
+      "opcode": 13,
+      "const": "OP_IG_BEGIN_LIST_BOX",
+      "funcname": "BeginListBox",
+      "raw_name": "BeginListBox__raw",
+      "location": "imgui:796",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "size",
+          "type": "ImVec2",
+          "cat": "vec2"
+        }
+      ],
+      "defaults": {
+        "size": "ImVec2(0, 0)"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igBeginMainMenuBar",
+      "opcode": 14,
+      "const": "OP_IG_BEGIN_MAIN_MENU_BAR",
+      "funcname": "BeginMainMenuBar",
+      "raw_name": "BeginMainMenuBar__raw",
+      "location": "imgui:822",
+      "args": [],
+      "defaults": {},
+      "ret": "bool"
+    },
+    {
+      "opname": "igBeginMenu",
+      "opcode": 15,
+      "const": "OP_IG_BEGIN_MENU",
+      "funcname": "BeginMenu",
+      "raw_name": "BeginMenu__raw",
+      "location": "imgui:824",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "enabled",
+          "type": "bool",
+          "cat": "scalar",
+          "width": 1,
+          "cpp_type": "bool",
+          "rust_type": "bool"
+        }
+      ],
+      "defaults": {
+        "enabled": "true"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igBeginMenuBar",
+      "opcode": 16,
+      "const": "OP_IG_BEGIN_MENU_BAR",
+      "funcname": "BeginMenuBar",
+      "raw_name": "BeginMenuBar__raw",
+      "location": "imgui:820",
+      "args": [],
+      "defaults": {},
+      "ret": "bool"
+    },
+    {
+      "opname": "igBeginMultiSelect",
+      "opcode": 17,
+      "const": "OP_IG_BEGIN_MULTI_SELECT",
+      "funcname": "BeginMultiSelect",
+      "raw_name": "BeginMultiSelect__raw",
+      "location": "imgui:784",
+      "args": [
+        {
+          "name": "flags",
+          "type": "ImGuiMultiSelectFlags",
+          "cat": "enum"
+        },
+        {
+          "name": "selection_size",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "items_count",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {
+        "selection_size": "-1",
+        "items_count": "-1"
+      },
+      "ret": "ImGuiMultiSelectIO*"
+    },
+    {
+      "opname": "igBeginPopup",
+      "opcode": 18,
+      "const": "OP_IG_BEGIN_POPUP",
+      "funcname": "BeginPopup",
+      "raw_name": "BeginPopup__raw",
+      "location": "imgui:856",
+      "args": [
+        {
+          "name": "str_id",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiWindowFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igBeginPopupContextItem",
+      "opcode": 19,
+      "const": "OP_IG_BEGIN_POPUP_CONTEXT_ITEM",
+      "funcname": "BeginPopupContextItem",
+      "raw_name": "BeginPopupContextItem__raw",
+      "location": "imgui:881",
+      "args": [
+        {
+          "name": "str_id",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "popup_flags",
+          "type": "ImGuiPopupFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "str_id": "NULL",
+        "popup_flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igBeginPopupContextVoid",
+      "opcode": 20,
+      "const": "OP_IG_BEGIN_POPUP_CONTEXT_VOID",
+      "funcname": "BeginPopupContextVoid",
+      "raw_name": "BeginPopupContextVoid__raw",
+      "location": "imgui:883",
+      "args": [
+        {
+          "name": "str_id",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "popup_flags",
+          "type": "ImGuiPopupFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "str_id": "NULL",
+        "popup_flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igBeginPopupContextWindow",
+      "opcode": 21,
+      "const": "OP_IG_BEGIN_POPUP_CONTEXT_WINDOW",
+      "funcname": "BeginPopupContextWindow",
+      "raw_name": "BeginPopupContextWindow__raw",
+      "location": "imgui:882",
+      "args": [
+        {
+          "name": "str_id",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "popup_flags",
+          "type": "ImGuiPopupFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "str_id": "NULL",
+        "popup_flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igBeginPopupModal",
+      "opcode": 22,
+      "const": "OP_IG_BEGIN_POPUP_MODAL",
+      "funcname": "BeginPopupModal",
+      "raw_name": "BeginPopupModal__raw",
+      "location": "imgui:857",
+      "args": [
+        {
+          "name": "name",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "p_open",
+          "type": "bool*",
+          "cat": "ptr_out_scalar",
+          "width": 1
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiWindowFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "p_open": "NULL",
+        "flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igBeginTabBar",
+      "opcode": 23,
+      "const": "OP_IG_BEGIN_TAB_BAR",
+      "funcname": "BeginTabBar",
+      "raw_name": "BeginTabBar__raw",
+      "location": "imgui:961",
+      "args": [
+        {
+          "name": "str_id",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiTabBarFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igBeginTabItem",
+      "opcode": 24,
+      "const": "OP_IG_BEGIN_TAB_ITEM",
+      "funcname": "BeginTabItem",
+      "raw_name": "BeginTabItem__raw",
+      "location": "imgui:963",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "p_open",
+          "type": "bool*",
+          "cat": "ptr_out_scalar",
+          "width": 1
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiTabItemFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "p_open": "NULL",
+        "flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igBeginTable",
+      "opcode": 25,
+      "const": "OP_IG_BEGIN_TABLE",
+      "funcname": "BeginTable",
+      "raw_name": "BeginTable__raw",
+      "location": "imgui:912",
+      "args": [
+        {
+          "name": "str_id",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "columns",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiTableFlags",
+          "cat": "enum"
+        },
+        {
+          "name": "outer_size",
+          "type": "ImVec2",
+          "cat": "vec2"
+        },
+        {
+          "name": "inner_width",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {
+        "flags": "0",
+        "outer_size": "ImVec2(0.0f, 0.0f)",
+        "inner_width": "0.0f"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igBeginTooltip",
+      "opcode": 26,
+      "const": "OP_IG_BEGIN_TOOLTIP",
+      "funcname": "BeginTooltip",
+      "raw_name": "BeginTooltip__raw",
+      "location": "imgui:833",
+      "args": [],
+      "defaults": {},
+      "ret": "bool"
+    },
+    {
+      "opname": "igBullet",
+      "opcode": 27,
+      "const": "OP_IG_BULLET",
+      "funcname": "Bullet",
+      "raw_name": "Bullet__raw",
+      "location": "imgui:652",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igButton",
+      "opcode": 28,
+      "const": "OP_IG_BUTTON",
+      "funcname": "Button",
+      "raw_name": "Button__raw",
+      "location": "imgui:642",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "size",
+          "type": "ImVec2",
+          "cat": "vec2"
+        }
+      ],
+      "defaults": {
+        "size": "ImVec2(0, 0)"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igCheckbox",
+      "opcode": 29,
+      "const": "OP_IG_CHECKBOX",
+      "funcname": "Checkbox",
+      "raw_name": "Checkbox__raw",
+      "location": "imgui:646",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v",
+          "type": "bool*",
+          "cat": "ptr_out_scalar",
+          "width": 1
+        }
+      ],
+      "defaults": {},
+      "ret": "bool"
+    },
+    {
+      "opname": "igCheckboxFlagsIntPtr",
+      "opcode": 30,
+      "const": "OP_IG_CHECKBOX_FLAGS_INT_PTR",
+      "funcname": "CheckboxFlags",
+      "raw_name": "CheckboxFlags__raw",
+      "location": "imgui:647",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "int*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "flags_value",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {},
+      "ret": "bool"
+    },
+    {
+      "opname": "igCheckboxFlagsUintPtr",
+      "opcode": 31,
+      "const": "OP_IG_CHECKBOX_FLAGS_UINT_PTR",
+      "funcname": "CheckboxFlags",
+      "raw_name": "CheckboxFlags__raw",
+      "location": "imgui:648",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "unsigned int*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "flags_value",
+          "type": "unsigned int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int",
+          "rust_type": "u32"
+        }
+      ],
+      "defaults": {},
+      "ret": "bool"
+    },
+    {
+      "opname": "igCloseCurrentPopup",
+      "opcode": 32,
+      "const": "OP_IG_CLOSE_CURRENT_POPUP",
+      "funcname": "CloseCurrentPopup",
+      "raw_name": "CloseCurrentPopup__raw",
+      "location": "imgui:870",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igCollapsingHeaderBoolPtr",
+      "opcode": 33,
+      "const": "OP_IG_COLLAPSING_HEADER_BOOL_PTR",
+      "funcname": "CollapsingHeader",
+      "raw_name": "CollapsingHeader__raw",
+      "location": "imgui:766",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "p_visible",
+          "type": "bool*",
+          "cat": "ptr_out_scalar",
+          "width": 1
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiTreeNodeFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igCollapsingHeader",
+      "opcode": 34,
+      "const": "OP_IG_COLLAPSING_HEADER",
+      "funcname": "CollapsingHeader",
+      "raw_name": "CollapsingHeader__raw",
+      "location": "imgui:765",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiTreeNodeFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igColorButton",
+      "opcode": 35,
+      "const": "OP_IG_COLOR_BUTTON",
+      "funcname": "ColorButton",
+      "raw_name": "ColorButton__raw",
+      "location": "imgui:746",
+      "args": [
+        {
+          "name": "desc_id",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "col",
+          "type": "ImVec4",
+          "cat": "vec4"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiColorEditFlags",
+          "cat": "enum"
+        },
+        {
+          "name": "size",
+          "type": "ImVec2",
+          "cat": "vec2"
+        }
+      ],
+      "defaults": {
+        "flags": "0",
+        "size": "ImVec2(0, 0)"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igColorEdit3",
+      "opcode": 36,
+      "const": "OP_IG_COLOR_EDIT_3",
+      "funcname": "ColorEdit3",
+      "raw_name": "ColorEdit3__raw",
+      "location": "imgui:742",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "col",
+          "type": "float[3]",
+          "cat": "floatarr",
+          "len": 3
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiColorEditFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igColorEdit4",
+      "opcode": 37,
+      "const": "OP_IG_COLOR_EDIT_4",
+      "funcname": "ColorEdit4",
+      "raw_name": "ColorEdit4__raw",
+      "location": "imgui:743",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "col",
+          "type": "float[4]",
+          "cat": "floatarr",
+          "len": 4
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiColorEditFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igColorPicker3",
+      "opcode": 38,
+      "const": "OP_IG_COLOR_PICKER_3",
+      "funcname": "ColorPicker3",
+      "raw_name": "ColorPicker3__raw",
+      "location": "imgui:744",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "col",
+          "type": "float[3]",
+          "cat": "floatarr",
+          "len": 3
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiColorEditFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igColumns",
+      "opcode": 39,
+      "const": "OP_IG_COLUMNS",
+      "funcname": "Columns",
+      "raw_name": "Columns__raw",
+      "location": "imgui:950",
+      "args": [
+        {
+          "name": "count",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "id",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "borders",
+          "type": "bool",
+          "cat": "scalar",
+          "width": 1,
+          "cpp_type": "bool",
+          "rust_type": "bool"
+        }
+      ],
+      "defaults": {
+        "count": "1",
+        "id": "NULL",
+        "borders": "true"
+      },
+      "ret": "void"
+    },
+    {
+      "opname": "igCombo",
+      "opcode": 40,
+      "const": "OP_IG_COMBO",
+      "funcname": "Combo",
+      "raw_name": "Combo__raw",
+      "location": "imgui:672",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "current_item",
+          "type": "int*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "items_separated_by_zeros",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "popup_max_height_in_items",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {
+        "popup_max_height_in_items": "-1"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igComboChar",
+      "opcode": 41,
+      "const": "OP_IG_COMBO_CHAR",
+      "funcname": "Combo",
+      "raw_name": "Combo__raw",
+      "location": "imgui:671",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "current_item",
+          "type": "int*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "items",
+          "type": "const char*const[]",
+          "cat": "strarr_in"
+        },
+        {
+          "name": "items_count",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "popup_max_height_in_items",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {
+        "popup_max_height_in_items": "-1"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igDebugCheckVersionAndDataLayout",
+      "opcode": 42,
+      "const": "OP_IG_DEBUG_CHECK_VERSION_AND_DATA_LAYOUT",
+      "funcname": "DebugCheckVersionAndDataLayout",
+      "raw_name": "DebugCheckVersionAndDataLayout__raw",
+      "location": "imgui:1180",
+      "args": [
+        {
+          "name": "version_str",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "sz_io",
+          "type": "size_t",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int",
+          "rust_type": "u32"
+        },
+        {
+          "name": "sz_style",
+          "type": "size_t",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int",
+          "rust_type": "u32"
+        },
+        {
+          "name": "sz_vec2",
+          "type": "size_t",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int",
+          "rust_type": "u32"
+        },
+        {
+          "name": "sz_vec4",
+          "type": "size_t",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int",
+          "rust_type": "u32"
+        },
+        {
+          "name": "sz_drawvert",
+          "type": "size_t",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int",
+          "rust_type": "u32"
+        },
+        {
+          "name": "sz_drawidx",
+          "type": "size_t",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int",
+          "rust_type": "u32"
+        }
+      ],
+      "defaults": {},
+      "ret": "bool"
+    },
+    {
+      "opname": "igDebugStartItemPicker",
+      "opcode": 43,
+      "const": "OP_IG_DEBUG_START_ITEM_PICKER",
+      "funcname": "DebugStartItemPicker",
+      "raw_name": "DebugStartItemPicker__raw",
+      "location": "imgui:1179",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igDebugTextEncoding",
+      "opcode": 44,
+      "const": "OP_IG_DEBUG_TEXT_ENCODING",
+      "funcname": "DebugTextEncoding",
+      "raw_name": "DebugTextEncoding__raw",
+      "location": "imgui:1177",
+      "args": [
+        {
+          "name": "text",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igDestroyPlatformWindows",
+      "opcode": 45,
+      "const": "OP_IG_DESTROY_PLATFORM_WINDOWS",
+      "funcname": "DestroyPlatformWindows",
+      "raw_name": "DestroyPlatformWindows__raw",
+      "location": "imgui:1200",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igDragFloat",
+      "opcode": 46,
+      "const": "OP_IG_DRAG_FLOAT",
+      "funcname": "DragFloat",
+      "raw_name": "DragFloat__raw",
+      "location": "imgui:687",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v",
+          "type": "float*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "v_speed",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "v_min",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "v_max",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "format",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiSliderFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "v_speed": "1.0f",
+        "v_min": "0.0f",
+        "v_max": "0.0f",
+        "format": "\"%.3f\"",
+        "flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igDragFloat3",
+      "opcode": 47,
+      "const": "OP_IG_DRAG_FLOAT_3",
+      "funcname": "DragFloat3",
+      "raw_name": "DragFloat3__raw",
+      "location": "imgui:689",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v",
+          "type": "float[3]",
+          "cat": "floatarr",
+          "len": 3
+        },
+        {
+          "name": "v_speed",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "v_min",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "v_max",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "format",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiSliderFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "v_speed": "1.0f",
+        "v_min": "0.0f",
+        "v_max": "0.0f",
+        "format": "\"%.3f\"",
+        "flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igDragFloat4",
+      "opcode": 48,
+      "const": "OP_IG_DRAG_FLOAT_4",
+      "funcname": "DragFloat4",
+      "raw_name": "DragFloat4__raw",
+      "location": "imgui:690",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v",
+          "type": "float[4]",
+          "cat": "floatarr",
+          "len": 4
+        },
+        {
+          "name": "v_speed",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "v_min",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "v_max",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "format",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiSliderFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "v_speed": "1.0f",
+        "v_min": "0.0f",
+        "v_max": "0.0f",
+        "format": "\"%.3f\"",
+        "flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igDragFloatRange2",
+      "opcode": 49,
+      "const": "OP_IG_DRAG_FLOAT_RANGE_2",
+      "funcname": "DragFloatRange2",
+      "raw_name": "DragFloatRange2__raw",
+      "location": "imgui:691",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v_current_min",
+          "type": "float*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "v_current_max",
+          "type": "float*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "v_speed",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "v_min",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "v_max",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "format",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "format_max",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiSliderFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "v_speed": "1.0f",
+        "v_min": "0.0f",
+        "v_max": "0.0f",
+        "format": "\"%.3f\"",
+        "format_max": "NULL",
+        "flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igDragInt",
+      "opcode": 50,
+      "const": "OP_IG_DRAG_INT",
+      "funcname": "DragInt",
+      "raw_name": "DragInt__raw",
+      "location": "imgui:692",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v",
+          "type": "int*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "v_speed",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "v_min",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "v_max",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "format",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiSliderFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "v_speed": "1.0f",
+        "v_min": "0",
+        "v_max": "0",
+        "format": "\"%d\"",
+        "flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igDragIntRange2",
+      "opcode": 51,
+      "const": "OP_IG_DRAG_INT_RANGE_2",
+      "funcname": "DragIntRange2",
+      "raw_name": "DragIntRange2__raw",
+      "location": "imgui:696",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v_current_min",
+          "type": "int*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "v_current_max",
+          "type": "int*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "v_speed",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "v_min",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "v_max",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "format",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "format_max",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiSliderFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "v_speed": "1.0f",
+        "v_min": "0",
+        "v_max": "0",
+        "format": "\"%d\"",
+        "format_max": "NULL",
+        "flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igDummy",
+      "opcode": 52,
+      "const": "OP_IG_DUMMY",
+      "funcname": "Dummy",
+      "raw_name": "Dummy__raw",
+      "location": "imgui:591",
+      "args": [
+        {
+          "name": "size",
+          "type": "ImVec2",
+          "cat": "vec2"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igEnd",
+      "opcode": 53,
+      "const": "OP_IG_END",
+      "funcname": "End",
+      "raw_name": "End__raw",
+      "location": "imgui:443",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igEndChild",
+      "opcode": 54,
+      "const": "OP_IG_END_CHILD",
+      "funcname": "EndChild",
+      "raw_name": "EndChild__raw",
+      "location": "imgui:465",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igEndCombo",
+      "opcode": 55,
+      "const": "OP_IG_END_COMBO",
+      "funcname": "EndCombo",
+      "raw_name": "EndCombo__raw",
+      "location": "imgui:670",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igEndDisabled",
+      "opcode": 56,
+      "const": "OP_IG_END_DISABLED",
+      "funcname": "EndDisabled",
+      "raw_name": "EndDisabled__raw",
+      "location": "imgui:1025",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igEndDragDropSource",
+      "opcode": 57,
+      "const": "OP_IG_END_DRAG_DROP_SOURCE",
+      "funcname": "EndDragDropSource",
+      "raw_name": "EndDragDropSource__raw",
+      "location": "imgui:1013",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igEndDragDropTarget",
+      "opcode": 58,
+      "const": "OP_IG_END_DRAG_DROP_TARGET",
+      "funcname": "EndDragDropTarget",
+      "raw_name": "EndDragDropTarget__raw",
+      "location": "imgui:1016",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igEndFrame",
+      "opcode": 59,
+      "const": "OP_IG_END_FRAME",
+      "funcname": "EndFrame",
+      "raw_name": "EndFrame__raw",
+      "location": "imgui:409",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igEndGroup",
+      "opcode": 60,
+      "const": "OP_IG_END_GROUP",
+      "funcname": "EndGroup",
+      "raw_name": "EndGroup__raw",
+      "location": "imgui:595",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igEndListBox",
+      "opcode": 61,
+      "const": "OP_IG_END_LIST_BOX",
+      "funcname": "EndListBox",
+      "raw_name": "EndListBox__raw",
+      "location": "imgui:797",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igEndMainMenuBar",
+      "opcode": 62,
+      "const": "OP_IG_END_MAIN_MENU_BAR",
+      "funcname": "EndMainMenuBar",
+      "raw_name": "EndMainMenuBar__raw",
+      "location": "imgui:823",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igEndMenu",
+      "opcode": 63,
+      "const": "OP_IG_END_MENU",
+      "funcname": "EndMenu",
+      "raw_name": "EndMenu__raw",
+      "location": "imgui:825",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igEndMenuBar",
+      "opcode": 64,
+      "const": "OP_IG_END_MENU_BAR",
+      "funcname": "EndMenuBar",
+      "raw_name": "EndMenuBar__raw",
+      "location": "imgui:821",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igEndMultiSelect",
+      "opcode": 65,
+      "const": "OP_IG_END_MULTI_SELECT",
+      "funcname": "EndMultiSelect",
+      "raw_name": "EndMultiSelect__raw",
+      "location": "imgui:785",
+      "args": [],
+      "defaults": {},
+      "ret": "ImGuiMultiSelectIO*"
+    },
+    {
+      "opname": "igEndPopup",
+      "opcode": 66,
+      "const": "OP_IG_END_POPUP",
+      "funcname": "EndPopup",
+      "raw_name": "EndPopup__raw",
+      "location": "imgui:858",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igEndTabBar",
+      "opcode": 67,
+      "const": "OP_IG_END_TAB_BAR",
+      "funcname": "EndTabBar",
+      "raw_name": "EndTabBar__raw",
+      "location": "imgui:962",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igEndTabItem",
+      "opcode": 68,
+      "const": "OP_IG_END_TAB_ITEM",
+      "funcname": "EndTabItem",
+      "raw_name": "EndTabItem__raw",
+      "location": "imgui:964",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igEndTable",
+      "opcode": 69,
+      "const": "OP_IG_END_TABLE",
+      "funcname": "EndTable",
+      "raw_name": "EndTable__raw",
+      "location": "imgui:913",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igEndTooltip",
+      "opcode": 70,
+      "const": "OP_IG_END_TOOLTIP",
+      "funcname": "EndTooltip",
+      "raw_name": "EndTooltip__raw",
+      "location": "imgui:834",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igFindViewportByID",
+      "opcode": 71,
+      "const": "OP_IG_FIND_VIEWPORT_BY_ID",
+      "funcname": "FindViewportByID",
+      "raw_name": "FindViewportByID__raw",
+      "location": "imgui:1201",
+      "args": [
+        {
+          "name": "viewport_id",
+          "type": "ImGuiID",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int",
+          "rust_type": "u32"
+        }
+      ],
+      "defaults": {},
+      "ret": "ImGuiViewport*"
+    },
+    {
+      "opname": "igIndent",
+      "opcode": 72,
+      "const": "OP_IG_INDENT",
+      "funcname": "Indent",
+      "raw_name": "Indent__raw",
+      "location": "imgui:592",
+      "args": [
+        {
+          "name": "indent_w",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {
+        "indent_w": "0.0f"
+      },
+      "ret": "void"
+    },
+    {
+      "opname": "igInputDouble",
+      "opcode": 73,
+      "const": "OP_IG_INPUT_DOUBLE",
+      "funcname": "InputDouble",
+      "raw_name": "InputDouble__raw",
+      "location": "imgui:735",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v",
+          "type": "double*",
+          "cat": "ptr_out_scalar",
+          "width": 8
+        },
+        {
+          "name": "step",
+          "type": "double",
+          "cat": "scalar",
+          "width": 8,
+          "cpp_type": "double",
+          "rust_type": "f64"
+        },
+        {
+          "name": "step_fast",
+          "type": "double",
+          "cat": "scalar",
+          "width": 8,
+          "cpp_type": "double",
+          "rust_type": "f64"
+        },
+        {
+          "name": "format",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiInputTextFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "step": "0.0",
+        "step_fast": "0.0",
+        "format": "\"%.6f\"",
+        "flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igInputFloat",
+      "opcode": 74,
+      "const": "OP_IG_INPUT_FLOAT",
+      "funcname": "InputFloat",
+      "raw_name": "InputFloat__raw",
+      "location": "imgui:727",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v",
+          "type": "float*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "step",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "step_fast",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "format",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiInputTextFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "step": "0.0f",
+        "step_fast": "0.0f",
+        "format": "\"%.3f\"",
+        "flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igInputFloat3",
+      "opcode": 75,
+      "const": "OP_IG_INPUT_FLOAT_3",
+      "funcname": "InputFloat3",
+      "raw_name": "InputFloat3__raw",
+      "location": "imgui:729",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v",
+          "type": "float[3]",
+          "cat": "floatarr",
+          "len": 3
+        },
+        {
+          "name": "format",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiInputTextFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "format": "\"%.3f\"",
+        "flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igInputFloat4",
+      "opcode": 76,
+      "const": "OP_IG_INPUT_FLOAT_4",
+      "funcname": "InputFloat4",
+      "raw_name": "InputFloat4__raw",
+      "location": "imgui:730",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v",
+          "type": "float[4]",
+          "cat": "floatarr",
+          "len": 4
+        },
+        {
+          "name": "format",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiInputTextFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "format": "\"%.3f\"",
+        "flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igInputInt",
+      "opcode": 77,
+      "const": "OP_IG_INPUT_INT",
+      "funcname": "InputInt",
+      "raw_name": "InputInt__raw",
+      "location": "imgui:731",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v",
+          "type": "int*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "step",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "step_fast",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiInputTextFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "step": "1",
+        "step_fast": "100",
+        "flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igInvisibleButton",
+      "opcode": 78,
+      "const": "OP_IG_INVISIBLE_BUTTON",
+      "funcname": "InvisibleButton",
+      "raw_name": "InvisibleButton__raw",
+      "location": "imgui:644",
+      "args": [
+        {
+          "name": "str_id",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "size",
+          "type": "ImVec2",
+          "cat": "vec2"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiButtonFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igListBox",
+      "opcode": 79,
+      "const": "OP_IG_LIST_BOX",
+      "funcname": "ListBox",
+      "raw_name": "ListBox__raw",
+      "location": "imgui:798",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "current_item",
+          "type": "int*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "items",
+          "type": "const char*const[]",
+          "cat": "strarr_in"
+        },
+        {
+          "name": "items_count",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "height_in_items",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {
+        "height_in_items": "-1"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igLoadIniSettingsFromDisk",
+      "opcode": 80,
+      "const": "OP_IG_LOAD_INI_SETTINGS_FROM_DISK",
+      "funcname": "LoadIniSettingsFromDisk",
+      "raw_name": "LoadIniSettingsFromDisk__raw",
+      "location": "imgui:1168",
+      "args": [
+        {
+          "name": "ini_filename",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igLoadIniSettingsFromMemory",
+      "opcode": 81,
+      "const": "OP_IG_LOAD_INI_SETTINGS_FROM_MEMORY",
+      "funcname": "LoadIniSettingsFromMemory",
+      "raw_name": "LoadIniSettingsFromMemory__raw",
+      "location": "imgui:1169",
+      "args": [
+        {
+          "name": "ini_data",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "ini_size",
+          "type": "size_t",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int",
+          "rust_type": "u32"
+        }
+      ],
+      "defaults": {
+        "ini_size": "0"
+      },
+      "ret": "void"
+    },
+    {
+      "opname": "igLogButtons",
+      "opcode": 82,
+      "const": "OP_IG_LOG_BUTTONS",
+      "funcname": "LogButtons",
+      "raw_name": "LogButtons__raw",
+      "location": "imgui:1002",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igLogFinish",
+      "opcode": 83,
+      "const": "OP_IG_LOG_FINISH",
+      "funcname": "LogFinish",
+      "raw_name": "LogFinish__raw",
+      "location": "imgui:1001",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igLogToClipboard",
+      "opcode": 84,
+      "const": "OP_IG_LOG_TO_CLIPBOARD",
+      "funcname": "LogToClipboard",
+      "raw_name": "LogToClipboard__raw",
+      "location": "imgui:1000",
+      "args": [
+        {
+          "name": "auto_open_depth",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {
+        "auto_open_depth": "-1"
+      },
+      "ret": "void"
+    },
+    {
+      "opname": "igLogToFile",
+      "opcode": 85,
+      "const": "OP_IG_LOG_TO_FILE",
+      "funcname": "LogToFile",
+      "raw_name": "LogToFile__raw",
+      "location": "imgui:999",
+      "args": [
+        {
+          "name": "auto_open_depth",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "filename",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {
+        "auto_open_depth": "-1",
+        "filename": "NULL"
+      },
+      "ret": "void"
+    },
+    {
+      "opname": "igLogToTTY",
+      "opcode": 86,
+      "const": "OP_IG_LOG_TO_TTY",
+      "funcname": "LogToTTY",
+      "raw_name": "LogToTTY__raw",
+      "location": "imgui:998",
+      "args": [
+        {
+          "name": "auto_open_depth",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {
+        "auto_open_depth": "-1"
+      },
+      "ret": "void"
+    },
+    {
+      "opname": "igMemAlloc",
+      "opcode": 87,
+      "const": "OP_IG_MEM_ALLOC",
+      "funcname": "MemAlloc",
+      "raw_name": "MemAlloc__raw",
+      "location": "imgui:1192",
+      "args": [
+        {
+          "name": "size",
+          "type": "size_t",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int",
+          "rust_type": "u32"
+        }
+      ],
+      "defaults": {},
+      "ret": "void*"
+    },
+    {
+      "opname": "igMenuItem",
+      "opcode": 88,
+      "const": "OP_IG_MENU_ITEM",
+      "funcname": "MenuItem",
+      "raw_name": "MenuItem__raw",
+      "location": "imgui:826",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "shortcut",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "selected",
+          "type": "bool",
+          "cat": "scalar",
+          "width": 1,
+          "cpp_type": "bool",
+          "rust_type": "bool"
+        },
+        {
+          "name": "enabled",
+          "type": "bool",
+          "cat": "scalar",
+          "width": 1,
+          "cpp_type": "bool",
+          "rust_type": "bool"
+        }
+      ],
+      "defaults": {
+        "shortcut": "NULL",
+        "selected": "false",
+        "enabled": "true"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igMenuItemBoolPtr",
+      "opcode": 89,
+      "const": "OP_IG_MENU_ITEM_BOOL_PTR",
+      "funcname": "MenuItem",
+      "raw_name": "MenuItem__raw",
+      "location": "imgui:827",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "shortcut",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "p_selected",
+          "type": "bool*",
+          "cat": "ptr_out_scalar",
+          "width": 1
+        },
+        {
+          "name": "enabled",
+          "type": "bool",
+          "cat": "scalar",
+          "width": 1,
+          "cpp_type": "bool",
+          "rust_type": "bool"
+        }
+      ],
+      "defaults": {
+        "enabled": "true"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igNewFrame",
+      "opcode": 90,
+      "const": "OP_IG_NEW_FRAME",
+      "funcname": "NewFrame",
+      "raw_name": "NewFrame__raw",
+      "location": "imgui:408",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igNewLine",
+      "opcode": 91,
+      "const": "OP_IG_NEW_LINE",
+      "funcname": "NewLine",
+      "raw_name": "NewLine__raw",
+      "location": "imgui:589",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igNextColumn",
+      "opcode": 92,
+      "const": "OP_IG_NEXT_COLUMN",
+      "funcname": "NextColumn",
+      "raw_name": "NextColumn__raw",
+      "location": "imgui:951",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igOpenPopupOnItemClick",
+      "opcode": 93,
+      "const": "OP_IG_OPEN_POPUP_ON_ITEM_CLICK",
+      "funcname": "OpenPopupOnItemClick",
+      "raw_name": "OpenPopupOnItemClick__raw",
+      "location": "imgui:869",
+      "args": [
+        {
+          "name": "str_id",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "popup_flags",
+          "type": "ImGuiPopupFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "str_id": "NULL",
+        "popup_flags": "0"
+      },
+      "ret": "void"
+    },
+    {
+      "opname": "igOpenPopupID",
+      "opcode": 94,
+      "const": "OP_IG_OPEN_POPUP_ID",
+      "funcname": "OpenPopup",
+      "raw_name": "OpenPopup__raw",
+      "location": "imgui:868",
+      "args": [
+        {
+          "name": "id",
+          "type": "ImGuiID",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int",
+          "rust_type": "u32"
+        },
+        {
+          "name": "popup_flags",
+          "type": "ImGuiPopupFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "popup_flags": "0"
+      },
+      "ret": "void"
+    },
+    {
+      "opname": "igOpenPopup",
+      "opcode": 95,
+      "const": "OP_IG_OPEN_POPUP",
+      "funcname": "OpenPopup",
+      "raw_name": "OpenPopup__raw",
+      "location": "imgui:867",
+      "args": [
+        {
+          "name": "str_id",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "popup_flags",
+          "type": "ImGuiPopupFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "popup_flags": "0"
+      },
+      "ret": "void"
+    },
+    {
+      "opname": "igPlotHistogram",
+      "opcode": 96,
+      "const": "OP_IG_PLOT_HISTOGRAM",
+      "funcname": "PlotHistogram",
+      "raw_name": "PlotHistogram__raw",
+      "location": "imgui:805",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "values",
+          "type": "const float*",
+          "cat": "floatarr_in"
+        },
+        {
+          "name": "values_count",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "values_offset",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "overlay_text",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "scale_min",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "scale_max",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "graph_size",
+          "type": "ImVec2",
+          "cat": "vec2"
+        },
+        {
+          "name": "stride",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {
+        "values_offset": "0",
+        "overlay_text": "NULL",
+        "scale_min": "FLT_MAX",
+        "scale_max": "FLT_MAX",
+        "graph_size": "ImVec2(0, 0)",
+        "stride": "sizeof(float)"
+      },
+      "ret": "void"
+    },
+    {
+      "opname": "igPlotLines",
+      "opcode": 97,
+      "const": "OP_IG_PLOT_LINES",
+      "funcname": "PlotLines",
+      "raw_name": "PlotLines__raw",
+      "location": "imgui:803",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "values",
+          "type": "const float*",
+          "cat": "floatarr_in"
+        },
+        {
+          "name": "values_count",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "values_offset",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "overlay_text",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "scale_min",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "scale_max",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "graph_size",
+          "type": "ImVec2",
+          "cat": "vec2"
+        },
+        {
+          "name": "stride",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {
+        "values_offset": "0",
+        "overlay_text": "NULL",
+        "scale_min": "FLT_MAX",
+        "scale_max": "FLT_MAX",
+        "graph_size": "ImVec2(0, 0)",
+        "stride": "sizeof(float)"
+      },
+      "ret": "void"
+    },
+    {
+      "opname": "igPopClipRect",
+      "opcode": 98,
+      "const": "OP_IG_POP_CLIP_RECT",
+      "funcname": "PopClipRect",
+      "raw_name": "PopClipRect__raw",
+      "location": "imgui:1030",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igPopFont",
+      "opcode": 99,
+      "const": "OP_IG_POP_FONT",
+      "funcname": "PopFont",
+      "raw_name": "PopFont__raw",
+      "location": "imgui:532",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igPopID",
+      "opcode": 100,
+      "const": "OP_IG_POP_ID",
+      "funcname": "PopID",
+      "raw_name": "PopID__raw",
+      "location": "imgui:617",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igPopItemFlag",
+      "opcode": 101,
+      "const": "OP_IG_POP_ITEM_FLAG",
+      "funcname": "PopItemFlag",
+      "raw_name": "PopItemFlag__raw",
+      "location": "imgui:547",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igPopItemWidth",
+      "opcode": 102,
+      "const": "OP_IG_POP_ITEM_WIDTH",
+      "funcname": "PopItemWidth",
+      "raw_name": "PopItemWidth__raw",
+      "location": "imgui:551",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igPopStyleColor",
+      "opcode": 103,
+      "const": "OP_IG_POP_STYLE_COLOR",
+      "funcname": "PopStyleColor",
+      "raw_name": "PopStyleColor__raw",
+      "location": "imgui:540",
+      "args": [
+        {
+          "name": "count",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {
+        "count": "1"
+      },
+      "ret": "void"
+    },
+    {
+      "opname": "igPopStyleVar",
+      "opcode": 104,
+      "const": "OP_IG_POP_STYLE_VAR",
+      "funcname": "PopStyleVar",
+      "raw_name": "PopStyleVar__raw",
+      "location": "imgui:545",
+      "args": [
+        {
+          "name": "count",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {
+        "count": "1"
+      },
+      "ret": "void"
+    },
+    {
+      "opname": "igPopTextWrapPos",
+      "opcode": 105,
+      "const": "OP_IG_POP_TEXT_WRAP_POS",
+      "funcname": "PopTextWrapPos",
+      "raw_name": "PopTextWrapPos__raw",
+      "location": "imgui:555",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igProgressBar",
+      "opcode": 106,
+      "const": "OP_IG_PROGRESS_BAR",
+      "funcname": "ProgressBar",
+      "raw_name": "ProgressBar__raw",
+      "location": "imgui:651",
+      "args": [
+        {
+          "name": "fraction",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "size_arg",
+          "type": "ImVec2",
+          "cat": "vec2"
+        },
+        {
+          "name": "overlay",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {
+        "size_arg": "ImVec2(-FLT_MIN, 0)",
+        "overlay": "NULL"
+      },
+      "ret": "void"
+    },
+    {
+      "opname": "igPushClipRect",
+      "opcode": 107,
+      "const": "OP_IG_PUSH_CLIP_RECT",
+      "funcname": "PushClipRect",
+      "raw_name": "PushClipRect__raw",
+      "location": "imgui:1029",
+      "args": [
+        {
+          "name": "clip_rect_min",
+          "type": "ImVec2",
+          "cat": "vec2"
+        },
+        {
+          "name": "clip_rect_max",
+          "type": "ImVec2",
+          "cat": "vec2"
+        },
+        {
+          "name": "intersect_with_current_clip_rect",
+          "type": "bool",
+          "cat": "scalar",
+          "width": 1,
+          "cpp_type": "bool",
+          "rust_type": "bool"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igPushIDInt",
+      "opcode": 108,
+      "const": "OP_IG_PUSH_ID_INT",
+      "funcname": "PushID",
+      "raw_name": "PushID__raw",
+      "location": "imgui:616",
+      "args": [
+        {
+          "name": "int_id",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igPushID",
+      "opcode": 109,
+      "const": "OP_IG_PUSH_ID",
+      "funcname": "PushID",
+      "raw_name": "PushID__raw",
+      "location": "imgui:613",
+      "args": [
+        {
+          "name": "str_id",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igPushIDStr",
+      "opcode": 110,
+      "const": "OP_IG_PUSH_ID_STR",
+      "funcname": "PushID",
+      "raw_name": "PushID__raw",
+      "location": "imgui:614",
+      "args": [
+        {
+          "name": "str_id_begin",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "str_id_end",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igPushItemFlag",
+      "opcode": 111,
+      "const": "OP_IG_PUSH_ITEM_FLAG",
+      "funcname": "PushItemFlag",
+      "raw_name": "PushItemFlag__raw",
+      "location": "imgui:546",
+      "args": [
+        {
+          "name": "option",
+          "type": "ImGuiItemFlags",
+          "cat": "enum"
+        },
+        {
+          "name": "enabled",
+          "type": "bool",
+          "cat": "scalar",
+          "width": 1,
+          "cpp_type": "bool",
+          "rust_type": "bool"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igPushItemWidth",
+      "opcode": 112,
+      "const": "OP_IG_PUSH_ITEM_WIDTH",
+      "funcname": "PushItemWidth",
+      "raw_name": "PushItemWidth__raw",
+      "location": "imgui:550",
+      "args": [
+        {
+          "name": "item_width",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igPushTextWrapPos",
+      "opcode": 113,
+      "const": "OP_IG_PUSH_TEXT_WRAP_POS",
+      "funcname": "PushTextWrapPos",
+      "raw_name": "PushTextWrapPos__raw",
+      "location": "imgui:554",
+      "args": [
+        {
+          "name": "wrap_local_pos_x",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {
+        "wrap_local_pos_x": "0.0f"
+      },
+      "ret": "void"
+    },
+    {
+      "opname": "igRadioButton",
+      "opcode": 114,
+      "const": "OP_IG_RADIO_BUTTON",
+      "funcname": "RadioButton",
+      "raw_name": "RadioButton__raw",
+      "location": "imgui:649",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "active",
+          "type": "bool",
+          "cat": "scalar",
+          "width": 1,
+          "cpp_type": "bool",
+          "rust_type": "bool"
+        }
+      ],
+      "defaults": {},
+      "ret": "bool"
+    },
+    {
+      "opname": "igRadioButtonIntPtr",
+      "opcode": 115,
+      "const": "OP_IG_RADIO_BUTTON_INT_PTR",
+      "funcname": "RadioButton",
+      "raw_name": "RadioButton__raw",
+      "location": "imgui:650",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v",
+          "type": "int*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "v_button",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {},
+      "ret": "bool"
+    },
+    {
+      "opname": "igRender",
+      "opcode": 116,
+      "const": "OP_IG_RENDER",
+      "funcname": "Render",
+      "raw_name": "Render__raw",
+      "location": "imgui:410",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igResetMouseDragDelta",
+      "opcode": 117,
+      "const": "OP_IG_RESET_MOUSE_DRAG_DELTA",
+      "funcname": "ResetMouseDragDelta",
+      "raw_name": "ResetMouseDragDelta__raw",
+      "location": "imgui:1154",
+      "args": [
+        {
+          "name": "button",
+          "type": "ImGuiMouseButton",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "button": "0"
+      },
+      "ret": "void"
+    },
+    {
+      "opname": "igSameLine",
+      "opcode": 118,
+      "const": "OP_IG_SAME_LINE",
+      "funcname": "SameLine",
+      "raw_name": "SameLine__raw",
+      "location": "imgui:588",
+      "args": [
+        {
+          "name": "offset_from_start_x",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "spacing",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {
+        "offset_from_start_x": "0.0f",
+        "spacing": "-1.0f"
+      },
+      "ret": "void"
+    },
+    {
+      "opname": "igSaveIniSettingsToDisk",
+      "opcode": 119,
+      "const": "OP_IG_SAVE_INI_SETTINGS_TO_DISK",
+      "funcname": "SaveIniSettingsToDisk",
+      "raw_name": "SaveIniSettingsToDisk__raw",
+      "location": "imgui:1170",
+      "args": [
+        {
+          "name": "ini_filename",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igSaveIniSettingsToMemory",
+      "opcode": 120,
+      "const": "OP_IG_SAVE_INI_SETTINGS_TO_MEMORY",
+      "funcname": "SaveIniSettingsToMemory",
+      "raw_name": "SaveIniSettingsToMemory__raw",
+      "location": "imgui:1171",
+      "args": [
+        {
+          "name": "out_ini_size",
+          "type": "size_t*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        }
+      ],
+      "defaults": {
+        "out_ini_size": "NULL"
+      },
+      "ret": "const char*"
+    },
+    {
+      "opname": "igSelectable",
+      "opcode": 121,
+      "const": "OP_IG_SELECTABLE",
+      "funcname": "Selectable",
+      "raw_name": "Selectable__raw",
+      "location": "imgui:774",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "selected",
+          "type": "bool",
+          "cat": "scalar",
+          "width": 1,
+          "cpp_type": "bool",
+          "rust_type": "bool"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiSelectableFlags",
+          "cat": "enum"
+        },
+        {
+          "name": "size",
+          "type": "ImVec2",
+          "cat": "vec2"
+        }
+      ],
+      "defaults": {
+        "selected": "false",
+        "flags": "0",
+        "size": "ImVec2(0, 0)"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igSelectableBoolPtr",
+      "opcode": 122,
+      "const": "OP_IG_SELECTABLE_BOOL_PTR",
+      "funcname": "Selectable",
+      "raw_name": "Selectable__raw",
+      "location": "imgui:775",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "p_selected",
+          "type": "bool*",
+          "cat": "ptr_out_scalar",
+          "width": 1
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiSelectableFlags",
+          "cat": "enum"
+        },
+        {
+          "name": "size",
+          "type": "ImVec2",
+          "cat": "vec2"
+        }
+      ],
+      "defaults": {
+        "flags": "0",
+        "size": "ImVec2(0, 0)"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igSeparator",
+      "opcode": 123,
+      "const": "OP_IG_SEPARATOR",
+      "funcname": "Separator",
+      "raw_name": "Separator__raw",
+      "location": "imgui:587",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igSeparatorText",
+      "opcode": 124,
+      "const": "OP_IG_SEPARATOR_TEXT",
+      "funcname": "SeparatorText",
+      "raw_name": "SeparatorText__raw",
+      "location": "imgui:637",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igSetClipboardText",
+      "opcode": 125,
+      "const": "OP_IG_SET_CLIPBOARD_TEXT",
+      "funcname": "SetClipboardText",
+      "raw_name": "SetClipboardText__raw",
+      "location": "imgui:1162",
+      "args": [
+        {
+          "name": "text",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igSetColorEditOptions",
+      "opcode": 126,
+      "const": "OP_IG_SET_COLOR_EDIT_OPTIONS",
+      "funcname": "SetColorEditOptions",
+      "raw_name": "SetColorEditOptions__raw",
+      "location": "imgui:747",
+      "args": [
+        {
+          "name": "flags",
+          "type": "ImGuiColorEditFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igSetColumnOffset",
+      "opcode": 127,
+      "const": "OP_IG_SET_COLUMN_OFFSET",
+      "funcname": "SetColumnOffset",
+      "raw_name": "SetColumnOffset__raw",
+      "location": "imgui:956",
+      "args": [
+        {
+          "name": "column_index",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "offset_x",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igSetColumnWidth",
+      "opcode": 128,
+      "const": "OP_IG_SET_COLUMN_WIDTH",
+      "funcname": "SetColumnWidth",
+      "raw_name": "SetColumnWidth__raw",
+      "location": "imgui:954",
+      "args": [
+        {
+          "name": "column_index",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "width",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igSetCursorPos",
+      "opcode": 129,
+      "const": "OP_IG_SET_CURSOR_POS",
+      "funcname": "SetCursorPos",
+      "raw_name": "SetCursorPos__raw",
+      "location": "imgui:581",
+      "args": [
+        {
+          "name": "local_pos",
+          "type": "ImVec2",
+          "cat": "vec2"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igSetCursorPosX",
+      "opcode": 130,
+      "const": "OP_IG_SET_CURSOR_POS_X",
+      "funcname": "SetCursorPosX",
+      "raw_name": "SetCursorPosX__raw",
+      "location": "imgui:582",
+      "args": [
+        {
+          "name": "local_x",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igSetCursorPosY",
+      "opcode": 131,
+      "const": "OP_IG_SET_CURSOR_POS_Y",
+      "funcname": "SetCursorPosY",
+      "raw_name": "SetCursorPosY__raw",
+      "location": "imgui:583",
+      "args": [
+        {
+          "name": "local_y",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igSetCursorScreenPos",
+      "opcode": 132,
+      "const": "OP_IG_SET_CURSOR_SCREEN_POS",
+      "funcname": "SetCursorScreenPos",
+      "raw_name": "SetCursorScreenPos__raw",
+      "location": "imgui:576",
+      "args": [
+        {
+          "name": "pos",
+          "type": "ImVec2",
+          "cat": "vec2"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igSetItemDefaultFocus",
+      "opcode": 133,
+      "const": "OP_IG_SET_ITEM_DEFAULT_FOCUS",
+      "funcname": "SetItemDefaultFocus",
+      "raw_name": "SetItemDefaultFocus__raw",
+      "location": "imgui:1033",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igSetItemKeyOwner",
+      "opcode": 134,
+      "const": "OP_IG_SET_ITEM_KEY_OWNER",
+      "funcname": "SetItemKeyOwner",
+      "raw_name": "SetItemKeyOwner__raw",
+      "location": "imgui:1135",
+      "args": [
+        {
+          "name": "key",
+          "type": "ImGuiKey",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {},
+      "ret": "bool"
+    },
+    {
+      "opname": "igSetKeyboardFocusHere",
+      "opcode": 135,
+      "const": "OP_IG_SET_KEYBOARD_FOCUS_HERE",
+      "funcname": "SetKeyboardFocusHere",
+      "raw_name": "SetKeyboardFocusHere__raw",
+      "location": "imgui:1034",
+      "args": [
+        {
+          "name": "offset",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {
+        "offset": "0"
+      },
+      "ret": "void"
+    },
+    {
+      "opname": "igSetMouseCursor",
+      "opcode": 136,
+      "const": "OP_IG_SET_MOUSE_CURSOR",
+      "funcname": "SetMouseCursor",
+      "raw_name": "SetMouseCursor__raw",
+      "location": "imgui:1156",
+      "args": [
+        {
+          "name": "cursor_type",
+          "type": "ImGuiMouseCursor",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igSetNavCursorVisible",
+      "opcode": 137,
+      "const": "OP_IG_SET_NAV_CURSOR_VISIBLE",
+      "funcname": "SetNavCursorVisible",
+      "raw_name": "SetNavCursorVisible__raw",
+      "location": "imgui:1037",
+      "args": [
+        {
+          "name": "visible",
+          "type": "bool",
+          "cat": "scalar",
+          "width": 1,
+          "cpp_type": "bool",
+          "rust_type": "bool"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igSetNextFrameWantCaptureKeyboard",
+      "opcode": 138,
+      "const": "OP_IG_SET_NEXT_FRAME_WANT_CAPTURE_KEYBOARD",
+      "funcname": "SetNextFrameWantCaptureKeyboard",
+      "raw_name": "SetNextFrameWantCaptureKeyboard__raw",
+      "location": "imgui:1103",
+      "args": [
+        {
+          "name": "want_capture_keyboard",
+          "type": "bool",
+          "cat": "scalar",
+          "width": 1,
+          "cpp_type": "bool",
+          "rust_type": "bool"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igSetNextFrameWantCaptureMouse",
+      "opcode": 139,
+      "const": "OP_IG_SET_NEXT_FRAME_WANT_CAPTURE_MOUSE",
+      "funcname": "SetNextFrameWantCaptureMouse",
+      "raw_name": "SetNextFrameWantCaptureMouse__raw",
+      "location": "imgui:1157",
+      "args": [
+        {
+          "name": "want_capture_mouse",
+          "type": "bool",
+          "cat": "scalar",
+          "width": 1,
+          "cpp_type": "bool",
+          "rust_type": "bool"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igSetNextItemAllowOverlap",
+      "opcode": 140,
+      "const": "OP_IG_SET_NEXT_ITEM_ALLOW_OVERLAP",
+      "funcname": "SetNextItemAllowOverlap",
+      "raw_name": "SetNextItemAllowOverlap__raw",
+      "location": "imgui:1040",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igSetNextItemStorageID",
+      "opcode": 141,
+      "const": "OP_IG_SET_NEXT_ITEM_STORAGE_ID",
+      "funcname": "SetNextItemStorageID",
+      "raw_name": "SetNextItemStorageID__raw",
+      "location": "imgui:768",
+      "args": [
+        {
+          "name": "storage_id",
+          "type": "ImGuiID",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int",
+          "rust_type": "u32"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igSetNextItemWidth",
+      "opcode": 142,
+      "const": "OP_IG_SET_NEXT_ITEM_WIDTH",
+      "funcname": "SetNextItemWidth",
+      "raw_name": "SetNextItemWidth__raw",
+      "location": "imgui:552",
+      "args": [
+        {
+          "name": "item_width",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igSetNextWindowBgAlpha",
+      "opcode": 143,
+      "const": "OP_IG_SET_NEXT_WINDOW_BG_ALPHA",
+      "funcname": "SetNextWindowBgAlpha",
+      "raw_name": "SetNextWindowBgAlpha__raw",
+      "location": "imgui:490",
+      "args": [
+        {
+          "name": "alpha",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igSetNextWindowContentSize",
+      "opcode": 144,
+      "const": "OP_IG_SET_NEXT_WINDOW_CONTENT_SIZE",
+      "funcname": "SetNextWindowContentSize",
+      "raw_name": "SetNextWindowContentSize__raw",
+      "location": "imgui:486",
+      "args": [
+        {
+          "name": "size",
+          "type": "ImVec2",
+          "cat": "vec2"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igSetNextWindowFocus",
+      "opcode": 145,
+      "const": "OP_IG_SET_NEXT_WINDOW_FOCUS",
+      "funcname": "SetNextWindowFocus",
+      "raw_name": "SetNextWindowFocus__raw",
+      "location": "imgui:488",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igSetNextWindowScroll",
+      "opcode": 146,
+      "const": "OP_IG_SET_NEXT_WINDOW_SCROLL",
+      "funcname": "SetNextWindowScroll",
+      "raw_name": "SetNextWindowScroll__raw",
+      "location": "imgui:489",
+      "args": [
+        {
+          "name": "scroll",
+          "type": "ImVec2",
+          "cat": "vec2"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igSetNextWindowViewport",
+      "opcode": 147,
+      "const": "OP_IG_SET_NEXT_WINDOW_VIEWPORT",
+      "funcname": "SetNextWindowViewport",
+      "raw_name": "SetNextWindowViewport__raw",
+      "location": "imgui:491",
+      "args": [
+        {
+          "name": "viewport_id",
+          "type": "ImGuiID",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int",
+          "rust_type": "u32"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igSetScrollFromPosX",
+      "opcode": 148,
+      "const": "OP_IG_SET_SCROLL_FROM_POS_X",
+      "funcname": "SetScrollFromPosX",
+      "raw_name": "SetScrollFromPosX__raw",
+      "location": "imgui:512",
+      "args": [
+        {
+          "name": "local_x",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "center_x_ratio",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {
+        "center_x_ratio": "0.5f"
+      },
+      "ret": "void"
+    },
+    {
+      "opname": "igSetScrollFromPosY",
+      "opcode": 149,
+      "const": "OP_IG_SET_SCROLL_FROM_POS_Y",
+      "funcname": "SetScrollFromPosY",
+      "raw_name": "SetScrollFromPosY__raw",
+      "location": "imgui:513",
+      "args": [
+        {
+          "name": "local_y",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "center_y_ratio",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {
+        "center_y_ratio": "0.5f"
+      },
+      "ret": "void"
+    },
+    {
+      "opname": "igSetScrollHereX",
+      "opcode": 150,
+      "const": "OP_IG_SET_SCROLL_HERE_X",
+      "funcname": "SetScrollHereX",
+      "raw_name": "SetScrollHereX__raw",
+      "location": "imgui:510",
+      "args": [
+        {
+          "name": "center_x_ratio",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {
+        "center_x_ratio": "0.5f"
+      },
+      "ret": "void"
+    },
+    {
+      "opname": "igSetScrollHereY",
+      "opcode": 151,
+      "const": "OP_IG_SET_SCROLL_HERE_Y",
+      "funcname": "SetScrollHereY",
+      "raw_name": "SetScrollHereY__raw",
+      "location": "imgui:511",
+      "args": [
+        {
+          "name": "center_y_ratio",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {
+        "center_y_ratio": "0.5f"
+      },
+      "ret": "void"
+    },
+    {
+      "opname": "igSetScrollX",
+      "opcode": 152,
+      "const": "OP_IG_SET_SCROLL_X",
+      "funcname": "SetScrollX",
+      "raw_name": "SetScrollX__raw",
+      "location": "imgui:506",
+      "args": [
+        {
+          "name": "scroll_x",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igSetScrollY",
+      "opcode": 153,
+      "const": "OP_IG_SET_SCROLL_Y",
+      "funcname": "SetScrollY",
+      "raw_name": "SetScrollY__raw",
+      "location": "imgui:507",
+      "args": [
+        {
+          "name": "scroll_y",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igSetTabItemClosed",
+      "opcode": 154,
+      "const": "OP_IG_SET_TAB_ITEM_CLOSED",
+      "funcname": "SetTabItemClosed",
+      "raw_name": "SetTabItemClosed__raw",
+      "location": "imgui:966",
+      "args": [
+        {
+          "name": "tab_or_docked_window_label",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igSetWindowFocus",
+      "opcode": 155,
+      "const": "OP_IG_SET_WINDOW_FOCUS",
+      "funcname": "SetWindowFocus",
+      "raw_name": "SetWindowFocus__raw",
+      "location": "imgui:495",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igSetWindowFocusStr",
+      "opcode": 156,
+      "const": "OP_IG_SET_WINDOW_FOCUS_STR",
+      "funcname": "SetWindowFocus",
+      "raw_name": "SetWindowFocus__raw",
+      "location": "imgui:499",
+      "args": [
+        {
+          "name": "name",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igShowAboutWindow",
+      "opcode": 157,
+      "const": "OP_IG_SHOW_ABOUT_WINDOW",
+      "funcname": "ShowAboutWindow",
+      "raw_name": "ShowAboutWindow__raw",
+      "location": "imgui:418",
+      "args": [
+        {
+          "name": "p_open",
+          "type": "bool*",
+          "cat": "ptr_out_scalar",
+          "width": 1
+        }
+      ],
+      "defaults": {
+        "p_open": "NULL"
+      },
+      "ret": "void"
+    },
+    {
+      "opname": "igShowDebugLogWindow",
+      "opcode": 158,
+      "const": "OP_IG_SHOW_DEBUG_LOG_WINDOW",
+      "funcname": "ShowDebugLogWindow",
+      "raw_name": "ShowDebugLogWindow__raw",
+      "location": "imgui:416",
+      "args": [
+        {
+          "name": "p_open",
+          "type": "bool*",
+          "cat": "ptr_out_scalar",
+          "width": 1
+        }
+      ],
+      "defaults": {
+        "p_open": "NULL"
+      },
+      "ret": "void"
+    },
+    {
+      "opname": "igShowDemoWindow",
+      "opcode": 159,
+      "const": "OP_IG_SHOW_DEMO_WINDOW",
+      "funcname": "ShowDemoWindow",
+      "raw_name": "ShowDemoWindow__raw",
+      "location": "imgui:414",
+      "args": [
+        {
+          "name": "p_open",
+          "type": "bool*",
+          "cat": "ptr_out_scalar",
+          "width": 1
+        }
+      ],
+      "defaults": {
+        "p_open": "NULL"
+      },
+      "ret": "void"
+    },
+    {
+      "opname": "igShowFontSelector",
+      "opcode": 160,
+      "const": "OP_IG_SHOW_FONT_SELECTOR",
+      "funcname": "ShowFontSelector",
+      "raw_name": "ShowFontSelector__raw",
+      "location": "imgui:421",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igShowIDStackToolWindow",
+      "opcode": 161,
+      "const": "OP_IG_SHOW_ID_STACK_TOOL_WINDOW",
+      "funcname": "ShowIDStackToolWindow",
+      "raw_name": "ShowIDStackToolWindow__raw",
+      "location": "imgui:417",
+      "args": [
+        {
+          "name": "p_open",
+          "type": "bool*",
+          "cat": "ptr_out_scalar",
+          "width": 1
+        }
+      ],
+      "defaults": {
+        "p_open": "NULL"
+      },
+      "ret": "void"
+    },
+    {
+      "opname": "igShowMetricsWindow",
+      "opcode": 162,
+      "const": "OP_IG_SHOW_METRICS_WINDOW",
+      "funcname": "ShowMetricsWindow",
+      "raw_name": "ShowMetricsWindow__raw",
+      "location": "imgui:415",
+      "args": [
+        {
+          "name": "p_open",
+          "type": "bool*",
+          "cat": "ptr_out_scalar",
+          "width": 1
+        }
+      ],
+      "defaults": {
+        "p_open": "NULL"
+      },
+      "ret": "void"
+    },
+    {
+      "opname": "igShowStyleSelector",
+      "opcode": 163,
+      "const": "OP_IG_SHOW_STYLE_SELECTOR",
+      "funcname": "ShowStyleSelector",
+      "raw_name": "ShowStyleSelector__raw",
+      "location": "imgui:420",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {},
+      "ret": "bool"
+    },
+    {
+      "opname": "igShowUserGuide",
+      "opcode": 164,
+      "const": "OP_IG_SHOW_USER_GUIDE",
+      "funcname": "ShowUserGuide",
+      "raw_name": "ShowUserGuide__raw",
+      "location": "imgui:422",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igSliderAngle",
+      "opcode": 165,
+      "const": "OP_IG_SLIDER_ANGLE",
+      "funcname": "SliderAngle",
+      "raw_name": "SliderAngle__raw",
+      "location": "imgui:710",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v_rad",
+          "type": "float*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "v_degrees_min",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "v_degrees_max",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "format",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiSliderFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "v_degrees_min": "-360.0f",
+        "v_degrees_max": "+360.0f",
+        "format": "\"%.0f deg\"",
+        "flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igSliderFloat",
+      "opcode": 166,
+      "const": "OP_IG_SLIDER_FLOAT",
+      "funcname": "SliderFloat",
+      "raw_name": "SliderFloat__raw",
+      "location": "imgui:706",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v",
+          "type": "float*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "v_min",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "v_max",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "format",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiSliderFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "format": "\"%.3f\"",
+        "flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igSliderFloat3",
+      "opcode": 167,
+      "const": "OP_IG_SLIDER_FLOAT_3",
+      "funcname": "SliderFloat3",
+      "raw_name": "SliderFloat3__raw",
+      "location": "imgui:708",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v",
+          "type": "float[3]",
+          "cat": "floatarr",
+          "len": 3
+        },
+        {
+          "name": "v_min",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "v_max",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "format",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiSliderFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "format": "\"%.3f\"",
+        "flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igSliderFloat4",
+      "opcode": 168,
+      "const": "OP_IG_SLIDER_FLOAT_4",
+      "funcname": "SliderFloat4",
+      "raw_name": "SliderFloat4__raw",
+      "location": "imgui:709",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v",
+          "type": "float[4]",
+          "cat": "floatarr",
+          "len": 4
+        },
+        {
+          "name": "v_min",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "v_max",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "format",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiSliderFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "format": "\"%.3f\"",
+        "flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igSliderInt",
+      "opcode": 169,
+      "const": "OP_IG_SLIDER_INT",
+      "funcname": "SliderInt",
+      "raw_name": "SliderInt__raw",
+      "location": "imgui:711",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v",
+          "type": "int*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "v_min",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "v_max",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "format",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiSliderFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "format": "\"%d\"",
+        "flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igSmallButton",
+      "opcode": 170,
+      "const": "OP_IG_SMALL_BUTTON",
+      "funcname": "SmallButton",
+      "raw_name": "SmallButton__raw",
+      "location": "imgui:643",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {},
+      "ret": "bool"
+    },
+    {
+      "opname": "igSpacing",
+      "opcode": 171,
+      "const": "OP_IG_SPACING",
+      "funcname": "Spacing",
+      "raw_name": "Spacing__raw",
+      "location": "imgui:590",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igTabItemButton",
+      "opcode": 172,
+      "const": "OP_IG_TAB_ITEM_BUTTON",
+      "funcname": "TabItemButton",
+      "raw_name": "TabItemButton__raw",
+      "location": "imgui:965",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiTabItemFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igTableAngledHeadersRow",
+      "opcode": 173,
+      "const": "OP_IG_TABLE_ANGLED_HEADERS_ROW",
+      "funcname": "TableAngledHeadersRow",
+      "raw_name": "TableAngledHeadersRow__raw",
+      "location": "imgui:930",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igTableGetColumnCount",
+      "opcode": 174,
+      "const": "OP_IG_TABLE_GET_COLUMN_COUNT",
+      "funcname": "TableGetColumnCount",
+      "raw_name": "TableGetColumnCount__raw",
+      "location": "imgui:939",
+      "args": [],
+      "defaults": {},
+      "ret": "int"
+    },
+    {
+      "opname": "igTableGetColumnFlags",
+      "opcode": 175,
+      "const": "OP_IG_TABLE_GET_COLUMN_FLAGS",
+      "funcname": "TableGetColumnFlags",
+      "raw_name": "TableGetColumnFlags__raw",
+      "location": "imgui:943",
+      "args": [
+        {
+          "name": "column_n",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {
+        "column_n": "-1"
+      },
+      "ret": "ImGuiTableColumnFlags"
+    },
+    {
+      "opname": "igTableGetColumnIndex",
+      "opcode": 176,
+      "const": "OP_IG_TABLE_GET_COLUMN_INDEX",
+      "funcname": "TableGetColumnIndex",
+      "raw_name": "TableGetColumnIndex__raw",
+      "location": "imgui:940",
+      "args": [],
+      "defaults": {},
+      "ret": "int"
+    },
+    {
+      "opname": "igTableGetColumnName",
+      "opcode": 177,
+      "const": "OP_IG_TABLE_GET_COLUMN_NAME",
+      "funcname": "TableGetColumnName",
+      "raw_name": "TableGetColumnName__raw",
+      "location": "imgui:942",
+      "args": [
+        {
+          "name": "column_n",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {
+        "column_n": "-1"
+      },
+      "ret": "const char*"
+    },
+    {
+      "opname": "igTableGetHoveredColumn",
+      "opcode": 178,
+      "const": "OP_IG_TABLE_GET_HOVERED_COLUMN",
+      "funcname": "TableGetHoveredColumn",
+      "raw_name": "TableGetHoveredColumn__raw",
+      "location": "imgui:945",
+      "args": [],
+      "defaults": {},
+      "ret": "int"
+    },
+    {
+      "opname": "igTableGetRowIndex",
+      "opcode": 179,
+      "const": "OP_IG_TABLE_GET_ROW_INDEX",
+      "funcname": "TableGetRowIndex",
+      "raw_name": "TableGetRowIndex__raw",
+      "location": "imgui:941",
+      "args": [],
+      "defaults": {},
+      "ret": "int"
+    },
+    {
+      "opname": "igTableGetSortSpecs",
+      "opcode": 180,
+      "const": "OP_IG_TABLE_GET_SORT_SPECS",
+      "funcname": "TableGetSortSpecs",
+      "raw_name": "TableGetSortSpecs__raw",
+      "location": "imgui:938",
+      "args": [],
+      "defaults": {},
+      "ret": "ImGuiTableSortSpecs*"
+    },
+    {
+      "opname": "igTableHeader",
+      "opcode": 181,
+      "const": "OP_IG_TABLE_HEADER",
+      "funcname": "TableHeader",
+      "raw_name": "TableHeader__raw",
+      "location": "imgui:928",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igTableHeadersRow",
+      "opcode": 182,
+      "const": "OP_IG_TABLE_HEADERS_ROW",
+      "funcname": "TableHeadersRow",
+      "raw_name": "TableHeadersRow__raw",
+      "location": "imgui:929",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igTableNextColumn",
+      "opcode": 183,
+      "const": "OP_IG_TABLE_NEXT_COLUMN",
+      "funcname": "TableNextColumn",
+      "raw_name": "TableNextColumn__raw",
+      "location": "imgui:915",
+      "args": [],
+      "defaults": {},
+      "ret": "bool"
+    },
+    {
+      "opname": "igTableNextRow",
+      "opcode": 184,
+      "const": "OP_IG_TABLE_NEXT_ROW",
+      "funcname": "TableNextRow",
+      "raw_name": "TableNextRow__raw",
+      "location": "imgui:914",
+      "args": [
+        {
+          "name": "row_flags",
+          "type": "ImGuiTableRowFlags",
+          "cat": "enum"
+        },
+        {
+          "name": "min_row_height",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {
+        "row_flags": "0",
+        "min_row_height": "0.0f"
+      },
+      "ret": "void"
+    },
+    {
+      "opname": "igTableSetColumnEnabled",
+      "opcode": 185,
+      "const": "OP_IG_TABLE_SET_COLUMN_ENABLED",
+      "funcname": "TableSetColumnEnabled",
+      "raw_name": "TableSetColumnEnabled__raw",
+      "location": "imgui:944",
+      "args": [
+        {
+          "name": "column_n",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "v",
+          "type": "bool",
+          "cat": "scalar",
+          "width": 1,
+          "cpp_type": "bool",
+          "rust_type": "bool"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igTableSetColumnIndex",
+      "opcode": 186,
+      "const": "OP_IG_TABLE_SET_COLUMN_INDEX",
+      "funcname": "TableSetColumnIndex",
+      "raw_name": "TableSetColumnIndex__raw",
+      "location": "imgui:916",
+      "args": [
+        {
+          "name": "column_n",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {},
+      "ret": "bool"
+    },
+    {
+      "opname": "igTableSetupColumn",
+      "opcode": 187,
+      "const": "OP_IG_TABLE_SETUP_COLUMN",
+      "funcname": "TableSetupColumn",
+      "raw_name": "TableSetupColumn__raw",
+      "location": "imgui:926",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiTableColumnFlags",
+          "cat": "enum"
+        },
+        {
+          "name": "init_width_or_weight",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "user_id",
+          "type": "ImGuiID",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int",
+          "rust_type": "u32"
+        }
+      ],
+      "defaults": {
+        "flags": "0",
+        "init_width_or_weight": "0.0f",
+        "user_id": "0"
+      },
+      "ret": "void"
+    },
+    {
+      "opname": "igTableSetupScrollFreeze",
+      "opcode": 188,
+      "const": "OP_IG_TABLE_SETUP_SCROLL_FREEZE",
+      "funcname": "TableSetupScrollFreeze",
+      "raw_name": "TableSetupScrollFreeze__raw",
+      "location": "imgui:927",
+      "args": [
+        {
+          "name": "cols",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "rows",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igTextLink",
+      "opcode": 189,
+      "const": "OP_IG_TEXT_LINK",
+      "funcname": "TextLink",
+      "raw_name": "TextLink__raw",
+      "location": "imgui:653",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {},
+      "ret": "bool"
+    },
+    {
+      "opname": "igTextLinkOpenURL",
+      "opcode": 190,
+      "const": "OP_IG_TEXT_LINK_OPEN_URL",
+      "funcname": "TextLinkOpenURL",
+      "raw_name": "TextLinkOpenURL__raw",
+      "location": "imgui:654",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "url",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {
+        "url": "NULL"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igTextUnformatted",
+      "opcode": 191,
+      "const": "OP_IG_TEXT_UNFORMATTED",
+      "funcname": "TextUnformatted",
+      "raw_name": "TextUnformatted__raw",
+      "location": "imgui:624",
+      "args": [
+        {
+          "name": "text",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "text_end",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {
+        "text_end": "NULL"
+      },
+      "ret": "void"
+    },
+    {
+      "opname": "igTreeNodeEx",
+      "opcode": 192,
+      "const": "OP_IG_TREE_NODE_EX",
+      "funcname": "TreeNodeEx",
+      "raw_name": "TreeNodeEx__raw",
+      "location": "imgui:756",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiTreeNodeFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igTreeNodeGetOpen",
+      "opcode": 193,
+      "const": "OP_IG_TREE_NODE_GET_OPEN",
+      "funcname": "TreeNodeGetOpen",
+      "raw_name": "TreeNodeGetOpen__raw",
+      "location": "imgui:769",
+      "args": [
+        {
+          "name": "storage_id",
+          "type": "ImGuiID",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int",
+          "rust_type": "u32"
+        }
+      ],
+      "defaults": {},
+      "ret": "bool"
+    },
+    {
+      "opname": "igTreeNode",
+      "opcode": 194,
+      "const": "OP_IG_TREE_NODE",
+      "funcname": "TreeNode",
+      "raw_name": "TreeNode__raw",
+      "location": "imgui:751",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {},
+      "ret": "bool"
+    },
+    {
+      "opname": "igTreePop",
+      "opcode": 195,
+      "const": "OP_IG_TREE_POP",
+      "funcname": "TreePop",
+      "raw_name": "TreePop__raw",
+      "location": "imgui:763",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igTreePush",
+      "opcode": 196,
+      "const": "OP_IG_TREE_PUSH",
+      "funcname": "TreePush",
+      "raw_name": "TreePush__raw",
+      "location": "imgui:761",
+      "args": [
+        {
+          "name": "str_id",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igUnindent",
+      "opcode": 197,
+      "const": "OP_IG_UNINDENT",
+      "funcname": "Unindent",
+      "raw_name": "Unindent__raw",
+      "location": "imgui:593",
+      "args": [
+        {
+          "name": "indent_w",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {
+        "indent_w": "0.0f"
+      },
+      "ret": "void"
+    },
+    {
+      "opname": "igUpdatePlatformWindows",
+      "opcode": 198,
+      "const": "OP_IG_UPDATE_PLATFORM_WINDOWS",
+      "funcname": "UpdatePlatformWindows",
+      "raw_name": "UpdatePlatformWindows__raw",
+      "location": "imgui:1198",
+      "args": [],
+      "defaults": {},
+      "ret": "void"
+    },
+    {
+      "opname": "igVSliderFloat",
+      "opcode": 199,
+      "const": "OP_IG_V_SLIDER_FLOAT",
+      "funcname": "VSliderFloat",
+      "raw_name": "VSliderFloat__raw",
+      "location": "imgui:717",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "size",
+          "type": "ImVec2",
+          "cat": "vec2"
+        },
+        {
+          "name": "v",
+          "type": "float*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "v_min",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "v_max",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "format",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiSliderFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "format": "\"%.3f\"",
+        "flags": "0"
+      },
+      "ret": "bool"
+    },
+    {
+      "opname": "igVSliderInt",
+      "opcode": 200,
+      "const": "OP_IG_V_SLIDER_INT",
+      "funcname": "VSliderInt",
+      "raw_name": "VSliderInt__raw",
+      "location": "imgui:718",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "size",
+          "type": "ImVec2",
+          "cat": "vec2"
+        },
+        {
+          "name": "v",
+          "type": "int*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "v_min",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "v_max",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "format",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiSliderFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "format": "\"%d\"",
+        "flags": "0"
+      },
+      "ret": "bool"
+    }
+  ],
+  "count": 200
+}

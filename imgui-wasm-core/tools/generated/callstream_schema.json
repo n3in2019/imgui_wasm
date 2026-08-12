@@ -1,0 +1,4853 @@
+{
+  "opcodes": {
+    "igAcceptDragDropPayload": 1,
+    "igAlignTextToFramePadding": 2,
+    "igArrowButton": 3,
+    "igBegin": 4,
+    "igBeginChild": 6,
+    "igBeginChildID": 5,
+    "igBeginCombo": 7,
+    "igBeginDisabled": 8,
+    "igBeginDragDropSource": 9,
+    "igBeginDragDropTarget": 10,
+    "igBeginGroup": 11,
+    "igBeginItemTooltip": 12,
+    "igBeginListBox": 13,
+    "igBeginMainMenuBar": 14,
+    "igBeginMenu": 15,
+    "igBeginMenuBar": 16,
+    "igBeginMultiSelect": 17,
+    "igBeginPopup": 18,
+    "igBeginPopupContextItem": 19,
+    "igBeginPopupContextVoid": 20,
+    "igBeginPopupContextWindow": 21,
+    "igBeginPopupModal": 22,
+    "igBeginTabBar": 23,
+    "igBeginTabItem": 24,
+    "igBeginTable": 25,
+    "igBeginTooltip": 26,
+    "igBullet": 27,
+    "igButton": 28,
+    "igCheckbox": 29,
+    "igCheckboxFlagsIntPtr": 30,
+    "igCheckboxFlagsUintPtr": 31,
+    "igCloseCurrentPopup": 32,
+    "igCollapsingHeader": 34,
+    "igCollapsingHeaderBoolPtr": 33,
+    "igColorButton": 35,
+    "igColorEdit3": 36,
+    "igColorEdit4": 37,
+    "igColorPicker3": 38,
+    "igColumns": 39,
+    "igCombo": 40,
+    "igComboChar": 41,
+    "igDebugCheckVersionAndDataLayout": 42,
+    "igDebugStartItemPicker": 43,
+    "igDebugTextEncoding": 44,
+    "igDestroyPlatformWindows": 45,
+    "igDragFloat": 46,
+    "igDragFloat3": 47,
+    "igDragFloat4": 48,
+    "igDragFloatRange2": 49,
+    "igDragInt": 50,
+    "igDragIntRange2": 51,
+    "igDummy": 52,
+    "igEnd": 53,
+    "igEndChild": 54,
+    "igEndCombo": 55,
+    "igEndDisabled": 56,
+    "igEndDragDropSource": 57,
+    "igEndDragDropTarget": 58,
+    "igEndFrame": 59,
+    "igEndGroup": 60,
+    "igEndListBox": 61,
+    "igEndMainMenuBar": 62,
+    "igEndMenu": 63,
+    "igEndMenuBar": 64,
+    "igEndMultiSelect": 65,
+    "igEndPopup": 66,
+    "igEndTabBar": 67,
+    "igEndTabItem": 68,
+    "igEndTable": 69,
+    "igEndTooltip": 70,
+    "igFindViewportByID": 71,
+    "igIndent": 72,
+    "igInputDouble": 73,
+    "igInputFloat": 74,
+    "igInputFloat3": 75,
+    "igInputFloat4": 76,
+    "igInputInt": 77,
+    "igInvisibleButton": 78,
+    "igListBox": 79,
+    "igLoadIniSettingsFromDisk": 80,
+    "igLoadIniSettingsFromMemory": 81,
+    "igLogButtons": 82,
+    "igLogFinish": 83,
+    "igLogToClipboard": 84,
+    "igLogToFile": 85,
+    "igLogToTTY": 86,
+    "igMemAlloc": 87,
+    "igMenuItem": 88,
+    "igMenuItemBoolPtr": 89,
+    "igNewFrame": 90,
+    "igNewLine": 91,
+    "igNextColumn": 92,
+    "igOpenPopup": 95,
+    "igOpenPopupID": 94,
+    "igOpenPopupOnItemClick": 93,
+    "igPlotHistogram": 96,
+    "igPlotLines": 97,
+    "igPopClipRect": 98,
+    "igPopFont": 99,
+    "igPopID": 100,
+    "igPopItemFlag": 101,
+    "igPopItemWidth": 102,
+    "igPopStyleColor": 103,
+    "igPopStyleVar": 104,
+    "igPopTextWrapPos": 105,
+    "igProgressBar": 106,
+    "igPushClipRect": 107,
+    "igPushID": 109,
+    "igPushIDInt": 108,
+    "igPushIDStr": 110,
+    "igPushItemFlag": 111,
+    "igPushItemWidth": 112,
+    "igPushTextWrapPos": 113,
+    "igRadioButton": 114,
+    "igRadioButtonIntPtr": 115,
+    "igRender": 116,
+    "igResetMouseDragDelta": 117,
+    "igSameLine": 118,
+    "igSaveIniSettingsToDisk": 119,
+    "igSaveIniSettingsToMemory": 120,
+    "igSelectable": 121,
+    "igSelectableBoolPtr": 122,
+    "igSeparator": 123,
+    "igSeparatorText": 124,
+    "igSetClipboardText": 125,
+    "igSetColorEditOptions": 126,
+    "igSetColumnOffset": 127,
+    "igSetColumnWidth": 128,
+    "igSetCursorPos": 129,
+    "igSetCursorPosX": 130,
+    "igSetCursorPosY": 131,
+    "igSetCursorScreenPos": 132,
+    "igSetItemDefaultFocus": 133,
+    "igSetItemKeyOwner": 134,
+    "igSetKeyboardFocusHere": 135,
+    "igSetMouseCursor": 136,
+    "igSetNavCursorVisible": 137,
+    "igSetNextFrameWantCaptureKeyboard": 138,
+    "igSetNextFrameWantCaptureMouse": 139,
+    "igSetNextItemAllowOverlap": 140,
+    "igSetNextItemStorageID": 141,
+    "igSetNextItemWidth": 142,
+    "igSetNextWindowBgAlpha": 143,
+    "igSetNextWindowContentSize": 144,
+    "igSetNextWindowFocus": 145,
+    "igSetNextWindowScroll": 146,
+    "igSetNextWindowViewport": 147,
+    "igSetScrollFromPosX": 148,
+    "igSetScrollFromPosY": 149,
+    "igSetScrollHereX": 150,
+    "igSetScrollHereY": 151,
+    "igSetScrollX": 152,
+    "igSetScrollY": 153,
+    "igSetTabItemClosed": 154,
+    "igSetWindowFocus": 155,
+    "igSetWindowFocusStr": 156,
+    "igShowAboutWindow": 157,
+    "igShowDebugLogWindow": 158,
+    "igShowDemoWindow": 159,
+    "igShowFontSelector": 160,
+    "igShowIDStackToolWindow": 161,
+    "igShowMetricsWindow": 162,
+    "igShowStyleSelector": 163,
+    "igShowUserGuide": 164,
+    "igSliderAngle": 165,
+    "igSliderFloat": 166,
+    "igSliderFloat3": 167,
+    "igSliderFloat4": 168,
+    "igSliderInt": 169,
+    "igSmallButton": 170,
+    "igSpacing": 171,
+    "igTabItemButton": 172,
+    "igTableAngledHeadersRow": 173,
+    "igTableGetColumnCount": 174,
+    "igTableGetColumnFlags": 175,
+    "igTableGetColumnIndex": 176,
+    "igTableGetColumnName": 177,
+    "igTableGetHoveredColumn": 178,
+    "igTableGetRowIndex": 179,
+    "igTableGetSortSpecs": 180,
+    "igTableHeader": 181,
+    "igTableHeadersRow": 182,
+    "igTableNextColumn": 183,
+    "igTableNextRow": 184,
+    "igTableSetColumnEnabled": 185,
+    "igTableSetColumnIndex": 186,
+    "igTableSetupColumn": 187,
+    "igTableSetupScrollFreeze": 188,
+    "igTextLink": 189,
+    "igTextLinkOpenURL": 190,
+    "igTextUnformatted": 191,
+    "igTreeNode": 194,
+    "igTreeNodeEx": 192,
+    "igTreeNodeGetOpen": 193,
+    "igTreePop": 195,
+    "igTreePush": 196,
+    "igUnindent": 197,
+    "igUpdatePlatformWindows": 198,
+    "igVSliderFloat": 199,
+    "igVSliderInt": 200
+  },
+  "ops": [
+    {
+      "opname": "igAcceptDragDropPayload",
+      "opcode": 1,
+      "funcname": "AcceptDragDropPayload",
+      "cimguiname": "igAcceptDragDropPayload",
+      "ret": "const ImGuiPayload*",
+      "location": "imgui:1015",
+      "args": [
+        {
+          "name": "type",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiDragDropFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "flags": "0"
+      }
+    },
+    {
+      "opname": "igAlignTextToFramePadding",
+      "opcode": 2,
+      "funcname": "AlignTextToFramePadding",
+      "cimguiname": "igAlignTextToFramePadding",
+      "ret": "void",
+      "location": "imgui:596",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igArrowButton",
+      "opcode": 3,
+      "funcname": "ArrowButton",
+      "cimguiname": "igArrowButton",
+      "ret": "bool",
+      "location": "imgui:645",
+      "args": [
+        {
+          "name": "str_id",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "dir",
+          "type": "ImGuiDir",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igBegin",
+      "opcode": 4,
+      "funcname": "Begin",
+      "cimguiname": "igBegin",
+      "ret": "bool",
+      "location": "imgui:442",
+      "args": [
+        {
+          "name": "name",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "p_open",
+          "type": "bool*",
+          "cat": "ptr_out_scalar",
+          "width": 1
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiWindowFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "p_open": "NULL",
+        "flags": "0"
+      }
+    },
+    {
+      "opname": "igBeginChildID",
+      "opcode": 5,
+      "funcname": "BeginChild",
+      "cimguiname": "igBeginChildID",
+      "ret": "bool",
+      "location": "imgui:464",
+      "args": [
+        {
+          "name": "id",
+          "type": "ImGuiID",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int",
+          "rust_type": "u32"
+        },
+        {
+          "name": "size",
+          "type": "ImVec2",
+          "cat": "vec2"
+        },
+        {
+          "name": "child_flags",
+          "type": "ImGuiChildFlags",
+          "cat": "enum"
+        },
+        {
+          "name": "window_flags",
+          "type": "ImGuiWindowFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "size": "ImVec2(0, 0)",
+        "child_flags": "0",
+        "window_flags": "0"
+      }
+    },
+    {
+      "opname": "igBeginChild",
+      "opcode": 6,
+      "funcname": "BeginChild",
+      "cimguiname": "igBeginChild",
+      "ret": "bool",
+      "location": "imgui:463",
+      "args": [
+        {
+          "name": "str_id",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "size",
+          "type": "ImVec2",
+          "cat": "vec2"
+        },
+        {
+          "name": "child_flags",
+          "type": "ImGuiChildFlags",
+          "cat": "enum"
+        },
+        {
+          "name": "window_flags",
+          "type": "ImGuiWindowFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "size": "ImVec2(0, 0)",
+        "child_flags": "0",
+        "window_flags": "0"
+      }
+    },
+    {
+      "opname": "igBeginCombo",
+      "opcode": 7,
+      "funcname": "BeginCombo",
+      "cimguiname": "igBeginCombo",
+      "ret": "bool",
+      "location": "imgui:669",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "preview_value",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiComboFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "flags": "0"
+      }
+    },
+    {
+      "opname": "igBeginDisabled",
+      "opcode": 8,
+      "funcname": "BeginDisabled",
+      "cimguiname": "igBeginDisabled",
+      "ret": "void",
+      "location": "imgui:1024",
+      "args": [
+        {
+          "name": "disabled",
+          "type": "bool",
+          "cat": "scalar",
+          "width": 1,
+          "cpp_type": "bool",
+          "rust_type": "bool"
+        }
+      ],
+      "defaults": {
+        "disabled": "true"
+      }
+    },
+    {
+      "opname": "igBeginDragDropSource",
+      "opcode": 9,
+      "funcname": "BeginDragDropSource",
+      "cimguiname": "igBeginDragDropSource",
+      "ret": "bool",
+      "location": "imgui:1011",
+      "args": [
+        {
+          "name": "flags",
+          "type": "ImGuiDragDropFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "flags": "0"
+      }
+    },
+    {
+      "opname": "igBeginDragDropTarget",
+      "opcode": 10,
+      "funcname": "BeginDragDropTarget",
+      "cimguiname": "igBeginDragDropTarget",
+      "ret": "bool",
+      "location": "imgui:1014",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igBeginGroup",
+      "opcode": 11,
+      "funcname": "BeginGroup",
+      "cimguiname": "igBeginGroup",
+      "ret": "void",
+      "location": "imgui:594",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igBeginItemTooltip",
+      "opcode": 12,
+      "funcname": "BeginItemTooltip",
+      "cimguiname": "igBeginItemTooltip",
+      "ret": "bool",
+      "location": "imgui:842",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igBeginListBox",
+      "opcode": 13,
+      "funcname": "BeginListBox",
+      "cimguiname": "igBeginListBox",
+      "ret": "bool",
+      "location": "imgui:796",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "size",
+          "type": "ImVec2",
+          "cat": "vec2"
+        }
+      ],
+      "defaults": {
+        "size": "ImVec2(0, 0)"
+      }
+    },
+    {
+      "opname": "igBeginMainMenuBar",
+      "opcode": 14,
+      "funcname": "BeginMainMenuBar",
+      "cimguiname": "igBeginMainMenuBar",
+      "ret": "bool",
+      "location": "imgui:822",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igBeginMenu",
+      "opcode": 15,
+      "funcname": "BeginMenu",
+      "cimguiname": "igBeginMenu",
+      "ret": "bool",
+      "location": "imgui:824",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "enabled",
+          "type": "bool",
+          "cat": "scalar",
+          "width": 1,
+          "cpp_type": "bool",
+          "rust_type": "bool"
+        }
+      ],
+      "defaults": {
+        "enabled": "true"
+      }
+    },
+    {
+      "opname": "igBeginMenuBar",
+      "opcode": 16,
+      "funcname": "BeginMenuBar",
+      "cimguiname": "igBeginMenuBar",
+      "ret": "bool",
+      "location": "imgui:820",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igBeginMultiSelect",
+      "opcode": 17,
+      "funcname": "BeginMultiSelect",
+      "cimguiname": "igBeginMultiSelect",
+      "ret": "ImGuiMultiSelectIO*",
+      "location": "imgui:784",
+      "args": [
+        {
+          "name": "flags",
+          "type": "ImGuiMultiSelectFlags",
+          "cat": "enum"
+        },
+        {
+          "name": "selection_size",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "items_count",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {
+        "selection_size": "-1",
+        "items_count": "-1"
+      }
+    },
+    {
+      "opname": "igBeginPopup",
+      "opcode": 18,
+      "funcname": "BeginPopup",
+      "cimguiname": "igBeginPopup",
+      "ret": "bool",
+      "location": "imgui:856",
+      "args": [
+        {
+          "name": "str_id",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiWindowFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "flags": "0"
+      }
+    },
+    {
+      "opname": "igBeginPopupContextItem",
+      "opcode": 19,
+      "funcname": "BeginPopupContextItem",
+      "cimguiname": "igBeginPopupContextItem",
+      "ret": "bool",
+      "location": "imgui:881",
+      "args": [
+        {
+          "name": "str_id",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "popup_flags",
+          "type": "ImGuiPopupFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "str_id": "NULL",
+        "popup_flags": "0"
+      }
+    },
+    {
+      "opname": "igBeginPopupContextVoid",
+      "opcode": 20,
+      "funcname": "BeginPopupContextVoid",
+      "cimguiname": "igBeginPopupContextVoid",
+      "ret": "bool",
+      "location": "imgui:883",
+      "args": [
+        {
+          "name": "str_id",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "popup_flags",
+          "type": "ImGuiPopupFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "str_id": "NULL",
+        "popup_flags": "0"
+      }
+    },
+    {
+      "opname": "igBeginPopupContextWindow",
+      "opcode": 21,
+      "funcname": "BeginPopupContextWindow",
+      "cimguiname": "igBeginPopupContextWindow",
+      "ret": "bool",
+      "location": "imgui:882",
+      "args": [
+        {
+          "name": "str_id",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "popup_flags",
+          "type": "ImGuiPopupFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "str_id": "NULL",
+        "popup_flags": "0"
+      }
+    },
+    {
+      "opname": "igBeginPopupModal",
+      "opcode": 22,
+      "funcname": "BeginPopupModal",
+      "cimguiname": "igBeginPopupModal",
+      "ret": "bool",
+      "location": "imgui:857",
+      "args": [
+        {
+          "name": "name",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "p_open",
+          "type": "bool*",
+          "cat": "ptr_out_scalar",
+          "width": 1
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiWindowFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "p_open": "NULL",
+        "flags": "0"
+      }
+    },
+    {
+      "opname": "igBeginTabBar",
+      "opcode": 23,
+      "funcname": "BeginTabBar",
+      "cimguiname": "igBeginTabBar",
+      "ret": "bool",
+      "location": "imgui:961",
+      "args": [
+        {
+          "name": "str_id",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiTabBarFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "flags": "0"
+      }
+    },
+    {
+      "opname": "igBeginTabItem",
+      "opcode": 24,
+      "funcname": "BeginTabItem",
+      "cimguiname": "igBeginTabItem",
+      "ret": "bool",
+      "location": "imgui:963",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "p_open",
+          "type": "bool*",
+          "cat": "ptr_out_scalar",
+          "width": 1
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiTabItemFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "p_open": "NULL",
+        "flags": "0"
+      }
+    },
+    {
+      "opname": "igBeginTable",
+      "opcode": 25,
+      "funcname": "BeginTable",
+      "cimguiname": "igBeginTable",
+      "ret": "bool",
+      "location": "imgui:912",
+      "args": [
+        {
+          "name": "str_id",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "columns",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiTableFlags",
+          "cat": "enum"
+        },
+        {
+          "name": "outer_size",
+          "type": "ImVec2",
+          "cat": "vec2"
+        },
+        {
+          "name": "inner_width",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {
+        "flags": "0",
+        "outer_size": "ImVec2(0.0f, 0.0f)",
+        "inner_width": "0.0f"
+      }
+    },
+    {
+      "opname": "igBeginTooltip",
+      "opcode": 26,
+      "funcname": "BeginTooltip",
+      "cimguiname": "igBeginTooltip",
+      "ret": "bool",
+      "location": "imgui:833",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igBullet",
+      "opcode": 27,
+      "funcname": "Bullet",
+      "cimguiname": "igBullet",
+      "ret": "void",
+      "location": "imgui:652",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igButton",
+      "opcode": 28,
+      "funcname": "Button",
+      "cimguiname": "igButton",
+      "ret": "bool",
+      "location": "imgui:642",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "size",
+          "type": "ImVec2",
+          "cat": "vec2"
+        }
+      ],
+      "defaults": {
+        "size": "ImVec2(0, 0)"
+      }
+    },
+    {
+      "opname": "igCheckbox",
+      "opcode": 29,
+      "funcname": "Checkbox",
+      "cimguiname": "igCheckbox",
+      "ret": "bool",
+      "location": "imgui:646",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v",
+          "type": "bool*",
+          "cat": "ptr_out_scalar",
+          "width": 1
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igCheckboxFlagsIntPtr",
+      "opcode": 30,
+      "funcname": "CheckboxFlags",
+      "cimguiname": "igCheckboxFlagsIntPtr",
+      "ret": "bool",
+      "location": "imgui:647",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "int*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "flags_value",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igCheckboxFlagsUintPtr",
+      "opcode": 31,
+      "funcname": "CheckboxFlags",
+      "cimguiname": "igCheckboxFlagsUintPtr",
+      "ret": "bool",
+      "location": "imgui:648",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "unsigned int*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "flags_value",
+          "type": "unsigned int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int",
+          "rust_type": "u32"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igCloseCurrentPopup",
+      "opcode": 32,
+      "funcname": "CloseCurrentPopup",
+      "cimguiname": "igCloseCurrentPopup",
+      "ret": "void",
+      "location": "imgui:870",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igCollapsingHeaderBoolPtr",
+      "opcode": 33,
+      "funcname": "CollapsingHeader",
+      "cimguiname": "igCollapsingHeaderBoolPtr",
+      "ret": "bool",
+      "location": "imgui:766",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "p_visible",
+          "type": "bool*",
+          "cat": "ptr_out_scalar",
+          "width": 1
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiTreeNodeFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "flags": "0"
+      }
+    },
+    {
+      "opname": "igCollapsingHeader",
+      "opcode": 34,
+      "funcname": "CollapsingHeader",
+      "cimguiname": "igCollapsingHeader",
+      "ret": "bool",
+      "location": "imgui:765",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiTreeNodeFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "flags": "0"
+      }
+    },
+    {
+      "opname": "igColorButton",
+      "opcode": 35,
+      "funcname": "ColorButton",
+      "cimguiname": "igColorButton",
+      "ret": "bool",
+      "location": "imgui:746",
+      "args": [
+        {
+          "name": "desc_id",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "col",
+          "type": "ImVec4",
+          "cat": "vec4"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiColorEditFlags",
+          "cat": "enum"
+        },
+        {
+          "name": "size",
+          "type": "ImVec2",
+          "cat": "vec2"
+        }
+      ],
+      "defaults": {
+        "flags": "0",
+        "size": "ImVec2(0, 0)"
+      }
+    },
+    {
+      "opname": "igColorEdit3",
+      "opcode": 36,
+      "funcname": "ColorEdit3",
+      "cimguiname": "igColorEdit3",
+      "ret": "bool",
+      "location": "imgui:742",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "col",
+          "type": "float[3]",
+          "cat": "floatarr",
+          "len": 3
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiColorEditFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "flags": "0"
+      }
+    },
+    {
+      "opname": "igColorEdit4",
+      "opcode": 37,
+      "funcname": "ColorEdit4",
+      "cimguiname": "igColorEdit4",
+      "ret": "bool",
+      "location": "imgui:743",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "col",
+          "type": "float[4]",
+          "cat": "floatarr",
+          "len": 4
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiColorEditFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "flags": "0"
+      }
+    },
+    {
+      "opname": "igColorPicker3",
+      "opcode": 38,
+      "funcname": "ColorPicker3",
+      "cimguiname": "igColorPicker3",
+      "ret": "bool",
+      "location": "imgui:744",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "col",
+          "type": "float[3]",
+          "cat": "floatarr",
+          "len": 3
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiColorEditFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "flags": "0"
+      }
+    },
+    {
+      "opname": "igColumns",
+      "opcode": 39,
+      "funcname": "Columns",
+      "cimguiname": "igColumns",
+      "ret": "void",
+      "location": "imgui:950",
+      "args": [
+        {
+          "name": "count",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "id",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "borders",
+          "type": "bool",
+          "cat": "scalar",
+          "width": 1,
+          "cpp_type": "bool",
+          "rust_type": "bool"
+        }
+      ],
+      "defaults": {
+        "count": "1",
+        "id": "NULL",
+        "borders": "true"
+      }
+    },
+    {
+      "opname": "igCombo",
+      "opcode": 40,
+      "funcname": "Combo",
+      "cimguiname": "igCombo",
+      "ret": "bool",
+      "location": "imgui:672",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "current_item",
+          "type": "int*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "items_separated_by_zeros",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "popup_max_height_in_items",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {
+        "popup_max_height_in_items": "-1"
+      }
+    },
+    {
+      "opname": "igComboChar",
+      "opcode": 41,
+      "funcname": "Combo",
+      "cimguiname": "igComboChar",
+      "ret": "bool",
+      "location": "imgui:671",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "current_item",
+          "type": "int*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "items",
+          "type": "const char*const[]",
+          "cat": "strarr_in"
+        },
+        {
+          "name": "items_count",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "popup_max_height_in_items",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {
+        "popup_max_height_in_items": "-1"
+      }
+    },
+    {
+      "opname": "igDebugCheckVersionAndDataLayout",
+      "opcode": 42,
+      "funcname": "DebugCheckVersionAndDataLayout",
+      "cimguiname": "igDebugCheckVersionAndDataLayout",
+      "ret": "bool",
+      "location": "imgui:1180",
+      "args": [
+        {
+          "name": "version_str",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "sz_io",
+          "type": "size_t",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int",
+          "rust_type": "u32"
+        },
+        {
+          "name": "sz_style",
+          "type": "size_t",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int",
+          "rust_type": "u32"
+        },
+        {
+          "name": "sz_vec2",
+          "type": "size_t",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int",
+          "rust_type": "u32"
+        },
+        {
+          "name": "sz_vec4",
+          "type": "size_t",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int",
+          "rust_type": "u32"
+        },
+        {
+          "name": "sz_drawvert",
+          "type": "size_t",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int",
+          "rust_type": "u32"
+        },
+        {
+          "name": "sz_drawidx",
+          "type": "size_t",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int",
+          "rust_type": "u32"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igDebugStartItemPicker",
+      "opcode": 43,
+      "funcname": "DebugStartItemPicker",
+      "cimguiname": "igDebugStartItemPicker",
+      "ret": "void",
+      "location": "imgui:1179",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igDebugTextEncoding",
+      "opcode": 44,
+      "funcname": "DebugTextEncoding",
+      "cimguiname": "igDebugTextEncoding",
+      "ret": "void",
+      "location": "imgui:1177",
+      "args": [
+        {
+          "name": "text",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igDestroyPlatformWindows",
+      "opcode": 45,
+      "funcname": "DestroyPlatformWindows",
+      "cimguiname": "igDestroyPlatformWindows",
+      "ret": "void",
+      "location": "imgui:1200",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igDragFloat",
+      "opcode": 46,
+      "funcname": "DragFloat",
+      "cimguiname": "igDragFloat",
+      "ret": "bool",
+      "location": "imgui:687",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v",
+          "type": "float*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "v_speed",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "v_min",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "v_max",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "format",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiSliderFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "v_speed": "1.0f",
+        "v_min": "0.0f",
+        "v_max": "0.0f",
+        "format": "\"%.3f\"",
+        "flags": "0"
+      }
+    },
+    {
+      "opname": "igDragFloat3",
+      "opcode": 47,
+      "funcname": "DragFloat3",
+      "cimguiname": "igDragFloat3",
+      "ret": "bool",
+      "location": "imgui:689",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v",
+          "type": "float[3]",
+          "cat": "floatarr",
+          "len": 3
+        },
+        {
+          "name": "v_speed",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "v_min",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "v_max",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "format",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiSliderFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "v_speed": "1.0f",
+        "v_min": "0.0f",
+        "v_max": "0.0f",
+        "format": "\"%.3f\"",
+        "flags": "0"
+      }
+    },
+    {
+      "opname": "igDragFloat4",
+      "opcode": 48,
+      "funcname": "DragFloat4",
+      "cimguiname": "igDragFloat4",
+      "ret": "bool",
+      "location": "imgui:690",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v",
+          "type": "float[4]",
+          "cat": "floatarr",
+          "len": 4
+        },
+        {
+          "name": "v_speed",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "v_min",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "v_max",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "format",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiSliderFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "v_speed": "1.0f",
+        "v_min": "0.0f",
+        "v_max": "0.0f",
+        "format": "\"%.3f\"",
+        "flags": "0"
+      }
+    },
+    {
+      "opname": "igDragFloatRange2",
+      "opcode": 49,
+      "funcname": "DragFloatRange2",
+      "cimguiname": "igDragFloatRange2",
+      "ret": "bool",
+      "location": "imgui:691",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v_current_min",
+          "type": "float*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "v_current_max",
+          "type": "float*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "v_speed",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "v_min",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "v_max",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "format",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "format_max",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiSliderFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "v_speed": "1.0f",
+        "v_min": "0.0f",
+        "v_max": "0.0f",
+        "format": "\"%.3f\"",
+        "format_max": "NULL",
+        "flags": "0"
+      }
+    },
+    {
+      "opname": "igDragInt",
+      "opcode": 50,
+      "funcname": "DragInt",
+      "cimguiname": "igDragInt",
+      "ret": "bool",
+      "location": "imgui:692",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v",
+          "type": "int*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "v_speed",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "v_min",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "v_max",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "format",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiSliderFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "v_speed": "1.0f",
+        "v_min": "0",
+        "v_max": "0",
+        "format": "\"%d\"",
+        "flags": "0"
+      }
+    },
+    {
+      "opname": "igDragIntRange2",
+      "opcode": 51,
+      "funcname": "DragIntRange2",
+      "cimguiname": "igDragIntRange2",
+      "ret": "bool",
+      "location": "imgui:696",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v_current_min",
+          "type": "int*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "v_current_max",
+          "type": "int*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "v_speed",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "v_min",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "v_max",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "format",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "format_max",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiSliderFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "v_speed": "1.0f",
+        "v_min": "0",
+        "v_max": "0",
+        "format": "\"%d\"",
+        "format_max": "NULL",
+        "flags": "0"
+      }
+    },
+    {
+      "opname": "igDummy",
+      "opcode": 52,
+      "funcname": "Dummy",
+      "cimguiname": "igDummy",
+      "ret": "void",
+      "location": "imgui:591",
+      "args": [
+        {
+          "name": "size",
+          "type": "ImVec2",
+          "cat": "vec2"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igEnd",
+      "opcode": 53,
+      "funcname": "End",
+      "cimguiname": "igEnd",
+      "ret": "void",
+      "location": "imgui:443",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igEndChild",
+      "opcode": 54,
+      "funcname": "EndChild",
+      "cimguiname": "igEndChild",
+      "ret": "void",
+      "location": "imgui:465",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igEndCombo",
+      "opcode": 55,
+      "funcname": "EndCombo",
+      "cimguiname": "igEndCombo",
+      "ret": "void",
+      "location": "imgui:670",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igEndDisabled",
+      "opcode": 56,
+      "funcname": "EndDisabled",
+      "cimguiname": "igEndDisabled",
+      "ret": "void",
+      "location": "imgui:1025",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igEndDragDropSource",
+      "opcode": 57,
+      "funcname": "EndDragDropSource",
+      "cimguiname": "igEndDragDropSource",
+      "ret": "void",
+      "location": "imgui:1013",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igEndDragDropTarget",
+      "opcode": 58,
+      "funcname": "EndDragDropTarget",
+      "cimguiname": "igEndDragDropTarget",
+      "ret": "void",
+      "location": "imgui:1016",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igEndFrame",
+      "opcode": 59,
+      "funcname": "EndFrame",
+      "cimguiname": "igEndFrame",
+      "ret": "void",
+      "location": "imgui:409",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igEndGroup",
+      "opcode": 60,
+      "funcname": "EndGroup",
+      "cimguiname": "igEndGroup",
+      "ret": "void",
+      "location": "imgui:595",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igEndListBox",
+      "opcode": 61,
+      "funcname": "EndListBox",
+      "cimguiname": "igEndListBox",
+      "ret": "void",
+      "location": "imgui:797",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igEndMainMenuBar",
+      "opcode": 62,
+      "funcname": "EndMainMenuBar",
+      "cimguiname": "igEndMainMenuBar",
+      "ret": "void",
+      "location": "imgui:823",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igEndMenu",
+      "opcode": 63,
+      "funcname": "EndMenu",
+      "cimguiname": "igEndMenu",
+      "ret": "void",
+      "location": "imgui:825",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igEndMenuBar",
+      "opcode": 64,
+      "funcname": "EndMenuBar",
+      "cimguiname": "igEndMenuBar",
+      "ret": "void",
+      "location": "imgui:821",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igEndMultiSelect",
+      "opcode": 65,
+      "funcname": "EndMultiSelect",
+      "cimguiname": "igEndMultiSelect",
+      "ret": "ImGuiMultiSelectIO*",
+      "location": "imgui:785",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igEndPopup",
+      "opcode": 66,
+      "funcname": "EndPopup",
+      "cimguiname": "igEndPopup",
+      "ret": "void",
+      "location": "imgui:858",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igEndTabBar",
+      "opcode": 67,
+      "funcname": "EndTabBar",
+      "cimguiname": "igEndTabBar",
+      "ret": "void",
+      "location": "imgui:962",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igEndTabItem",
+      "opcode": 68,
+      "funcname": "EndTabItem",
+      "cimguiname": "igEndTabItem",
+      "ret": "void",
+      "location": "imgui:964",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igEndTable",
+      "opcode": 69,
+      "funcname": "EndTable",
+      "cimguiname": "igEndTable",
+      "ret": "void",
+      "location": "imgui:913",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igEndTooltip",
+      "opcode": 70,
+      "funcname": "EndTooltip",
+      "cimguiname": "igEndTooltip",
+      "ret": "void",
+      "location": "imgui:834",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igFindViewportByID",
+      "opcode": 71,
+      "funcname": "FindViewportByID",
+      "cimguiname": "igFindViewportByID",
+      "ret": "ImGuiViewport*",
+      "location": "imgui:1201",
+      "args": [
+        {
+          "name": "viewport_id",
+          "type": "ImGuiID",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int",
+          "rust_type": "u32"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igIndent",
+      "opcode": 72,
+      "funcname": "Indent",
+      "cimguiname": "igIndent",
+      "ret": "void",
+      "location": "imgui:592",
+      "args": [
+        {
+          "name": "indent_w",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {
+        "indent_w": "0.0f"
+      }
+    },
+    {
+      "opname": "igInputDouble",
+      "opcode": 73,
+      "funcname": "InputDouble",
+      "cimguiname": "igInputDouble",
+      "ret": "bool",
+      "location": "imgui:735",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v",
+          "type": "double*",
+          "cat": "ptr_out_scalar",
+          "width": 8
+        },
+        {
+          "name": "step",
+          "type": "double",
+          "cat": "scalar",
+          "width": 8,
+          "cpp_type": "double",
+          "rust_type": "f64"
+        },
+        {
+          "name": "step_fast",
+          "type": "double",
+          "cat": "scalar",
+          "width": 8,
+          "cpp_type": "double",
+          "rust_type": "f64"
+        },
+        {
+          "name": "format",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiInputTextFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "step": "0.0",
+        "step_fast": "0.0",
+        "format": "\"%.6f\"",
+        "flags": "0"
+      }
+    },
+    {
+      "opname": "igInputFloat",
+      "opcode": 74,
+      "funcname": "InputFloat",
+      "cimguiname": "igInputFloat",
+      "ret": "bool",
+      "location": "imgui:727",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v",
+          "type": "float*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "step",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "step_fast",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "format",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiInputTextFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "step": "0.0f",
+        "step_fast": "0.0f",
+        "format": "\"%.3f\"",
+        "flags": "0"
+      }
+    },
+    {
+      "opname": "igInputFloat3",
+      "opcode": 75,
+      "funcname": "InputFloat3",
+      "cimguiname": "igInputFloat3",
+      "ret": "bool",
+      "location": "imgui:729",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v",
+          "type": "float[3]",
+          "cat": "floatarr",
+          "len": 3
+        },
+        {
+          "name": "format",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiInputTextFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "format": "\"%.3f\"",
+        "flags": "0"
+      }
+    },
+    {
+      "opname": "igInputFloat4",
+      "opcode": 76,
+      "funcname": "InputFloat4",
+      "cimguiname": "igInputFloat4",
+      "ret": "bool",
+      "location": "imgui:730",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v",
+          "type": "float[4]",
+          "cat": "floatarr",
+          "len": 4
+        },
+        {
+          "name": "format",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiInputTextFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "format": "\"%.3f\"",
+        "flags": "0"
+      }
+    },
+    {
+      "opname": "igInputInt",
+      "opcode": 77,
+      "funcname": "InputInt",
+      "cimguiname": "igInputInt",
+      "ret": "bool",
+      "location": "imgui:731",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v",
+          "type": "int*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "step",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "step_fast",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiInputTextFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "step": "1",
+        "step_fast": "100",
+        "flags": "0"
+      }
+    },
+    {
+      "opname": "igInvisibleButton",
+      "opcode": 78,
+      "funcname": "InvisibleButton",
+      "cimguiname": "igInvisibleButton",
+      "ret": "bool",
+      "location": "imgui:644",
+      "args": [
+        {
+          "name": "str_id",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "size",
+          "type": "ImVec2",
+          "cat": "vec2"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiButtonFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "flags": "0"
+      }
+    },
+    {
+      "opname": "igListBox",
+      "opcode": 79,
+      "funcname": "ListBox",
+      "cimguiname": "igListBox",
+      "ret": "bool",
+      "location": "imgui:798",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "current_item",
+          "type": "int*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "items",
+          "type": "const char*const[]",
+          "cat": "strarr_in"
+        },
+        {
+          "name": "items_count",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "height_in_items",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {
+        "height_in_items": "-1"
+      }
+    },
+    {
+      "opname": "igLoadIniSettingsFromDisk",
+      "opcode": 80,
+      "funcname": "LoadIniSettingsFromDisk",
+      "cimguiname": "igLoadIniSettingsFromDisk",
+      "ret": "void",
+      "location": "imgui:1168",
+      "args": [
+        {
+          "name": "ini_filename",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igLoadIniSettingsFromMemory",
+      "opcode": 81,
+      "funcname": "LoadIniSettingsFromMemory",
+      "cimguiname": "igLoadIniSettingsFromMemory",
+      "ret": "void",
+      "location": "imgui:1169",
+      "args": [
+        {
+          "name": "ini_data",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "ini_size",
+          "type": "size_t",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int",
+          "rust_type": "u32"
+        }
+      ],
+      "defaults": {
+        "ini_size": "0"
+      }
+    },
+    {
+      "opname": "igLogButtons",
+      "opcode": 82,
+      "funcname": "LogButtons",
+      "cimguiname": "igLogButtons",
+      "ret": "void",
+      "location": "imgui:1002",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igLogFinish",
+      "opcode": 83,
+      "funcname": "LogFinish",
+      "cimguiname": "igLogFinish",
+      "ret": "void",
+      "location": "imgui:1001",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igLogToClipboard",
+      "opcode": 84,
+      "funcname": "LogToClipboard",
+      "cimguiname": "igLogToClipboard",
+      "ret": "void",
+      "location": "imgui:1000",
+      "args": [
+        {
+          "name": "auto_open_depth",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {
+        "auto_open_depth": "-1"
+      }
+    },
+    {
+      "opname": "igLogToFile",
+      "opcode": 85,
+      "funcname": "LogToFile",
+      "cimguiname": "igLogToFile",
+      "ret": "void",
+      "location": "imgui:999",
+      "args": [
+        {
+          "name": "auto_open_depth",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "filename",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {
+        "auto_open_depth": "-1",
+        "filename": "NULL"
+      }
+    },
+    {
+      "opname": "igLogToTTY",
+      "opcode": 86,
+      "funcname": "LogToTTY",
+      "cimguiname": "igLogToTTY",
+      "ret": "void",
+      "location": "imgui:998",
+      "args": [
+        {
+          "name": "auto_open_depth",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {
+        "auto_open_depth": "-1"
+      }
+    },
+    {
+      "opname": "igMemAlloc",
+      "opcode": 87,
+      "funcname": "MemAlloc",
+      "cimguiname": "igMemAlloc",
+      "ret": "void*",
+      "location": "imgui:1192",
+      "args": [
+        {
+          "name": "size",
+          "type": "size_t",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int",
+          "rust_type": "u32"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igMenuItem",
+      "opcode": 88,
+      "funcname": "MenuItem",
+      "cimguiname": "igMenuItem",
+      "ret": "bool",
+      "location": "imgui:826",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "shortcut",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "selected",
+          "type": "bool",
+          "cat": "scalar",
+          "width": 1,
+          "cpp_type": "bool",
+          "rust_type": "bool"
+        },
+        {
+          "name": "enabled",
+          "type": "bool",
+          "cat": "scalar",
+          "width": 1,
+          "cpp_type": "bool",
+          "rust_type": "bool"
+        }
+      ],
+      "defaults": {
+        "shortcut": "NULL",
+        "selected": "false",
+        "enabled": "true"
+      }
+    },
+    {
+      "opname": "igMenuItemBoolPtr",
+      "opcode": 89,
+      "funcname": "MenuItem",
+      "cimguiname": "igMenuItemBoolPtr",
+      "ret": "bool",
+      "location": "imgui:827",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "shortcut",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "p_selected",
+          "type": "bool*",
+          "cat": "ptr_out_scalar",
+          "width": 1
+        },
+        {
+          "name": "enabled",
+          "type": "bool",
+          "cat": "scalar",
+          "width": 1,
+          "cpp_type": "bool",
+          "rust_type": "bool"
+        }
+      ],
+      "defaults": {
+        "enabled": "true"
+      }
+    },
+    {
+      "opname": "igNewFrame",
+      "opcode": 90,
+      "funcname": "NewFrame",
+      "cimguiname": "igNewFrame",
+      "ret": "void",
+      "location": "imgui:408",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igNewLine",
+      "opcode": 91,
+      "funcname": "NewLine",
+      "cimguiname": "igNewLine",
+      "ret": "void",
+      "location": "imgui:589",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igNextColumn",
+      "opcode": 92,
+      "funcname": "NextColumn",
+      "cimguiname": "igNextColumn",
+      "ret": "void",
+      "location": "imgui:951",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igOpenPopupOnItemClick",
+      "opcode": 93,
+      "funcname": "OpenPopupOnItemClick",
+      "cimguiname": "igOpenPopupOnItemClick",
+      "ret": "void",
+      "location": "imgui:869",
+      "args": [
+        {
+          "name": "str_id",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "popup_flags",
+          "type": "ImGuiPopupFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "str_id": "NULL",
+        "popup_flags": "0"
+      }
+    },
+    {
+      "opname": "igOpenPopupID",
+      "opcode": 94,
+      "funcname": "OpenPopup",
+      "cimguiname": "igOpenPopupID",
+      "ret": "void",
+      "location": "imgui:868",
+      "args": [
+        {
+          "name": "id",
+          "type": "ImGuiID",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int",
+          "rust_type": "u32"
+        },
+        {
+          "name": "popup_flags",
+          "type": "ImGuiPopupFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "popup_flags": "0"
+      }
+    },
+    {
+      "opname": "igOpenPopup",
+      "opcode": 95,
+      "funcname": "OpenPopup",
+      "cimguiname": "igOpenPopup",
+      "ret": "void",
+      "location": "imgui:867",
+      "args": [
+        {
+          "name": "str_id",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "popup_flags",
+          "type": "ImGuiPopupFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "popup_flags": "0"
+      }
+    },
+    {
+      "opname": "igPlotHistogram",
+      "opcode": 96,
+      "funcname": "PlotHistogram",
+      "cimguiname": "igPlotHistogram",
+      "ret": "void",
+      "location": "imgui:805",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "values",
+          "type": "const float*",
+          "cat": "floatarr_in"
+        },
+        {
+          "name": "values_count",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "values_offset",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "overlay_text",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "scale_min",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "scale_max",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "graph_size",
+          "type": "ImVec2",
+          "cat": "vec2"
+        },
+        {
+          "name": "stride",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {
+        "values_offset": "0",
+        "overlay_text": "NULL",
+        "scale_min": "FLT_MAX",
+        "scale_max": "FLT_MAX",
+        "graph_size": "ImVec2(0, 0)",
+        "stride": "sizeof(float)"
+      }
+    },
+    {
+      "opname": "igPlotLines",
+      "opcode": 97,
+      "funcname": "PlotLines",
+      "cimguiname": "igPlotLines",
+      "ret": "void",
+      "location": "imgui:803",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "values",
+          "type": "const float*",
+          "cat": "floatarr_in"
+        },
+        {
+          "name": "values_count",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "values_offset",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "overlay_text",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "scale_min",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "scale_max",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "graph_size",
+          "type": "ImVec2",
+          "cat": "vec2"
+        },
+        {
+          "name": "stride",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {
+        "values_offset": "0",
+        "overlay_text": "NULL",
+        "scale_min": "FLT_MAX",
+        "scale_max": "FLT_MAX",
+        "graph_size": "ImVec2(0, 0)",
+        "stride": "sizeof(float)"
+      }
+    },
+    {
+      "opname": "igPopClipRect",
+      "opcode": 98,
+      "funcname": "PopClipRect",
+      "cimguiname": "igPopClipRect",
+      "ret": "void",
+      "location": "imgui:1030",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igPopFont",
+      "opcode": 99,
+      "funcname": "PopFont",
+      "cimguiname": "igPopFont",
+      "ret": "void",
+      "location": "imgui:532",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igPopID",
+      "opcode": 100,
+      "funcname": "PopID",
+      "cimguiname": "igPopID",
+      "ret": "void",
+      "location": "imgui:617",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igPopItemFlag",
+      "opcode": 101,
+      "funcname": "PopItemFlag",
+      "cimguiname": "igPopItemFlag",
+      "ret": "void",
+      "location": "imgui:547",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igPopItemWidth",
+      "opcode": 102,
+      "funcname": "PopItemWidth",
+      "cimguiname": "igPopItemWidth",
+      "ret": "void",
+      "location": "imgui:551",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igPopStyleColor",
+      "opcode": 103,
+      "funcname": "PopStyleColor",
+      "cimguiname": "igPopStyleColor",
+      "ret": "void",
+      "location": "imgui:540",
+      "args": [
+        {
+          "name": "count",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {
+        "count": "1"
+      }
+    },
+    {
+      "opname": "igPopStyleVar",
+      "opcode": 104,
+      "funcname": "PopStyleVar",
+      "cimguiname": "igPopStyleVar",
+      "ret": "void",
+      "location": "imgui:545",
+      "args": [
+        {
+          "name": "count",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {
+        "count": "1"
+      }
+    },
+    {
+      "opname": "igPopTextWrapPos",
+      "opcode": 105,
+      "funcname": "PopTextWrapPos",
+      "cimguiname": "igPopTextWrapPos",
+      "ret": "void",
+      "location": "imgui:555",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igProgressBar",
+      "opcode": 106,
+      "funcname": "ProgressBar",
+      "cimguiname": "igProgressBar",
+      "ret": "void",
+      "location": "imgui:651",
+      "args": [
+        {
+          "name": "fraction",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "size_arg",
+          "type": "ImVec2",
+          "cat": "vec2"
+        },
+        {
+          "name": "overlay",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {
+        "size_arg": "ImVec2(-FLT_MIN, 0)",
+        "overlay": "NULL"
+      }
+    },
+    {
+      "opname": "igPushClipRect",
+      "opcode": 107,
+      "funcname": "PushClipRect",
+      "cimguiname": "igPushClipRect",
+      "ret": "void",
+      "location": "imgui:1029",
+      "args": [
+        {
+          "name": "clip_rect_min",
+          "type": "ImVec2",
+          "cat": "vec2"
+        },
+        {
+          "name": "clip_rect_max",
+          "type": "ImVec2",
+          "cat": "vec2"
+        },
+        {
+          "name": "intersect_with_current_clip_rect",
+          "type": "bool",
+          "cat": "scalar",
+          "width": 1,
+          "cpp_type": "bool",
+          "rust_type": "bool"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igPushIDInt",
+      "opcode": 108,
+      "funcname": "PushID",
+      "cimguiname": "igPushIDInt",
+      "ret": "void",
+      "location": "imgui:616",
+      "args": [
+        {
+          "name": "int_id",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igPushID",
+      "opcode": 109,
+      "funcname": "PushID",
+      "cimguiname": "igPushID",
+      "ret": "void",
+      "location": "imgui:613",
+      "args": [
+        {
+          "name": "str_id",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igPushIDStr",
+      "opcode": 110,
+      "funcname": "PushID",
+      "cimguiname": "igPushIDStr",
+      "ret": "void",
+      "location": "imgui:614",
+      "args": [
+        {
+          "name": "str_id_begin",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "str_id_end",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igPushItemFlag",
+      "opcode": 111,
+      "funcname": "PushItemFlag",
+      "cimguiname": "igPushItemFlag",
+      "ret": "void",
+      "location": "imgui:546",
+      "args": [
+        {
+          "name": "option",
+          "type": "ImGuiItemFlags",
+          "cat": "enum"
+        },
+        {
+          "name": "enabled",
+          "type": "bool",
+          "cat": "scalar",
+          "width": 1,
+          "cpp_type": "bool",
+          "rust_type": "bool"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igPushItemWidth",
+      "opcode": 112,
+      "funcname": "PushItemWidth",
+      "cimguiname": "igPushItemWidth",
+      "ret": "void",
+      "location": "imgui:550",
+      "args": [
+        {
+          "name": "item_width",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igPushTextWrapPos",
+      "opcode": 113,
+      "funcname": "PushTextWrapPos",
+      "cimguiname": "igPushTextWrapPos",
+      "ret": "void",
+      "location": "imgui:554",
+      "args": [
+        {
+          "name": "wrap_local_pos_x",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {
+        "wrap_local_pos_x": "0.0f"
+      }
+    },
+    {
+      "opname": "igRadioButton",
+      "opcode": 114,
+      "funcname": "RadioButton",
+      "cimguiname": "igRadioButton",
+      "ret": "bool",
+      "location": "imgui:649",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "active",
+          "type": "bool",
+          "cat": "scalar",
+          "width": 1,
+          "cpp_type": "bool",
+          "rust_type": "bool"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igRadioButtonIntPtr",
+      "opcode": 115,
+      "funcname": "RadioButton",
+      "cimguiname": "igRadioButtonIntPtr",
+      "ret": "bool",
+      "location": "imgui:650",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v",
+          "type": "int*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "v_button",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igRender",
+      "opcode": 116,
+      "funcname": "Render",
+      "cimguiname": "igRender",
+      "ret": "void",
+      "location": "imgui:410",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igResetMouseDragDelta",
+      "opcode": 117,
+      "funcname": "ResetMouseDragDelta",
+      "cimguiname": "igResetMouseDragDelta",
+      "ret": "void",
+      "location": "imgui:1154",
+      "args": [
+        {
+          "name": "button",
+          "type": "ImGuiMouseButton",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "button": "0"
+      }
+    },
+    {
+      "opname": "igSameLine",
+      "opcode": 118,
+      "funcname": "SameLine",
+      "cimguiname": "igSameLine",
+      "ret": "void",
+      "location": "imgui:588",
+      "args": [
+        {
+          "name": "offset_from_start_x",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "spacing",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {
+        "offset_from_start_x": "0.0f",
+        "spacing": "-1.0f"
+      }
+    },
+    {
+      "opname": "igSaveIniSettingsToDisk",
+      "opcode": 119,
+      "funcname": "SaveIniSettingsToDisk",
+      "cimguiname": "igSaveIniSettingsToDisk",
+      "ret": "void",
+      "location": "imgui:1170",
+      "args": [
+        {
+          "name": "ini_filename",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igSaveIniSettingsToMemory",
+      "opcode": 120,
+      "funcname": "SaveIniSettingsToMemory",
+      "cimguiname": "igSaveIniSettingsToMemory",
+      "ret": "const char*",
+      "location": "imgui:1171",
+      "args": [
+        {
+          "name": "out_ini_size",
+          "type": "size_t*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        }
+      ],
+      "defaults": {
+        "out_ini_size": "NULL"
+      }
+    },
+    {
+      "opname": "igSelectable",
+      "opcode": 121,
+      "funcname": "Selectable",
+      "cimguiname": "igSelectable",
+      "ret": "bool",
+      "location": "imgui:774",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "selected",
+          "type": "bool",
+          "cat": "scalar",
+          "width": 1,
+          "cpp_type": "bool",
+          "rust_type": "bool"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiSelectableFlags",
+          "cat": "enum"
+        },
+        {
+          "name": "size",
+          "type": "ImVec2",
+          "cat": "vec2"
+        }
+      ],
+      "defaults": {
+        "selected": "false",
+        "flags": "0",
+        "size": "ImVec2(0, 0)"
+      }
+    },
+    {
+      "opname": "igSelectableBoolPtr",
+      "opcode": 122,
+      "funcname": "Selectable",
+      "cimguiname": "igSelectableBoolPtr",
+      "ret": "bool",
+      "location": "imgui:775",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "p_selected",
+          "type": "bool*",
+          "cat": "ptr_out_scalar",
+          "width": 1
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiSelectableFlags",
+          "cat": "enum"
+        },
+        {
+          "name": "size",
+          "type": "ImVec2",
+          "cat": "vec2"
+        }
+      ],
+      "defaults": {
+        "flags": "0",
+        "size": "ImVec2(0, 0)"
+      }
+    },
+    {
+      "opname": "igSeparator",
+      "opcode": 123,
+      "funcname": "Separator",
+      "cimguiname": "igSeparator",
+      "ret": "void",
+      "location": "imgui:587",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igSeparatorText",
+      "opcode": 124,
+      "funcname": "SeparatorText",
+      "cimguiname": "igSeparatorText",
+      "ret": "void",
+      "location": "imgui:637",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igSetClipboardText",
+      "opcode": 125,
+      "funcname": "SetClipboardText",
+      "cimguiname": "igSetClipboardText",
+      "ret": "void",
+      "location": "imgui:1162",
+      "args": [
+        {
+          "name": "text",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igSetColorEditOptions",
+      "opcode": 126,
+      "funcname": "SetColorEditOptions",
+      "cimguiname": "igSetColorEditOptions",
+      "ret": "void",
+      "location": "imgui:747",
+      "args": [
+        {
+          "name": "flags",
+          "type": "ImGuiColorEditFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igSetColumnOffset",
+      "opcode": 127,
+      "funcname": "SetColumnOffset",
+      "cimguiname": "igSetColumnOffset",
+      "ret": "void",
+      "location": "imgui:956",
+      "args": [
+        {
+          "name": "column_index",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "offset_x",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igSetColumnWidth",
+      "opcode": 128,
+      "funcname": "SetColumnWidth",
+      "cimguiname": "igSetColumnWidth",
+      "ret": "void",
+      "location": "imgui:954",
+      "args": [
+        {
+          "name": "column_index",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "width",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igSetCursorPos",
+      "opcode": 129,
+      "funcname": "SetCursorPos",
+      "cimguiname": "igSetCursorPos",
+      "ret": "void",
+      "location": "imgui:581",
+      "args": [
+        {
+          "name": "local_pos",
+          "type": "ImVec2",
+          "cat": "vec2"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igSetCursorPosX",
+      "opcode": 130,
+      "funcname": "SetCursorPosX",
+      "cimguiname": "igSetCursorPosX",
+      "ret": "void",
+      "location": "imgui:582",
+      "args": [
+        {
+          "name": "local_x",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igSetCursorPosY",
+      "opcode": 131,
+      "funcname": "SetCursorPosY",
+      "cimguiname": "igSetCursorPosY",
+      "ret": "void",
+      "location": "imgui:583",
+      "args": [
+        {
+          "name": "local_y",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igSetCursorScreenPos",
+      "opcode": 132,
+      "funcname": "SetCursorScreenPos",
+      "cimguiname": "igSetCursorScreenPos",
+      "ret": "void",
+      "location": "imgui:576",
+      "args": [
+        {
+          "name": "pos",
+          "type": "ImVec2",
+          "cat": "vec2"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igSetItemDefaultFocus",
+      "opcode": 133,
+      "funcname": "SetItemDefaultFocus",
+      "cimguiname": "igSetItemDefaultFocus",
+      "ret": "void",
+      "location": "imgui:1033",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igSetItemKeyOwner",
+      "opcode": 134,
+      "funcname": "SetItemKeyOwner",
+      "cimguiname": "igSetItemKeyOwner",
+      "ret": "bool",
+      "location": "imgui:1135",
+      "args": [
+        {
+          "name": "key",
+          "type": "ImGuiKey",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igSetKeyboardFocusHere",
+      "opcode": 135,
+      "funcname": "SetKeyboardFocusHere",
+      "cimguiname": "igSetKeyboardFocusHere",
+      "ret": "void",
+      "location": "imgui:1034",
+      "args": [
+        {
+          "name": "offset",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {
+        "offset": "0"
+      }
+    },
+    {
+      "opname": "igSetMouseCursor",
+      "opcode": 136,
+      "funcname": "SetMouseCursor",
+      "cimguiname": "igSetMouseCursor",
+      "ret": "void",
+      "location": "imgui:1156",
+      "args": [
+        {
+          "name": "cursor_type",
+          "type": "ImGuiMouseCursor",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igSetNavCursorVisible",
+      "opcode": 137,
+      "funcname": "SetNavCursorVisible",
+      "cimguiname": "igSetNavCursorVisible",
+      "ret": "void",
+      "location": "imgui:1037",
+      "args": [
+        {
+          "name": "visible",
+          "type": "bool",
+          "cat": "scalar",
+          "width": 1,
+          "cpp_type": "bool",
+          "rust_type": "bool"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igSetNextFrameWantCaptureKeyboard",
+      "opcode": 138,
+      "funcname": "SetNextFrameWantCaptureKeyboard",
+      "cimguiname": "igSetNextFrameWantCaptureKeyboard",
+      "ret": "void",
+      "location": "imgui:1103",
+      "args": [
+        {
+          "name": "want_capture_keyboard",
+          "type": "bool",
+          "cat": "scalar",
+          "width": 1,
+          "cpp_type": "bool",
+          "rust_type": "bool"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igSetNextFrameWantCaptureMouse",
+      "opcode": 139,
+      "funcname": "SetNextFrameWantCaptureMouse",
+      "cimguiname": "igSetNextFrameWantCaptureMouse",
+      "ret": "void",
+      "location": "imgui:1157",
+      "args": [
+        {
+          "name": "want_capture_mouse",
+          "type": "bool",
+          "cat": "scalar",
+          "width": 1,
+          "cpp_type": "bool",
+          "rust_type": "bool"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igSetNextItemAllowOverlap",
+      "opcode": 140,
+      "funcname": "SetNextItemAllowOverlap",
+      "cimguiname": "igSetNextItemAllowOverlap",
+      "ret": "void",
+      "location": "imgui:1040",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igSetNextItemStorageID",
+      "opcode": 141,
+      "funcname": "SetNextItemStorageID",
+      "cimguiname": "igSetNextItemStorageID",
+      "ret": "void",
+      "location": "imgui:768",
+      "args": [
+        {
+          "name": "storage_id",
+          "type": "ImGuiID",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int",
+          "rust_type": "u32"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igSetNextItemWidth",
+      "opcode": 142,
+      "funcname": "SetNextItemWidth",
+      "cimguiname": "igSetNextItemWidth",
+      "ret": "void",
+      "location": "imgui:552",
+      "args": [
+        {
+          "name": "item_width",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igSetNextWindowBgAlpha",
+      "opcode": 143,
+      "funcname": "SetNextWindowBgAlpha",
+      "cimguiname": "igSetNextWindowBgAlpha",
+      "ret": "void",
+      "location": "imgui:490",
+      "args": [
+        {
+          "name": "alpha",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igSetNextWindowContentSize",
+      "opcode": 144,
+      "funcname": "SetNextWindowContentSize",
+      "cimguiname": "igSetNextWindowContentSize",
+      "ret": "void",
+      "location": "imgui:486",
+      "args": [
+        {
+          "name": "size",
+          "type": "ImVec2",
+          "cat": "vec2"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igSetNextWindowFocus",
+      "opcode": 145,
+      "funcname": "SetNextWindowFocus",
+      "cimguiname": "igSetNextWindowFocus",
+      "ret": "void",
+      "location": "imgui:488",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igSetNextWindowScroll",
+      "opcode": 146,
+      "funcname": "SetNextWindowScroll",
+      "cimguiname": "igSetNextWindowScroll",
+      "ret": "void",
+      "location": "imgui:489",
+      "args": [
+        {
+          "name": "scroll",
+          "type": "ImVec2",
+          "cat": "vec2"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igSetNextWindowViewport",
+      "opcode": 147,
+      "funcname": "SetNextWindowViewport",
+      "cimguiname": "igSetNextWindowViewport",
+      "ret": "void",
+      "location": "imgui:491",
+      "args": [
+        {
+          "name": "viewport_id",
+          "type": "ImGuiID",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int",
+          "rust_type": "u32"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igSetScrollFromPosX",
+      "opcode": 148,
+      "funcname": "SetScrollFromPosX",
+      "cimguiname": "igSetScrollFromPosX",
+      "ret": "void",
+      "location": "imgui:512",
+      "args": [
+        {
+          "name": "local_x",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "center_x_ratio",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {
+        "center_x_ratio": "0.5f"
+      }
+    },
+    {
+      "opname": "igSetScrollFromPosY",
+      "opcode": 149,
+      "funcname": "SetScrollFromPosY",
+      "cimguiname": "igSetScrollFromPosY",
+      "ret": "void",
+      "location": "imgui:513",
+      "args": [
+        {
+          "name": "local_y",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "center_y_ratio",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {
+        "center_y_ratio": "0.5f"
+      }
+    },
+    {
+      "opname": "igSetScrollHereX",
+      "opcode": 150,
+      "funcname": "SetScrollHereX",
+      "cimguiname": "igSetScrollHereX",
+      "ret": "void",
+      "location": "imgui:510",
+      "args": [
+        {
+          "name": "center_x_ratio",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {
+        "center_x_ratio": "0.5f"
+      }
+    },
+    {
+      "opname": "igSetScrollHereY",
+      "opcode": 151,
+      "funcname": "SetScrollHereY",
+      "cimguiname": "igSetScrollHereY",
+      "ret": "void",
+      "location": "imgui:511",
+      "args": [
+        {
+          "name": "center_y_ratio",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {
+        "center_y_ratio": "0.5f"
+      }
+    },
+    {
+      "opname": "igSetScrollX",
+      "opcode": 152,
+      "funcname": "SetScrollX",
+      "cimguiname": "igSetScrollX",
+      "ret": "void",
+      "location": "imgui:506",
+      "args": [
+        {
+          "name": "scroll_x",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igSetScrollY",
+      "opcode": 153,
+      "funcname": "SetScrollY",
+      "cimguiname": "igSetScrollY",
+      "ret": "void",
+      "location": "imgui:507",
+      "args": [
+        {
+          "name": "scroll_y",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igSetTabItemClosed",
+      "opcode": 154,
+      "funcname": "SetTabItemClosed",
+      "cimguiname": "igSetTabItemClosed",
+      "ret": "void",
+      "location": "imgui:966",
+      "args": [
+        {
+          "name": "tab_or_docked_window_label",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igSetWindowFocus",
+      "opcode": 155,
+      "funcname": "SetWindowFocus",
+      "cimguiname": "igSetWindowFocus",
+      "ret": "void",
+      "location": "imgui:495",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igSetWindowFocusStr",
+      "opcode": 156,
+      "funcname": "SetWindowFocus",
+      "cimguiname": "igSetWindowFocusStr",
+      "ret": "void",
+      "location": "imgui:499",
+      "args": [
+        {
+          "name": "name",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igShowAboutWindow",
+      "opcode": 157,
+      "funcname": "ShowAboutWindow",
+      "cimguiname": "igShowAboutWindow",
+      "ret": "void",
+      "location": "imgui:418",
+      "args": [
+        {
+          "name": "p_open",
+          "type": "bool*",
+          "cat": "ptr_out_scalar",
+          "width": 1
+        }
+      ],
+      "defaults": {
+        "p_open": "NULL"
+      }
+    },
+    {
+      "opname": "igShowDebugLogWindow",
+      "opcode": 158,
+      "funcname": "ShowDebugLogWindow",
+      "cimguiname": "igShowDebugLogWindow",
+      "ret": "void",
+      "location": "imgui:416",
+      "args": [
+        {
+          "name": "p_open",
+          "type": "bool*",
+          "cat": "ptr_out_scalar",
+          "width": 1
+        }
+      ],
+      "defaults": {
+        "p_open": "NULL"
+      }
+    },
+    {
+      "opname": "igShowDemoWindow",
+      "opcode": 159,
+      "funcname": "ShowDemoWindow",
+      "cimguiname": "igShowDemoWindow",
+      "ret": "void",
+      "location": "imgui:414",
+      "args": [
+        {
+          "name": "p_open",
+          "type": "bool*",
+          "cat": "ptr_out_scalar",
+          "width": 1
+        }
+      ],
+      "defaults": {
+        "p_open": "NULL"
+      }
+    },
+    {
+      "opname": "igShowFontSelector",
+      "opcode": 160,
+      "funcname": "ShowFontSelector",
+      "cimguiname": "igShowFontSelector",
+      "ret": "void",
+      "location": "imgui:421",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igShowIDStackToolWindow",
+      "opcode": 161,
+      "funcname": "ShowIDStackToolWindow",
+      "cimguiname": "igShowIDStackToolWindow",
+      "ret": "void",
+      "location": "imgui:417",
+      "args": [
+        {
+          "name": "p_open",
+          "type": "bool*",
+          "cat": "ptr_out_scalar",
+          "width": 1
+        }
+      ],
+      "defaults": {
+        "p_open": "NULL"
+      }
+    },
+    {
+      "opname": "igShowMetricsWindow",
+      "opcode": 162,
+      "funcname": "ShowMetricsWindow",
+      "cimguiname": "igShowMetricsWindow",
+      "ret": "void",
+      "location": "imgui:415",
+      "args": [
+        {
+          "name": "p_open",
+          "type": "bool*",
+          "cat": "ptr_out_scalar",
+          "width": 1
+        }
+      ],
+      "defaults": {
+        "p_open": "NULL"
+      }
+    },
+    {
+      "opname": "igShowStyleSelector",
+      "opcode": 163,
+      "funcname": "ShowStyleSelector",
+      "cimguiname": "igShowStyleSelector",
+      "ret": "bool",
+      "location": "imgui:420",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igShowUserGuide",
+      "opcode": 164,
+      "funcname": "ShowUserGuide",
+      "cimguiname": "igShowUserGuide",
+      "ret": "void",
+      "location": "imgui:422",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igSliderAngle",
+      "opcode": 165,
+      "funcname": "SliderAngle",
+      "cimguiname": "igSliderAngle",
+      "ret": "bool",
+      "location": "imgui:710",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v_rad",
+          "type": "float*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "v_degrees_min",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "v_degrees_max",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "format",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiSliderFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "v_degrees_min": "-360.0f",
+        "v_degrees_max": "+360.0f",
+        "format": "\"%.0f deg\"",
+        "flags": "0"
+      }
+    },
+    {
+      "opname": "igSliderFloat",
+      "opcode": 166,
+      "funcname": "SliderFloat",
+      "cimguiname": "igSliderFloat",
+      "ret": "bool",
+      "location": "imgui:706",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v",
+          "type": "float*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "v_min",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "v_max",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "format",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiSliderFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "format": "\"%.3f\"",
+        "flags": "0"
+      }
+    },
+    {
+      "opname": "igSliderFloat3",
+      "opcode": 167,
+      "funcname": "SliderFloat3",
+      "cimguiname": "igSliderFloat3",
+      "ret": "bool",
+      "location": "imgui:708",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v",
+          "type": "float[3]",
+          "cat": "floatarr",
+          "len": 3
+        },
+        {
+          "name": "v_min",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "v_max",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "format",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiSliderFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "format": "\"%.3f\"",
+        "flags": "0"
+      }
+    },
+    {
+      "opname": "igSliderFloat4",
+      "opcode": 168,
+      "funcname": "SliderFloat4",
+      "cimguiname": "igSliderFloat4",
+      "ret": "bool",
+      "location": "imgui:709",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v",
+          "type": "float[4]",
+          "cat": "floatarr",
+          "len": 4
+        },
+        {
+          "name": "v_min",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "v_max",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "format",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiSliderFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "format": "\"%.3f\"",
+        "flags": "0"
+      }
+    },
+    {
+      "opname": "igSliderInt",
+      "opcode": 169,
+      "funcname": "SliderInt",
+      "cimguiname": "igSliderInt",
+      "ret": "bool",
+      "location": "imgui:711",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "v",
+          "type": "int*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "v_min",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "v_max",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "format",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiSliderFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "format": "\"%d\"",
+        "flags": "0"
+      }
+    },
+    {
+      "opname": "igSmallButton",
+      "opcode": 170,
+      "funcname": "SmallButton",
+      "cimguiname": "igSmallButton",
+      "ret": "bool",
+      "location": "imgui:643",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igSpacing",
+      "opcode": 171,
+      "funcname": "Spacing",
+      "cimguiname": "igSpacing",
+      "ret": "void",
+      "location": "imgui:590",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igTabItemButton",
+      "opcode": 172,
+      "funcname": "TabItemButton",
+      "cimguiname": "igTabItemButton",
+      "ret": "bool",
+      "location": "imgui:965",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiTabItemFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "flags": "0"
+      }
+    },
+    {
+      "opname": "igTableAngledHeadersRow",
+      "opcode": 173,
+      "funcname": "TableAngledHeadersRow",
+      "cimguiname": "igTableAngledHeadersRow",
+      "ret": "void",
+      "location": "imgui:930",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igTableGetColumnCount",
+      "opcode": 174,
+      "funcname": "TableGetColumnCount",
+      "cimguiname": "igTableGetColumnCount",
+      "ret": "int",
+      "location": "imgui:939",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igTableGetColumnFlags",
+      "opcode": 175,
+      "funcname": "TableGetColumnFlags",
+      "cimguiname": "igTableGetColumnFlags",
+      "ret": "ImGuiTableColumnFlags",
+      "location": "imgui:943",
+      "args": [
+        {
+          "name": "column_n",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {
+        "column_n": "-1"
+      }
+    },
+    {
+      "opname": "igTableGetColumnIndex",
+      "opcode": 176,
+      "funcname": "TableGetColumnIndex",
+      "cimguiname": "igTableGetColumnIndex",
+      "ret": "int",
+      "location": "imgui:940",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igTableGetColumnName",
+      "opcode": 177,
+      "funcname": "TableGetColumnName",
+      "cimguiname": "igTableGetColumnName",
+      "ret": "const char*",
+      "location": "imgui:942",
+      "args": [
+        {
+          "name": "column_n",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {
+        "column_n": "-1"
+      }
+    },
+    {
+      "opname": "igTableGetHoveredColumn",
+      "opcode": 178,
+      "funcname": "TableGetHoveredColumn",
+      "cimguiname": "igTableGetHoveredColumn",
+      "ret": "int",
+      "location": "imgui:945",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igTableGetRowIndex",
+      "opcode": 179,
+      "funcname": "TableGetRowIndex",
+      "cimguiname": "igTableGetRowIndex",
+      "ret": "int",
+      "location": "imgui:941",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igTableGetSortSpecs",
+      "opcode": 180,
+      "funcname": "TableGetSortSpecs",
+      "cimguiname": "igTableGetSortSpecs",
+      "ret": "ImGuiTableSortSpecs*",
+      "location": "imgui:938",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igTableHeader",
+      "opcode": 181,
+      "funcname": "TableHeader",
+      "cimguiname": "igTableHeader",
+      "ret": "void",
+      "location": "imgui:928",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igTableHeadersRow",
+      "opcode": 182,
+      "funcname": "TableHeadersRow",
+      "cimguiname": "igTableHeadersRow",
+      "ret": "void",
+      "location": "imgui:929",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igTableNextColumn",
+      "opcode": 183,
+      "funcname": "TableNextColumn",
+      "cimguiname": "igTableNextColumn",
+      "ret": "bool",
+      "location": "imgui:915",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igTableNextRow",
+      "opcode": 184,
+      "funcname": "TableNextRow",
+      "cimguiname": "igTableNextRow",
+      "ret": "void",
+      "location": "imgui:914",
+      "args": [
+        {
+          "name": "row_flags",
+          "type": "ImGuiTableRowFlags",
+          "cat": "enum"
+        },
+        {
+          "name": "min_row_height",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {
+        "row_flags": "0",
+        "min_row_height": "0.0f"
+      }
+    },
+    {
+      "opname": "igTableSetColumnEnabled",
+      "opcode": 185,
+      "funcname": "TableSetColumnEnabled",
+      "cimguiname": "igTableSetColumnEnabled",
+      "ret": "void",
+      "location": "imgui:944",
+      "args": [
+        {
+          "name": "column_n",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "v",
+          "type": "bool",
+          "cat": "scalar",
+          "width": 1,
+          "cpp_type": "bool",
+          "rust_type": "bool"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igTableSetColumnIndex",
+      "opcode": 186,
+      "funcname": "TableSetColumnIndex",
+      "cimguiname": "igTableSetColumnIndex",
+      "ret": "bool",
+      "location": "imgui:916",
+      "args": [
+        {
+          "name": "column_n",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igTableSetupColumn",
+      "opcode": 187,
+      "funcname": "TableSetupColumn",
+      "cimguiname": "igTableSetupColumn",
+      "ret": "void",
+      "location": "imgui:926",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiTableColumnFlags",
+          "cat": "enum"
+        },
+        {
+          "name": "init_width_or_weight",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "user_id",
+          "type": "ImGuiID",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int",
+          "rust_type": "u32"
+        }
+      ],
+      "defaults": {
+        "flags": "0",
+        "init_width_or_weight": "0.0f",
+        "user_id": "0"
+      }
+    },
+    {
+      "opname": "igTableSetupScrollFreeze",
+      "opcode": 188,
+      "funcname": "TableSetupScrollFreeze",
+      "cimguiname": "igTableSetupScrollFreeze",
+      "ret": "void",
+      "location": "imgui:927",
+      "args": [
+        {
+          "name": "cols",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "rows",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igTextLink",
+      "opcode": 189,
+      "funcname": "TextLink",
+      "cimguiname": "igTextLink",
+      "ret": "bool",
+      "location": "imgui:653",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igTextLinkOpenURL",
+      "opcode": 190,
+      "funcname": "TextLinkOpenURL",
+      "cimguiname": "igTextLinkOpenURL",
+      "ret": "bool",
+      "location": "imgui:654",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "url",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {
+        "url": "NULL"
+      }
+    },
+    {
+      "opname": "igTextUnformatted",
+      "opcode": 191,
+      "funcname": "TextUnformatted",
+      "cimguiname": "igTextUnformatted",
+      "ret": "void",
+      "location": "imgui:624",
+      "args": [
+        {
+          "name": "text",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "text_end",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {
+        "text_end": "NULL"
+      }
+    },
+    {
+      "opname": "igTreeNodeEx",
+      "opcode": 192,
+      "funcname": "TreeNodeEx",
+      "cimguiname": "igTreeNodeEx",
+      "ret": "bool",
+      "location": "imgui:756",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiTreeNodeFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "flags": "0"
+      }
+    },
+    {
+      "opname": "igTreeNodeGetOpen",
+      "opcode": 193,
+      "funcname": "TreeNodeGetOpen",
+      "cimguiname": "igTreeNodeGetOpen",
+      "ret": "bool",
+      "location": "imgui:769",
+      "args": [
+        {
+          "name": "storage_id",
+          "type": "ImGuiID",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int",
+          "rust_type": "u32"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igTreeNode",
+      "opcode": 194,
+      "funcname": "TreeNode",
+      "cimguiname": "igTreeNode",
+      "ret": "bool",
+      "location": "imgui:751",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igTreePop",
+      "opcode": 195,
+      "funcname": "TreePop",
+      "cimguiname": "igTreePop",
+      "ret": "void",
+      "location": "imgui:763",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igTreePush",
+      "opcode": 196,
+      "funcname": "TreePush",
+      "cimguiname": "igTreePush",
+      "ret": "void",
+      "location": "imgui:761",
+      "args": [
+        {
+          "name": "str_id",
+          "type": "const char*",
+          "cat": "string"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "opname": "igUnindent",
+      "opcode": 197,
+      "funcname": "Unindent",
+      "cimguiname": "igUnindent",
+      "ret": "void",
+      "location": "imgui:593",
+      "args": [
+        {
+          "name": "indent_w",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        }
+      ],
+      "defaults": {
+        "indent_w": "0.0f"
+      }
+    },
+    {
+      "opname": "igUpdatePlatformWindows",
+      "opcode": 198,
+      "funcname": "UpdatePlatformWindows",
+      "cimguiname": "igUpdatePlatformWindows",
+      "ret": "void",
+      "location": "imgui:1198",
+      "args": [],
+      "defaults": {}
+    },
+    {
+      "opname": "igVSliderFloat",
+      "opcode": 199,
+      "funcname": "VSliderFloat",
+      "cimguiname": "igVSliderFloat",
+      "ret": "bool",
+      "location": "imgui:717",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "size",
+          "type": "ImVec2",
+          "cat": "vec2"
+        },
+        {
+          "name": "v",
+          "type": "float*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "v_min",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "v_max",
+          "type": "float",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "float",
+          "rust_type": "f32"
+        },
+        {
+          "name": "format",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiSliderFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "format": "\"%.3f\"",
+        "flags": "0"
+      }
+    },
+    {
+      "opname": "igVSliderInt",
+      "opcode": 200,
+      "funcname": "VSliderInt",
+      "cimguiname": "igVSliderInt",
+      "ret": "bool",
+      "location": "imgui:718",
+      "args": [
+        {
+          "name": "label",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "size",
+          "type": "ImVec2",
+          "cat": "vec2"
+        },
+        {
+          "name": "v",
+          "type": "int*",
+          "cat": "ptr_out_scalar",
+          "width": 4
+        },
+        {
+          "name": "v_min",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "v_max",
+          "type": "int",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "int",
+          "rust_type": "i32"
+        },
+        {
+          "name": "format",
+          "type": "const char*",
+          "cat": "string"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiSliderFlags",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "format": "\"%d\"",
+        "flags": "0"
+      }
+    }
+  ]
+}

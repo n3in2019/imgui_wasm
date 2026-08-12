@@ -1,0 +1,3 @@
+[workspace]
+members = ["imgui-wasm-core"]
+resolver = "2"

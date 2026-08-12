@@ -1,0 +1,13 @@
+:root {
+    --bg: #1a1a2e;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
+canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+#status {
+    position: fixed; top: 8px; right: 8px;
+    font: 12px monospace; color: #888; pointer-events: none;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+#status.connected { color: #4f4; }
+#status.disconnected { color: #f44; }

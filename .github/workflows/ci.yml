@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [development, main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache Rust build artifacts
+        uses: Swatinem/rust-cache@v2
+
+      - name: Install Emscripten
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes emscripten
+
+      - name: Test Rust workspace
+        run: cargo test --workspace
+
+      - name: Build Rust workspace
+        run: cargo build --workspace
+
+      - name: Build C++ wrapper and examples
+        run: |
+          cmake -S imgui-wasm-cpp -B build -DIMGUI_WASM_BUILD_EXAMPLES=ON
+          cmake --build build --parallel
+
+      - name: Check frontend JavaScript
+        run: |
+          node --check imgui-wasm-core/frontend/imgui_wasm.js
+          node --check imgui-wasm-core/frontend/imgui_wasm_callstream.js
+
+      - name: Check Python sources
+        run: python3 -m compileall -q imgui-wasm-python/imgui_wasm imgui-wasm-python/examples imgui-wasm-python/tools
+
+      - name: Check whitespace
+        run: git diff --check
