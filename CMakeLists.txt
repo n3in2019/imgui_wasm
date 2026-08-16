@@ -102,8 +102,8 @@ target_compile_definitions(imgui_ws_core_cpp PUBLIC IMGUI_USER_CONFIG="imconfig.
 
 target_link_libraries(imgui_ws_core_cpp PUBLIC Threads::Threads)
 
-option(IMGUI_WS_BUILD_EXAMPLES "Build the C++ core examples" ON)
-option(IMGUI_WS_BUILD_TESTS "Build the C++ core tests" ON)
+option(IMGUI_WS_BUILD_EXAMPLES "Build the C++ core examples" OFF)
+option(IMGUI_WS_BUILD_TESTS "Build the C++ core tests" OFF)
 
 if(IMGUI_WS_BUILD_EXAMPLES)
     add_subdirectory(examples)
