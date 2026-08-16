@@ -76,10 +76,15 @@ std::optional<ClientMsg> parse_client_payload(uint8_t type, const uint8_t* d, si
             msg.input.character = ch;
             return msg;
         }
-        case 0x17: {  // resize
+        case 0x17: {  // resize (scale is optional: legacy 13-byte messages omit it)
             msg.kind = ClientMsg::Kind::Resize;
             if (!read_f32(d, len, 0, msg.resize_w) || !read_f32(d, len, 4, msg.resize_h))
                 return std::nullopt;
+            // Absent or nonsensical scale stays 0 ("not provided").
+            if (len >= 12) {
+                if (!read_f32(d, len, 8, msg.resize_scale)) return std::nullopt;
+                if (!(msg.resize_scale > 0.0f)) msg.resize_scale = 0.0f;
+            }
             return msg;
         }
         case 0x18: {  // clipboard text from client
@@ -247,13 +252,14 @@ void State::set_client_capabilities(ClientId id, uint32_t capabilities) {
     if (it != clients_.end()) it->second.capabilities = capabilities;
 }
 
-void State::set_display_size(ClientId id, float w, float h) {
+void State::set_display_size(ClientId id, float w, float h, float scale) {
     {
         std::lock_guard<std::mutex> lk(clients_mtx_);
         auto it = clients_.find(id);
         if (it == clients_.end()) return;
         it->second.display_size[0] = w;
         it->second.display_size[1] = h;
+        if (scale > 0.0f) it->second.display_scale = scale;
     }
     // Select the resized client before its first pointer event. This
     // prevents a click from changing the shared viewport mid-frame.
@@ -281,6 +287,18 @@ void State::get_display_size(float out[2]) const {
         out[0] = 1280.0f;
         out[1] = 720.0f;
     }
+}
+
+float State::get_display_scale() const {
+    std::optional<ClientId> id;
+    {
+        std::lock_guard<std::mutex> lk(active_mtx_);
+        id = active_client_;
+    }
+    if (!id.has_value()) return 1.0f;
+    std::lock_guard<std::mutex> lk(clients_mtx_);
+    auto it = clients_.find(*id);
+    return it != clients_.end() ? it->second.display_scale : 1.0f;
 }
 
 void State::set_clipboard_text(const std::string& text) {

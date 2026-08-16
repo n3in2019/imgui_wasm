@@ -208,7 +208,8 @@ void handle_ws(std::shared_ptr<State> state, std::shared_ptr<ServerHandle> serve
                             state->push_input(cid, msg.input);
                             break;
                         case ClientMsg::Kind::Resize:
-                            state->set_display_size(cid, msg.resize_w, msg.resize_h);
+                            state->set_display_size(cid, msg.resize_w, msg.resize_h,
+                                                     msg.resize_scale);
                             break;
                         case ClientMsg::Kind::ClipboardText:
                             state->on_clipboard_text(cid, msg.clipboard_text);

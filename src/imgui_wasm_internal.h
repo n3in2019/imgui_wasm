@@ -12,6 +12,7 @@ typedef struct {
     float delta_time;
     float display_w;
     float display_h;
+    float display_scale;  // client devicePixelRatio; drives io.DisplayFramebufferScale
 } imgui_wasm_frame_info_t;
 
 typedef struct {

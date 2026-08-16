@@ -28,6 +28,12 @@ let lastUiSnapshot = null;
 let lastCanvas = null;
 let lastHooks = null;
 
+// Local display configuration (browser canvas in CSS pixels + devicePixelRatio).
+// The twin lays out at THIS resolution — not the server's header — so every
+// browser renders the call stream at its own real resolution and scale.
+let localDisplay = { w: 0, h: 0, dpr: 1 };
+let lastFontTexVersion = 0;  // twin atlas version already uploaded to WebGL
+
 // lazily instantiate the WASM twin
 async function ensureReplay(canvas) {
     if (replayReady) return replayModule;
@@ -50,13 +56,19 @@ async function ensureReplay(canvas) {
         replayModule = await factory();
     }
     if (!replayReady) {
-        replayModule._imgui_wasm_replay_init(canvas.width, canvas.height);
+        const dpr = Math.max(1, window.devicePixelRatio || 1);
+        const cssW = Math.max(1, Math.floor(canvas.clientWidth)) || canvas.width;
+        const cssH = Math.max(1, Math.floor(canvas.clientHeight)) || canvas.height;
+        localDisplay = { w: cssW, h: cssH, dpr: dpr };
+        replayModule._imgui_wasm_replay_init(cssW, cssH, dpr);
         replayReady = true;
         // Upload the twin's OWN font atlas as texture id 1. The twin's draw
         // commands reference glyph UVs computed from this atlas, so the
         // browser must render with THESE pixels (not the server's, whose glyph
-        // packing may differ). Done once after init.
+        // packing may differ). Done once after init, and again whenever the
+        // twin re-bakes the atlas (density change bumps the version).
         uploadTwinFontAtlas();
+        lastFontTexVersion = replayModule._imgui_wasm_replay_font_tex_version();
         // flush any strings that arrived before init
         for (const { id, bytes } of stringUpdates) {
             installString(id, bytes);
@@ -66,21 +78,32 @@ async function ensureReplay(canvas) {
     return replayModule;
 }
 
-// Read the twin's font atlas out of WASM linear memory and hand it to the
-// frontend's texture uploader under id 1 (the id ImGui's font cmds reference).
+// Twin atlas pages claim texture ids starting at 2^32, far above the
+// server's sequential texture ids, so they can never collide with app
+// textures the server streams via 0x02.
+const TWIN_FONT_TEX_BASE = 0x100000000;
+
+// Read the twin's font atlas pages out of WASM linear memory and hand them
+// to the frontend's texture uploader. Page i goes under texture id
+// TWIN_FONT_TEX_BASE + i (the ids the twin's draw commands reference). At
+// higher devicePixelRatio the atlas spans multiple pages, so all of them
+// must be present in WebGL.
 function uploadTwinFontAtlas() {
     if (!replayModule) return;
-    const w = replayModule._imgui_wasm_replay_font_tex_width();
-    const h = replayModule._imgui_wasm_replay_font_tex_height();
-    const ptr = replayModule._imgui_wasm_replay_font_tex_pixels();
-    if (!w || !h || !ptr) return;
-    const len = w * h * 4; // RGBA
-    const pixels = new Uint8Array(replayModule.HEAPU8.buffer, ptr, len);
-    // Copy because HEAPU8 may move on reallocation; the uploader stores it.
-    const copy = new Uint8Array(len);
-    copy.set(pixels);
-    if (typeof window.__imgui_wasmUploadTwinFontAtlas === "function") {
-        window.__imgui_wasmUploadTwinFontAtlas(1, w, h, copy);
+    const count = replayModule._imgui_wasm_replay_font_tex_count();
+    for (let i = 0; i < count; i++) {
+        const w = replayModule._imgui_wasm_replay_font_tex_width(i);
+        const h = replayModule._imgui_wasm_replay_font_tex_height(i);
+        const ptr = replayModule._imgui_wasm_replay_font_tex_pixels(i);
+        if (!w || !h || !ptr) continue;
+        const len = w * h * 4; // RGBA
+        const pixels = new Uint8Array(replayModule.HEAPU8.buffer, ptr, len);
+        // Copy because HEAPU8 may move on reallocation; the uploader stores it.
+        const copy = new Uint8Array(len);
+        copy.set(pixels);
+        if (typeof window.__imgui_wasmUploadTwinFontAtlas === "function") {
+            window.__imgui_wasmUploadTwinFontAtlas(TWIN_FONT_TEX_BASE + i, w, h, copy);
+        }
     }
 }
 
@@ -130,21 +153,34 @@ function buildSyntheticFrame(drawOut, listCount, dpx, dpy, dsw, dsh, fbsx, fbsy)
 // Handle a 0x07 call-stream frame. `canvas` and the `hooks` (parseDrawLists,
 // renderFromParsed, setLastFrame) are provided by imgui_wasm.js.
 async function replaySnapshot(snapshot, canvas, hooks) {
-    const { callBytes, callCount, dpx, dpy, dsw, dsh, fbsx, fbsy } = snapshot;
+    const { callBytes, callCount } = snapshot;
     const mod = await ensureReplay(canvas);
 
     const callPtr = copyToHeap(callBytes);
     if (!callPtr) return;
     const drawPtr = mod._imgui_wasm_replay_frame(callPtr, callBytes.length, callCount,
-        dpx, dpy, dsw, dsh, fbsx, fbsy);
+        0, 0, localDisplay.w, localDisplay.h, localDisplay.dpr, localDisplay.dpr);
     mod._free(callPtr);
     if (!drawPtr) return;
+
+    // The twin re-bakes its atlas when the devicePixelRatio changes; the
+    // glyph UVs in this frame's draw data already reference the new atlas,
+    // so re-upload its pixels BEFORE rendering the frame.
+    const texVersion = mod._imgui_wasm_replay_font_tex_version();
+    if (texVersion !== lastFontTexVersion) {
+        uploadTwinFontAtlas();
+        lastFontTexVersion = texVersion;
+    }
 
     const drawLen = mod._imgui_wasm_replay_draw_data_len();
     const listCount = mod._imgui_wasm_replay_list_count();
     if (drawLen === 0 || listCount === 0) return;
     const drawOut = new Uint8Array(mod.HEAPU8.buffer, drawPtr, drawLen);
-    const frame = buildSyntheticFrame(drawOut, listCount, dpx, dpy, dsw, dsh, fbsx, fbsy);
+    // The twin laid out at the LOCAL resolution, so the render header must
+    // describe that layout (not the server's): the frontend then maps
+    // local CSS pixels 1:1 onto the device-pixel canvas backing store.
+    const frame = buildSyntheticFrame(drawOut, listCount,
+        0, 0, localDisplay.w, localDisplay.h, localDisplay.dpr, localDisplay.dpr);
 
     try {
         const parsed = hooks.parseDrawLists(frame);
@@ -278,6 +314,24 @@ function feedInputToTwin(kind, ...args) {
     }).catch((e) => console.error('[imgui_wasm] call-stream input replay error:', e));
 }
 
+// Browser resize/zoom: update the twin's local display configuration and
+// immediately re-replay the last call batch so the new resolution takes
+// effect without waiting for the next server frame (the call bytes may be
+// unchanged and suppressed as idle traffic).
+function onResize(cssW, cssH, dpr) {
+    if (!replayReady || !replayModule) return;
+    if (!lastUiSnapshot || !lastCanvas || !lastHooks) {
+        localDisplay = { w: cssW, h: cssH, dpr: dpr };
+        replayModule._imgui_wasm_replay_set_display_size(cssW, cssH, dpr);
+        return;
+    }
+    replayChain = replayChain.then(async () => {
+        localDisplay = { w: cssW, h: cssH, dpr: dpr };
+        replayModule._imgui_wasm_replay_set_display_size(cssW, cssH, dpr);
+        await replaySnapshot(lastUiSnapshot, lastCanvas, lastHooks);
+    }).catch((e) => console.error('[imgui_wasm] call-stream resize replay error:', e));
+}
+
 // Public API consumed by imgui_wasm.js's ws.onmessage dispatch. Exposed as a global
 // (window.imgui_wasmCallstream) because imgui_wasm.js loads as a classic script, not an
 // ES module. See frontend/index.html.
@@ -285,5 +339,6 @@ window.imgui_wasmCallstream = {
     handleFrame: handleCallstreamFrame,
     handleStringUpdate: handleStringUpdate,
     feedInput: feedInputToTwin,
+    onResize: onResize,
     isReady: () => replayReady,
 };

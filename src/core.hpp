@@ -39,6 +39,7 @@ struct ClientMsg {
     InputEvent input;                       // Input
     float resize_w = 0.0f;                  // Resize
     float resize_h = 0.0f;                  // Resize
+    float resize_scale = 0.0f;              // Resize (devicePixelRatio; 0 = absent, legacy 13-byte messages omit it)
     std::string clipboard_text;             // ClipboardText
 };
 
@@ -100,6 +101,7 @@ struct OutBox {
 
 struct ClientState {
     float display_size[2] = {1280.0f, 720.0f};
+    float display_scale = 1.0f;  // client devicePixelRatio (layout space stays CSS pixels)
     size_t force_frames = 3;
     std::string clipboard_text;
     uint32_t capabilities = 0;
@@ -118,8 +120,10 @@ class State {
     std::optional<InputEvent> try_poll_input();
 
     void set_client_capabilities(ClientId id, uint32_t capabilities);
-    void set_display_size(ClientId id, float w, float h);
+    void set_display_size(ClientId id, float w, float h, float scale = 0.0f);
+    // scale <= 0 means "not provided" and keeps the client's last known value.
     void get_display_size(float out[2]) const;
+    float get_display_scale() const;  // active client's devicePixelRatio, 1.0 when unknown
 
     void set_clipboard_text(const std::string& text);
     std::string get_clipboard_text() const;

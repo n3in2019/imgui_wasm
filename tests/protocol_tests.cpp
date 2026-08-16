@@ -147,6 +147,49 @@ void resize_selects_the_active_client() {
     assert(size[0] == 1024.0f && size[1] == 768.0f);
 }
 
+void parses_resize_with_and_without_scale() {
+    const ClientId id = 42;
+    // Modern resize: w, h, scale (devicePixelRatio).
+    std::vector<uint8_t> modern = {0x17};
+    push_u32b(modern, id);
+    push_f32b(modern, 800.0f);
+    push_f32b(modern, 437.0f);
+    push_f32b(modern, 2.0f);
+    auto messages = parse_client_msgs(modern.data(), modern.size());
+    assert(messages.has_value());
+    assert(messages->size() == 1);
+    assert((*messages)[0].first == id);
+    assert((*messages)[0].second.kind == ClientMsg::Kind::Resize);
+    assert((*messages)[0].second.resize_w == 800.0f);
+    assert((*messages)[0].second.resize_h == 437.0f);
+    assert((*messages)[0].second.resize_scale == 2.0f);
+
+    // Legacy 13-byte resize: no scale field ("not provided").
+    std::vector<uint8_t> legacy = {0x17};
+    push_u32b(legacy, id);
+    push_f32b(legacy, 800.0f);
+    push_f32b(legacy, 437.0f);
+    messages = parse_client_msgs(legacy.data(), legacy.size());
+    assert(messages.has_value());
+    assert(messages->size() == 1);
+    assert((*messages)[0].second.resize_scale == 0.0f);
+}
+
+void resize_scale_follows_active_client() {
+    State state;
+    ClientId first = state.add_client();
+    ClientId second = state.add_client();
+    assert(state.get_display_scale() == 1.0f);  // no active client yet
+    state.set_display_size(second, 800.0f, 437.0f, 2.0f);
+    assert(state.get_display_scale() == 2.0f);
+    // A later resize without a scale keeps the client's last known scale.
+    state.set_display_size(second, 801.0f, 438.0f);
+    assert(state.get_display_scale() == 2.0f);
+    // The most recently active client's scale wins.
+    state.set_display_size(first, 1024.0f, 768.0f, 1.5f);
+    assert(state.get_display_scale() == 1.5f);
+}
+
 void clipboard_write_is_sent_only_to_active_client() {
     State state;
     ClientId first = state.add_client();
@@ -236,6 +279,8 @@ int main() {
     leading_hello_ack_accepts_envelope_and_bare_batches();
     leading_hello_ack_rejects_non_leading_or_foreign_acks();
     resize_selects_the_active_client();
+    parses_resize_with_and_without_scale();
+    resize_scale_follows_active_client();
     clipboard_write_is_sent_only_to_active_client();
     coalesced_frame_forces_a_resync();
     frame_hash_is_deterministic_and_sensitive();

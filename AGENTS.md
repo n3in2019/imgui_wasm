@@ -92,13 +92,15 @@ All client messages include a `u32` client ID at offset 1 (after the message typ
 - `0x14` + client_id (`u32`) + key (`u16`) = Key down.
 - `0x15` + client_id (`u32`) + key (`u16`) = Key up.
 - `0x16` + client_id (`u32`) + character (`u32`) = Text input.
-- `0x17` + client_id (`u32`) + w (`f32`) + h (`f32`) = Resize.
+- `0x17` + client_id (`u32`) + w (`f32`) + h (`f32`) + scale (`f32`, optional) = Resize. CSS-pixel canvas size; `scale` is the client `devicePixelRatio` (font/render density). Legacy 13-byte messages omit `scale` (treated as "no new information", keeping the client's last known scale).
 - `0x18` + client_id (`u32`) + text length (`u32`) + UTF-8 text = Clipboard text from client.
 - `0x1a` + client_id (`u32`) + capabilities (`u32`) = Capability ack, in response to `0x0a`. Client capability bits: 0 WebGL, 1 Worker + OffscreenCanvas, 2 SharedArrayBuffer (cross-origin isolated), 3 WebGPU. Must lead its WebSocket message; trailing records (early input batched behind the ack) are dropped.
 
 ### Call-stream transport
 
 The server streams the sequence of ImGui API calls instead of rendered draw data. The browser replays them against a WASM-compiled Dear ImGui twin to regenerate draw data locally. This drops per-frame bandwidth from KB of vertices to tens of bytes of calls, and idle frames cost ~nothing.
+
+**Resolution model:** each browser twin replays at its own real resolution — `DisplaySize` is its canvas in CSS pixels and fonts rasterize at its `devicePixelRatio` (`ImFontConfig::RasterizerDensity`; density does not alter metrics, so layout matches the server's). The server-side layout (header `dsw/dsh`) follows the most recently active client's resize and stays authoritative for input hit-testing; `fbsx/fbsy` carry that client's scale. Secondary clients with different window sizes render their own native layout, but their input maps correctly only against the active client's geometry.
 
 **Host integration:** C++ hosts use the ordinary Dear ImGui `ImGui::` API.
 `imgui_wasm.hpp` transparently redirects supported rendering calls through the

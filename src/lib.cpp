@@ -47,6 +47,7 @@ struct Backend {
     uint64_t next_texture_id = 1;
     float display_w = 1280.0f;
     float display_h = 720.0f;
+    float display_scale = 1.0f;
 };
 
 // --- core api table implementation ---------------------------------------------
@@ -78,10 +79,14 @@ void backend_new_frame(imgui_wasm_backend_t* backend_ptr, double current_time,
         backend->display_w = size[0];
         backend->display_h = size[1];
     }
+    float scale = 1.0f;
+    if (GlobalCtx* g = global()) scale = g->state->get_display_scale();
+    if (scale > 0.0f) backend->display_scale = scale;
 
     out_info->delta_time = delta_time;
     out_info->display_w = backend->display_w;
     out_info->display_h = backend->display_h;
+    out_info->display_scale = backend->display_scale;
 }
 
 uint64_t backend_alloc_texture_id(imgui_wasm_backend_t* backend_ptr) {

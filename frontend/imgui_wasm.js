@@ -159,9 +159,11 @@ function parseDrawLists(data) {
 function renderFromParsed(frame) {
     const fbW = canvas.width;
     const fbH = canvas.height;
-    // The server lays out ImGui in CSS pixels while the canvas backing buffer
-    // uses device pixels. Derive the actual scale from this frame rather than
-    // relying on the server backend's framebuffer scale (normally 1).
+    // Frames are laid out in the browser's CSS pixels (call-stream frames by
+    // the local WASM twin at its own canvas size) while the canvas backing
+    // buffer uses device pixels. Derive the scale from this frame so the CSS
+    // layout maps 1:1 onto the native-resolution backing store; the header's
+    // fbsx/fbsy (the browser devicePixelRatio) is the fallback.
     const scaleX = frame.dsw > 0 ? fbW / frame.dsw : (frame.fbsx || 1);
     const scaleY = frame.dsh > 0 ? fbH / frame.dsh : (frame.fbsy || 1);
 
@@ -214,9 +216,11 @@ function renderFromParsed(frame) {
 // that replays captured calls. Loaded lazily on the first 0x07/0x09 message.
 let _callstreamHelper = null;
 let _callstreamLoading = null;
-// Once the replay twin uploads its font atlas, texture id 1 belongs to that
-// atlas. A server font resend (for example after a WebSocket reconnect) uses
-// different glyph packing and must not overwrite it.
+// Once the replay twin uploads its font atlas pages, its draw commands
+// reference those pages (ids >= 2^32), never the server's font texture
+// (id 1). A server font resend (for example after a WebSocket reconnect)
+// uses different glyph packing and is pointless in call-stream mode, so
+// skip it while the twin atlas is active.
 let _twinFontAtlasActive = false;
 function loadCallstreamHelper() {
     if (_callstreamHelper) return Promise.resolve(_callstreamHelper);
@@ -265,7 +269,7 @@ function feedCallstreamInput(kind, ...args) {
 // The twin's glyph UVs only match THESE pixels, not the server's texture.
 window.__imgui_wasmUploadTwinFontAtlas = function(id, w, h, pixels) {
     uploadTexture(id, w, h, pixels);
-    if (id === 1) _twinFontAtlasActive = true;
+    _twinFontAtlasActive = true;
 };
 
 const IMGUI_KEY_MAP = {
@@ -373,6 +377,20 @@ function sendF32F32(type, a, b) {
     sendBytes(buf);
 }
 
+// Resize carries the browser's devicePixelRatio as a trailing scale so the
+// server can lay out at native client scale. Legacy servers ignore the extra
+// field; legacy clients omit it (server defaults to 1).
+function sendResize(w, h, scale) {
+    const buf = new ArrayBuffer(17);
+    const dv = new DataView(buf);
+    dv.setUint8(0, 0x17);
+    dv.setUint32(1, clientId, true);
+    dv.setFloat32(5, w, true);
+    dv.setFloat32(9, h, true);
+    dv.setFloat32(13, scale, true);
+    sendBytes(buf);
+}
+
 function sendU8(type, value) {
     const buf = new ArrayBuffer(6);
     const dv = new DataView(buf);
@@ -440,7 +458,13 @@ function resize() {
         canvas.height = backingHeight;
     }
     // ImGui coordinates and browser pointer coordinates are both CSS pixels.
-    sendF32F32(0x17, cssWidth, cssHeight);
+    // Tell the server the CSS size + devicePixelRatio (server-side layout
+    // stays authoritative for input), and re-layout the call-stream twin at
+    // this browser's own real resolution.
+    sendResize(cssWidth, cssHeight, pixelRatio);
+    if (_callstreamHelper && _callstreamHelper.isReady()) {
+        try { _callstreamHelper.onResize(cssWidth, cssHeight, pixelRatio); } catch (_) {}
+    }
 }
 
 function connect() {

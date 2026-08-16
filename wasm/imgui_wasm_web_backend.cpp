@@ -4,10 +4,19 @@
 // imgui_ws/tools/build_wasm_twin.py via emscripten. It owns the twin ImGui
 // context and exposes a minimal C ABI that the frontend JS calls:
 //
-//   imgui_wasm_replay_init(canvas_w, canvas_h)
+//   imgui_wasm_replay_init(css_w, css_h, density)
 //       Create the ImGui context, configure IO for the browser (no native
-//       clipboard/cursor; input arrives via imgui_wasm_replay_set_*). Set the
-//       display size + framebuffer scale.
+//       clipboard/cursor; input arrives via imgui_wasm_replay_set_*). The
+//       display size is the browser canvas in CSS pixels; density is the
+//       browser devicePixelRatio (fonts rasterize at native device density).
+//
+//   imgui_wasm_replay_set_display_size(css_w, css_h, density)
+//       Update the local display configuration (browser resize / zoom /
+//       monitor change). Re-bakes the font atlas when the density changed.
+//
+//   imgui_wasm_replay_font_tex_version()
+//       Counter bumped whenever the font atlas is re-baked; the frontend
+//       re-uploads the texture pixels when it changes.
 //
 //   imgui_wasm_replay_frame(call_bytes, call_len, call_count,
 //                       dpx,dpy,dsw,dsh,fbsx,fbsy)
@@ -52,6 +61,12 @@ namespace {
 ImGuiContext* g_ctx = nullptr;
 ImGuiIO* g_io = nullptr;
 
+// Local (browser-side) display configuration. The twin lays out at the
+// browser's real resolution, not the server's: every browser client replays
+// the same call stream against its own canvas.
+float g_display_density = 1.0f;    // browser devicePixelRatio
+unsigned g_font_tex_version = 1;   // bumped on each font atlas re-bake
+
 // Session string table: id -> std::string. id 0 is reserved (NULL).
 std::unordered_map<unsigned, std::string> g_strings;
 // Owning storage for strings so the returned const char* stays valid. We never
@@ -65,6 +80,33 @@ std::vector<unsigned char> g_draw_out;
 void set_string(unsigned id, const char* bytes, unsigned len) {
     if (id == 0) return; // reserved
     g_strings[id].assign(bytes, len);
+}
+
+// (Re)build the default font atlas rasterized at the browser's device pixel
+// density. RasterizerDensity does not alter font metrics, so layout stays
+// identical to the server's density-1.0 layout; only glyph sharpness
+// changes. AddFontDefault(&cfg) selects the same font the server's plain
+// Build() auto-adds, so glyph metrics match.
+void build_font_atlas(float density) {
+    g_io->Fonts->ClearFonts();
+    ImFontConfig cfg;
+    cfg.RasterizerDensity = density;
+    g_io->Fonts->AddFontDefault(&cfg);
+    g_io->Fonts->Build();
+    g_io->Fonts->TexIsBuilt = true;
+    // The atlas may produce MULTIPLE texture pages (at higher densities the
+    // glyphs no longer fit one page). Every page referenced by draw commands
+    // needs a stable non-zero TexID or ImDrawCmd::GetTexID() asserts (which
+    // aborts the replay). Page ids start at 2^32, far above the server's
+    // sequentially allocated texture ids, so twin atlas pages can never
+    // collide with app textures streamed via 0x02.
+    for (int i = 0; i < g_io->Fonts->TexList.Size; i++) {
+        ImTextureData* tex = g_io->Fonts->TexList[i];
+        if (!tex) continue;
+        tex->SetTexID((ImTextureID)(uint64_t)(0x100000000ULL + (uint64_t)i));
+        tex->Status = ImTextureStatus_OK;
+    }
+    g_font_tex_version++;
 }
 
 } // namespace
@@ -87,7 +129,7 @@ const char* lookup_string(unsigned id) {
 extern "C" {
 
 EMSCRIPTEN_KEEPALIVE
-int imgui_wasm_replay_init(int canvas_w, int canvas_h) {
+int imgui_wasm_replay_init(int css_w, int css_h, float density) {
     if (g_ctx) return 1; // already initialized
     IMGUI_CHECKVERSION();
     g_ctx = ImGui::CreateContext();
@@ -99,35 +141,32 @@ int imgui_wasm_replay_init(int canvas_w, int canvas_h) {
     // imgui_wasm_replay_input_*, and we render to draw data (not to a GL context).
     g_io->BackendPlatformName = "imgui_wasm_replay";
     g_io->BackendRendererName = "imgui_wasm_replay";
-    g_io->DisplaySize = ImVec2((float)canvas_w, (float)canvas_h);
-    g_io->DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
+    g_io->DisplaySize = ImVec2((float)css_w, (float)css_h);
+    if (density <= 0.0f) density = 1.0f;
+    g_io->DisplayFramebufferScale = ImVec2(density, density);
     g_io->DeltaTime = 1.0f / 60.0f;
 
-    // Font atlas: mirror the server's setup EXACTLY. The server's backend
-    // (imgui_backend.cpp) calls io.Fonts->Build() with no explicit font added,
-    // so ImGui auto-adds its default during Build(). We replicate that here —
-    // same call, no explicit AddFontDefault (which could pick a different
-    // font than the auto-add path, diverging layout).
-    g_io->Fonts->Build();
-    g_io->Fonts->TexIsBuilt = true;
-    // Assign a non-zero TexID to the baked font texture so ImDrawCmd::GetTexID()
-    // does not assert. The browser already holds the real font texture (sent
-    // via 0x02 by the server); the twin only needs a stable, non-null id here.
-    // TexID 1 matches the id the server's texture allocator assigns first.
-    if (!g_io->Fonts->TexList.empty()) {
-        ImTextureData* tex = g_io->Fonts->TexList[0];
-        if (tex && tex->TexID == 0) {
-            tex->SetTexID((ImTextureID)(intptr_t)1);
-            tex->Status = ImTextureStatus_OK;
-        }
-    }
+    // Font atlas: same default font the server's backend auto-adds with its
+    // plain io.Fonts->Build(), but rasterized at the browser's device pixel
+    // density so glyphs are crisp on HiDPI displays. Density does not alter
+    // metrics, so layout matches the server's exactly.
+    g_display_density = density;
+    build_font_atlas(density);
     return 0;
 }
 
 EMSCRIPTEN_KEEPALIVE
-void imgui_wasm_replay_set_display_size(int w, int h) {
+void imgui_wasm_replay_set_display_size(int css_w, int css_h, float density) {
     if (!g_io) return;
-    g_io->DisplaySize = ImVec2((float)w, (float)h);
+    g_io->DisplaySize = ImVec2((float)css_w, (float)css_h);
+    if (density <= 0.0f) return;
+    g_io->DisplayFramebufferScale = ImVec2(density, density);
+    // Re-bake only when the density actually changed: the browser fires
+    // resize for pure CSS-size changes where the density is unchanged.
+    if (density != g_display_density) {
+        g_display_density = density;
+        build_font_atlas(density);  // bumps g_font_tex_version
+    }
 }
 
 EMSCRIPTEN_KEEPALIVE
@@ -213,8 +252,10 @@ static void serialize_draw_data(ImDrawData* dd, std::vector<unsigned char>& out)
                 push_u32(bits);
             }
             // texture id: ImTextureRef -> ImTextureID (u64). On the wire the
-            // draw-data path uses (uint64_t)(uintptr_t)GetTexID(); mirror it.
-            uint64_t tex = (uint64_t)(uintptr_t)cmd.GetTexID();
+            // draw-data path uses the u64 value; mirror it. No uintptr_t
+            // round-trip: it is 32-bit in wasm32 and would truncate the
+            // twin atlas page ids (>= 2^32).
+            uint64_t tex = (uint64_t)cmd.GetTexID();
             out.push_back(tex & 0xFF);
             out.push_back((tex >> 8) & 0xFF);
             out.push_back((tex >> 16) & 0xFF);
@@ -240,11 +281,15 @@ const unsigned char* imgui_wasm_replay_frame(const unsigned char* call_bytes,
                                          float fbsx, float fbsy) {
     if (!g_ctx) return nullptr;
     ImGui::SetCurrentContext(g_ctx);
-    // Frame scale/pos mirror the server so layout matches.
-    g_io->DisplaySize = ImVec2(dsw, dsh);
-    g_io->DisplayFramebufferScale = ImVec2(fbsx, fbsy);
-    // The twin must claim focus every frame, otherwise ImGui skips rendering
-    // all windows (the server does the same via io.AddFocusEvent(true)).
+    // Display size/scale come from the LOCAL browser canvas (set via
+    // imgui_wasm_replay_set_display_size), not from the header: each browser
+    // replays the call stream at its own real resolution. The header's
+    // dsw/dsh/fbsx/fbsy describe the server-side layout (authoritative for
+    // input hit-testing and the legacy draw-data path) and are not used for
+    // rendering here. The twin must claim focus every frame, otherwise ImGui
+    // skips rendering all windows (the server does the same via
+    // io.AddFocusEvent(true)).
+    (void)dpx; (void)dpy; (void)dsw; (void)dsh; (void)fbsx; (void)fbsy;
     g_io->AddFocusEvent(true);
 
     ImGui::NewFrame();
@@ -299,34 +344,47 @@ unsigned imgui_wasm_replay_list_count() {
 // --- Font atlas exposure --------------------------------------------------
 // The twin's draw commands reference glyph UVs from THIS atlas. The frontend
 // must upload the twin's atlas as the font texture (NOT the server's, whose
-// glyph packing may differ). These getters let the frontend fetch the pixels
-// once after init and upload them to WebGL texture id 1.
+// glyph packing may differ). The frontend uploads the pixels once after init
+// and re-uploads whenever imgui_wasm_replay_font_tex_version() changes (the
+// atlas is re-baked when the browser's devicePixelRatio changes).
 
 EMSCRIPTEN_KEEPALIVE
-unsigned imgui_wasm_replay_font_tex_width() {
-    if (!g_ctx) return 0;
-    ImGui::SetCurrentContext(g_ctx);
-    if (g_io->Fonts->TexList.empty()) return 0;
-    return (unsigned)g_io->Fonts->TexList[0]->Width;
+unsigned imgui_wasm_replay_font_tex_version() {
+    return g_font_tex_version;
 }
 
 EMSCRIPTEN_KEEPALIVE
-unsigned imgui_wasm_replay_font_tex_height() {
+unsigned imgui_wasm_replay_font_tex_count() {
     if (!g_ctx) return 0;
     ImGui::SetCurrentContext(g_ctx);
-    if (g_io->Fonts->TexList.empty()) return 0;
-    return (unsigned)g_io->Fonts->TexList[0]->Height;
+    return (unsigned)g_io->Fonts->TexList.Size;
 }
 
 EMSCRIPTEN_KEEPALIVE
-const unsigned char* imgui_wasm_replay_font_tex_pixels() {
+unsigned imgui_wasm_replay_font_tex_width(int index) {
+    if (!g_ctx) return 0;
+    ImGui::SetCurrentContext(g_ctx);
+    if (index < 0 || index >= g_io->Fonts->TexList.Size) return 0;
+    return (unsigned)g_io->Fonts->TexList[index]->Width;
+}
+
+EMSCRIPTEN_KEEPALIVE
+unsigned imgui_wasm_replay_font_tex_height(int index) {
+    if (!g_ctx) return 0;
+    ImGui::SetCurrentContext(g_ctx);
+    if (index < 0 || index >= g_io->Fonts->TexList.Size) return 0;
+    return (unsigned)g_io->Fonts->TexList[index]->Height;
+}
+
+EMSCRIPTEN_KEEPALIVE
+const unsigned char* imgui_wasm_replay_font_tex_pixels(int index) {
     if (!g_ctx) return nullptr;
     ImGui::SetCurrentContext(g_ctx);
-    if (g_io->Fonts->TexList.empty()) return nullptr;
-    // The atlas pixels are stored in the texture's Pixels buffer. If not yet
-    // materialized, force a GetTexDataAsRGBA32 call.
-    ImTextureData* tex = g_io->Fonts->TexList[0];
-    if (tex->Pixels == nullptr) {
+    if (index < 0 || index >= g_io->Fonts->TexList.Size) return nullptr;
+    ImTextureData* tex = g_io->Fonts->TexList[index];
+    // Materialize legacy RGBA data on first request when the page has no
+    // direct pixel buffer yet.
+    if (tex->Pixels == nullptr && index == 0) {
         unsigned char* pixels = nullptr;
         int w = 0, h = 0;
         g_io->Fonts->GetTexDataAsRGBA32(&pixels, &w, &h);

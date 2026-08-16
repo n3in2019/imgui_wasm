@@ -109,7 +109,10 @@ extern "C" void imgui_wasm_imgui_backend_new_frame(imgui_wasm_backend_t* backend
     GImGuiWasmCore->backend_new_frame(backend, ImGui::GetTime(), &frame_info);
     io.DeltaTime = frame_info.delta_time;
     io.DisplaySize = ImVec2(frame_info.display_w, frame_info.display_h);
-    io.DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
+    // The active client's devicePixelRatio: reaches the browser in the
+    // call-stream header (fbsx/fbsy) and ImDrawData::FramebufferScale on the
+    // legacy draw-data path. Layout itself stays in CSS pixels.
+    io.DisplayFramebufferScale = ImVec2(frame_info.display_scale, frame_info.display_scale);
     io.AddFocusEvent(true);
     ImGui::NewFrame();
 }
