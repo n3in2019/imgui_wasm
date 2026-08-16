@@ -1,0 +1,9 @@
+/build
+/third_party
+/example
+*.o
+*.a
+imgui.ini
+__pycache__/
+.venv/
+.zcode/
