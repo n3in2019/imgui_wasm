@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [development, main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Emscripten
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes emscripten
+
+      - name: Configure C++ core (fetches pinned Dear ImGui)
+        run: cmake -B build
+
+      - name: Rebuild WASM replay twin
+        run: python3 tools/build_wasm_twin.py
+
+      - name: Build C++ core and example
+        run: cmake --build build --parallel
+
+      - name: Run C++ core tests
+        run: ./build/tests/core_cpp_tests
+
+      - name: Check frontend JavaScript
+        run: |
+          node --check frontend/imgui_wasm.js
+          node --check frontend/imgui_wasm_callstream.js
+
+      - name: Check generator sources
+        run: |
+          python3 -m py_compile tools/generate_bindings.py
+          python3 -m py_compile tools/build_wasm_twin.py
+          python3 -m py_compile tools/dear_bindings/generate.py
+
+      - name: Check whitespace
+        run: git diff --check
