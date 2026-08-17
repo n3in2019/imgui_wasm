@@ -30,4 +30,24 @@ All notable changes to imgui-wasm are documented here. The format follows
   tests, and reproducible generated bindings from pinned `dear_bindings`
   metadata.
 
+## [0.1.1] - 2026-08-17
+
+- CMake install and export support: `find_package(imgui_wasm CONFIG REQUIRED)`
+  with the `imgui_wasm::core` target, installing the public headers plus the
+  pinned Dear ImGui headers and a versioned package config under the
+  GNUInstallDirs layout (project version is now 0.1.1).
+- vcpkg distribution: a `ports/imgui-wasm` port (static linkage, `!windows`)
+  and a `versions/` git-registry database, so this repository can be used as
+  a vcpkg registry or submitted to microsoft/vcpkg. Dear ImGui stays vendored
+  at the pinned revision because the call-stream protocol is revision-coupled.
+- `IMGUI_DIR` is now a cache variable so package managers can pre-seed
+  `third_party/imgui` with the pinned revision; the asset embed step finds
+  Python via `find_program` (`python3`, falling back to `python`) instead of
+  hardcoding `python3`.
+- CMake naming aligned with the project: the project, library target
+  (`imgui_wasm_core_cpp`), exported namespace (`imgui_wasm::core`), and build
+  options (`IMGUI_WASM_BUILD_EXAMPLES`/`IMGUI_WASM_BUILD_TESTS`) use the
+  `imgui_wasm` spelling throughout; the previous `imgui_ws` spellings are gone.
+
+[0.1.1]: https://github.com/n3in2019/imgui_wasm/releases/tag/v0.1.1
 [0.1.0]: https://github.com/n3in2019/imgui_wasm/releases/tag/v0.1.0

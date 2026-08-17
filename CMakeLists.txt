@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(imgui_ws LANGUAGES CXX)
+project(imgui_wasm VERSION 0.1.1 LANGUAGES CXX)
 
 # Pure-C++ core (call-stream transport) for ImGuiWasm.
 
@@ -7,7 +7,10 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CORE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
-set(IMGUI_DIR "${CORE_DIR}/third_party/imgui")
+# Overridable so package managers can pre-seed third_party/imgui with the
+# pinned revision; the fetch below then stays a no-op.
+set(IMGUI_DIR "${CORE_DIR}/third_party/imgui" CACHE PATH
+    "Dear ImGui source directory (the pinned revision is fetched here when missing)")
 set(IMGUI_REVISION "b61e56346a92cfcaf1f43a545ca37b0b32239654")
 
 # Fetch the pinned Dear ImGui docking revision on first configure. The
@@ -48,6 +51,15 @@ endif()
 
 find_package(Threads REQUIRED)
 
+include(GNUInstallDirs)
+include(CMakePackageConfigHelpers)
+
+find_program(IMGUI_WASM_PYTHON NAMES python3 python)
+if(NOT IMGUI_WASM_PYTHON)
+    message(FATAL_ERROR
+        "python3 not found: it is required to embed the frontend assets.")
+endif()
+
 # --- Embedded frontend assets --------------------------------------------------
 
 set(EMBEDDED_ASSETS_CPP "${CMAKE_CURRENT_BINARY_DIR}/embedded_assets.cpp")
@@ -60,7 +72,7 @@ set(ASSET_DEPS
     "${REPLAY_WASM}")
 add_custom_command(
     OUTPUT "${EMBEDDED_ASSETS_CPP}"
-    COMMAND python3 "${CORE_DIR}/tools/embed_assets.py"
+    COMMAND "${IMGUI_WASM_PYTHON}" "${CORE_DIR}/tools/embed_assets.py"
             "${EMBEDDED_ASSETS_CPP}"
             "/|html|${CORE_DIR}/frontend/index.html"
             "/style.css|css|${CORE_DIR}/frontend/style.css"
@@ -74,7 +86,7 @@ add_custom_command(
 
 # --- Core library ---------------------------------------------------------------
 
-add_library(imgui_ws_core_cpp STATIC
+add_library(imgui_wasm_core_cpp
     src/net.cpp
     src/capture.cpp
     src/callstream_protocol.cpp
@@ -93,22 +105,70 @@ add_library(imgui_ws_core_cpp STATIC
     "${IMGUI_DIR}/imgui_widgets.cpp"
     "${IMGUI_DIR}/imgui_demo.cpp")
 
-target_include_directories(imgui_ws_core_cpp
-    PUBLIC src include "${IMGUI_DIR}"
-    PRIVATE "${CORE_DIR}/src")
+add_library(imgui_wasm::core ALIAS imgui_wasm_core_cpp)
+set_target_properties(imgui_wasm_core_cpp PROPERTIES EXPORT_NAME core)
+
+target_include_directories(imgui_wasm_core_cpp
+    PUBLIC
+        $<BUILD_INTERFACE:${CORE_DIR}/src>
+        $<BUILD_INTERFACE:${CORE_DIR}/include>
+        $<BUILD_INTERFACE:${IMGUI_DIR}>
+        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
 # The wrapper's imgui_wasm.hpp uses IMGUI_USER_CONFIG="imconfig.h".
-target_compile_definitions(imgui_ws_core_cpp PUBLIC IMGUI_USER_CONFIG="imconfig.h")
+target_compile_definitions(imgui_wasm_core_cpp PUBLIC IMGUI_USER_CONFIG="imconfig.h")
 
-target_link_libraries(imgui_ws_core_cpp PUBLIC Threads::Threads)
+target_link_libraries(imgui_wasm_core_cpp PUBLIC Threads::Threads)
 
-option(IMGUI_WS_BUILD_EXAMPLES "Build the C++ core examples" OFF)
-option(IMGUI_WS_BUILD_TESTS "Build the C++ core tests" OFF)
+option(IMGUI_WASM_BUILD_EXAMPLES "Build the C++ core examples" OFF)
+option(IMGUI_WASM_BUILD_TESTS "Build the C++ core tests" OFF)
 
-if(IMGUI_WS_BUILD_EXAMPLES)
+if(IMGUI_WASM_BUILD_EXAMPLES)
     add_subdirectory(examples)
 endif()
 
-if(IMGUI_WS_BUILD_TESTS)
+if(IMGUI_WASM_BUILD_TESTS)
     add_subdirectory(tests)
 endif()
+
+# --- Install ---------------------------------------------------------------------
+# Installs the library, public headers, and a CMake package so consumers can
+# find_package(imgui_wasm CONFIG REQUIRED) and link imgui_wasm::core. The
+# installed package embeds Dear ImGui at the pinned revision: imgui.h and
+# siblings ship next to the imgui_wasm headers, minus upstream imconfig.h
+# (the repo's include/imconfig.h is the effective user config via the
+# IMGUI_USER_CONFIG define).
+
+file(GLOB IMGUI_WASM_IMGUI_PUBLIC_HEADERS "${IMGUI_DIR}/*.h")
+list(REMOVE_ITEM IMGUI_WASM_IMGUI_PUBLIC_HEADERS "${IMGUI_DIR}/imconfig.h")
+
+install(TARGETS imgui_wasm_core_cpp
+    EXPORT imgui_wasm-targets
+    ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+    LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+    RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
+
+install(DIRECTORY include/ DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
+install(FILES ${IMGUI_WASM_IMGUI_PUBLIC_HEADERS}
+    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
+install(FILES LICENSE
+    DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/doc/imgui_wasm")
+
+set(IMGUI_WASM_CMAKE_INSTALL_DIR "${CMAKE_INSTALL_DATAROOTDIR}/imgui_wasm")
+
+install(EXPORT imgui_wasm-targets
+    NAMESPACE imgui_wasm::
+    DESTINATION "${IMGUI_WASM_CMAKE_INSTALL_DIR}")
+
+configure_package_config_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake/imgui_wasmConfig.cmake.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/imgui_wasmConfig.cmake"
+    INSTALL_DESTINATION "${IMGUI_WASM_CMAKE_INSTALL_DIR}")
+write_basic_package_version_file(
+    "${CMAKE_CURRENT_BINARY_DIR}/imgui_wasmConfigVersion.cmake"
+    VERSION ${PROJECT_VERSION}
+    COMPATIBILITY SameMajorVersion)
+install(FILES
+    "${CMAKE_CURRENT_BINARY_DIR}/imgui_wasmConfig.cmake"
+    "${CMAKE_CURRENT_BINARY_DIR}/imgui_wasmConfigVersion.cmake"
+    DESTINATION "${IMGUI_WASM_CMAKE_INSTALL_DIR}")

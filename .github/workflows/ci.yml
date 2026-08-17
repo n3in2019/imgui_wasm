@@ -27,7 +27,7 @@ jobs:
           sudo apt-get install --yes emscripten
 
       - name: Configure C++ core (fetches pinned Dear ImGui)
-        run: cmake -B build -DIMGUI_WS_BUILD_EXAMPLES=ON -DIMGUI_WS_BUILD_TESTS=ON
+        run: cmake -B build -DIMGUI_WASM_BUILD_EXAMPLES=ON -DIMGUI_WASM_BUILD_TESTS=ON
 
       - name: Rebuild WASM replay twin
         run: python3 tools/build_wasm_twin.py

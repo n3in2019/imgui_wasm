@@ -1,2 +1,2 @@
 add_executable(example_core_cpp_callstream example_callstream.cpp)
-target_link_libraries(example_core_cpp_callstream PRIVATE imgui_ws_core_cpp)
+target_link_libraries(example_core_cpp_callstream PRIVATE imgui_wasm_core_cpp)

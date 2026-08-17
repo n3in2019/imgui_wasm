@@ -19,7 +19,7 @@ ImGui sources or binaries, keep the Dear ImGui MIT license notice.
 - Project: https://github.com/dearimgui/dear_bindings
 - License: MIT
 
-`imgui_ws/include/imgui_wasm_imgui.h`, `imgui_ws/src/imgui_wasm_imgui.cpp`, and the
+`imgui_wasm/include/imgui_wasm_imgui.h`, `imgui_wasm/src/imgui_wasm_imgui.cpp`, and the
 JSON metadata under `tools/dear_bindings/` are generated with
 `dear_bindings` revision `c9ff64913915df41c0f4beef485b98a1c685eda5`.
 If regenerated or redistributed, keep applicable dear_bindings and Dear ImGui

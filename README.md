@@ -24,7 +24,7 @@ them in a WASM-compiled Dear ImGui twin.
 
 | Component | Responsibility |
 | --- | --- |
-| `imgui_ws` | Pure C++17 core: HTTP/WebSocket server, call-stream capture and framing, C ABI, Dear ImGui backend, and embedded frontend |
+| `imgui_wasm` | Pure C++17 core: HTTP/WebSocket server, call-stream capture and framing, C ABI, Dear ImGui backend, and embedded frontend |
 
 The call-stream transport captures supported API calls and replays them in a
 WASM Dear ImGui twin in the browser. C++ application code uses the same
@@ -62,6 +62,78 @@ To bind to a different address, pass it to the example:
 ```bash
 ./build/examples/example_core_cpp_callstream 0.0.0.0:8888
 ```
+
+## Install via vcpkg
+
+ImGuiWasm ships a vcpkg port (`ports/imgui-wasm`), and this repository also
+works as a vcpkg git registry (`versions/`). The port name is `imgui-wasm`
+(vcpkg does not allow underscores); the CMake package is `imgui_wasm` with the
+`imgui_wasm::core` target.
+
+Use the registry from another project by placing a `vcpkg-configuration.json`
+next to your `vcpkg.json` (pin `baseline` to a commit of this repository):
+
+```json
+{
+  "default-registry": {
+    "kind": "builtin",
+    "baseline": "<any recent microsoft/vcpkg commit>"
+  },
+  "registries": [
+    {
+      "kind": "git",
+      "repository": "https://github.com/n3in2019/imgui_wasm",
+      "baseline": "<commit hash>",
+      "packages": ["imgui-wasm"]
+    }
+  ]
+}
+```
+
+Then depend on it and build with the vcpkg toolchain:
+
+```json
+{ "name": "my-app", "version": "0.0.0", "dependencies": ["imgui-wasm"] }
+```
+
+```bash
+cmake -B build -DCMAKE_TOOLCHAIN_FILE="$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake"
+cmake --build build
+```
+
+and consume it as:
+
+```cmake
+find_package(imgui_wasm CONFIG REQUIRED)
+target_link_libraries(my_app PRIVATE imgui_wasm::core)
+```
+
+For a quick trial without a manifest, install the port directly:
+
+```bash
+vcpkg install imgui-wasm --overlay-ports=/path/to/imgui_wasm/ports
+```
+
+Before cutting a release tag you can validate the port against a working
+tree: set `IMGUI_WASM_LOCAL_SOURCE_DIR` to the repository root and the port
+builds from that tree instead of fetching the tag from GitHub. This
+validation branch is stripped when submitting the port to microsoft/vcpkg.
+
+Notes and limitations:
+
+- The core uses POSIX sockets, so the port declares `!windows` until a
+  winsock backend exists; only static linkage is provided (the library
+  embeds its own Dear ImGui copy).
+- Dear ImGui `v1.92.8` (docking, pinned commit) is vendored inside the
+  library: the call-stream protocol, generated bindings, and the browser
+  WASM twin are revision-coupled and cannot track the standalone `imgui`
+  port.
+- After cutting a release tag, update the source SHA512 in
+  `ports/imgui-wasm/portfile.cmake` (vcpkg prints the expected value on
+  the first failed run; the vendored Dear ImGui fetch needs no hash on
+  current vcpkg), refresh the port's `git-tree` in
+  `versions/i-/imgui-wasm.json` (`git rev-parse HEAD:ports/imgui-wasm`),
+  and bump `versions/baseline.json`.
 
 ## Development
 
