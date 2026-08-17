@@ -78,7 +78,7 @@ All values are little-endian. First byte is message type.
 
 - `0x02` = Texture: id (`u64`), width, height, pixel data length, RGBA pixels.
 - `0x06` = Client ID assignment: assigned client id (`u32`). Sent once on WebSocket connect before any other messages.
-- `0x0a` = Capability hello: magic `"IMGW"` (4 bytes) + server capabilities (`u32`): bit 0 draw-data transport, bit 1 call-stream, bit 2 compression. Sent right after `0x06`; no further server state until the client acks.
+- `0x0a` = Capability hello: magic `"IMGW"` (4 bytes) + server capabilities (`u32`): bit 0 draw-data transport, bit 1 call-stream; remaining bits reserved (bit 2 was never-implemented compression). Sent right after `0x06`; no further server state until the client acks.
 - `0x18` = Clipboard text: text length (`u32`), UTF-8 text bytes.
 
 ### Client-to-server messages

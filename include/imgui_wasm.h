@@ -9,10 +9,8 @@ extern "C" {
 /* lifecycle */
 
 typedef struct {
-    const char* host_port;
-    int compression;
-    int config_flags;
-    int dark_style;
+    const char* host; /* IPv4 dotted quad; NULL = 127.0.0.1 */
+    uint16_t port;    /* 0 = 8888 */
 } imgui_wasm_config_t;
 
 int  imgui_wasm_init(const imgui_wasm_config_t* config);

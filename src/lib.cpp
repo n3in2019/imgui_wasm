@@ -208,46 +208,23 @@ const imgui_wasm_core_api_t kCoreApi = {
 // library verbatim.
 extern "C" {
 void imgui_wasm_imgui_backend_set_core_api(const imgui_wasm_core_api_t* api);
-bool imgui_wasm_imgui_backend_init(int config_flags, int dark_style, int callstream);
+bool imgui_wasm_imgui_backend_init(void);
 void imgui_wasm_imgui_backend_shutdown();
 void imgui_wasm_imgui_backend_begin_frame();
 void imgui_wasm_imgui_backend_render();
 }
 
 extern "C" int imgui_wasm_init(const imgui_wasm_config_t* config) {
-    const char* addr_str = "127.0.0.1:8888";
-    int compression = 0;
-    int config_flags = 0;
-    int dark_style = 1;
+    const char* host = "127.0.0.1";
+    uint16_t port = 8888;
     if (config != nullptr) {
-        if (config->host_port != nullptr) addr_str = config->host_port;
-        compression = config->compression;
-        config_flags = config->config_flags;
-        dark_style = config->dark_style;
-    }
-    if (compression) {
-        // Compression is a config-compat no-op: call-stream frames are tiny.
-        fprintf(stderr, "[imgui_wasm] Note: compression is a no-op\n");
+        if (config->host != nullptr) host = config->host;
+        if (config->port != 0) port = config->port;
     }
 
-    // Parse host:port.
-    std::string addr(addr_str);
-    size_t colon = addr.rfind(':');
-    if (colon == std::string::npos || colon == 0 || colon + 1 >= addr.size()) {
-        fprintf(stderr, "[imgui_wasm] Invalid address '%s'\n", addr_str);
-        return -1;
-    }
-    std::string host = addr.substr(0, colon);
-    char* port_end = nullptr;
-    long port_val = strtol(addr.c_str() + colon + 1, &port_end, 10);
-    if (port_val < 1 || port_val > 65535 || port_end == nullptr || *port_end != '\0') {
-        fprintf(stderr, "[imgui_wasm] Invalid address '%s'\n", addr_str);
-        return -1;
-    }
-    uint16_t port = uint16_t(port_val);
     sockaddr_in probe{};
-    if (inet_pton(AF_INET, host.c_str(), &probe.sin_addr) != 1) {
-        fprintf(stderr, "[imgui_wasm] Invalid address '%s'\n", addr_str);
+    if (inet_pton(AF_INET, host, &probe.sin_addr) != 1) {
+        fprintf(stderr, "[imgui_wasm] Invalid host '%s' (IPv4 dotted quad expected)\n", host);
         return -1;
     }
 
@@ -268,7 +245,7 @@ extern "C" int imgui_wasm_init(const imgui_wasm_config_t* config) {
     };
 
     auto state = std::make_shared<imgui_wasm_core::State>();
-    auto server = imgui_wasm_core::run_server(state, host.c_str(), port);
+    auto server = imgui_wasm_core::run_server(state, host, port);
     if (server == nullptr) {
         initializing_done();
         return -2;
@@ -285,7 +262,7 @@ extern "C" int imgui_wasm_init(const imgui_wasm_config_t* config) {
     imgui_wasm_core::capture::set_enabled(true);
 
     imgui_wasm_imgui_backend_set_core_api(&imgui_wasm_core::kCoreApi);
-    if (!imgui_wasm_imgui_backend_init(config_flags, dark_style, 1)) {
+    if (!imgui_wasm_imgui_backend_init()) {
         imgui_wasm_core::capture::set_enabled(false);
         imgui_wasm_core::stop_server(server);
         {
@@ -300,7 +277,7 @@ extern "C" int imgui_wasm_init(const imgui_wasm_config_t* config) {
     initializing_done();
 
     fprintf(stderr, "[imgui_wasm] Initialized (C++ core, call-stream), open http://%s:%u in your browser\n",
-            host.c_str(), port);
+            host, unsigned(port));
     return 0;
 }
 

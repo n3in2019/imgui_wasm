@@ -3,6 +3,9 @@
 
 #include <chrono>
 #include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <string>
 #include <thread>
 
 #include "imgui.h"
@@ -10,18 +13,29 @@
 
 int main(int argc, char** argv) {
     imgui_wasm::Config config;
-    config.host_port = argc > 1 ? argv[1] : config.host_port;
-    // Docking is disabled: it creates an implicit dockspace host window that
-    // shifts the main viewport layout; since the dockspace itself isn't part
-    // of the captured widget surface, server and twin would diverge in window
-    // placement, making clicks miss.
-    config.config_flags = ImGuiConfigFlags_NavEnableKeyboard;
-
+    // Accept "[host:]port" — e.g. "0.0.0.0:9000" or just "9000".
+    std::string host_arg;
+    if (argc > 1) {
+        if (const char* sep = std::strrchr(argv[1], ':')) {
+            host_arg.assign(argv[1], size_t(sep - argv[1]));
+            config.host = host_arg.c_str();
+            config.port = uint16_t(std::atoi(sep + 1));
+        } else {
+            config.port = uint16_t(std::atoi(argv[1]));
+        }
+    }
     imgui_wasm::Server app;
     if (!app.init(config)) {
         fprintf(stderr, "Failed to initialize ImGuiWasm (C++ core)\n");
         return 1;
     }
+
+    // Keyboard nav on; docking off (fresh contexts enable nothing). Docking
+    // creates an implicit dockspace host window that shifts the main viewport
+    // layout; since the dockspace itself isn't part of the captured widget
+    // surface, server and twin would diverge in window placement, making
+    // clicks miss.
+    ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
 
     float f = 0.0f;
     int counter = 0;

@@ -49,5 +49,30 @@ All notable changes to imgui-wasm are documented here. The format follows
   options (`IMGUI_WASM_BUILD_EXAMPLES`/`IMGUI_WASM_BUILD_TESTS`) use the
   `imgui_wasm` spelling throughout; the previous `imgui_ws` spellings are gone.
 
+## [Unreleased]
+
+- Breaking: removed the `compression` field from `imgui_wasm_config_t` and
+  `imgui_wasm::Config`. It had been a compatibility no-op since the call-stream
+  transport replaced draw-data streaming — frames are tens of bytes, so there is
+  nothing worth compressing. Capability bit 2 is now documented as reserved.
+- Breaking: removed the `dark_style` field from both config structs and the
+  backend init parameter. It could never change the theme: Dear ImGui has
+  defaulted to dark since 1.53, so both settings left the context dark.
+  Applications pick themes the idiomatic way (`ImGui::StyleColorsLight()` etc.
+  after init).
+- Breaking: split the `host_port` string into separate `host` (`const char*`,
+  IPv4 dotted quad, NULL = 127.0.0.1) and `port` (`uint16_t`, 0 = 8888) fields
+  in both config structs. The `host:port` string is no longer parsed at
+  runtime; the example still accepts a `[host:]port` CLI argument.
+- Breaking: removed the `config_flags` field from both config structs — the
+  config is now transport-only (`host`, `port`). Applications set
+  `ImGui::GetIO().ConfigFlags` after init, as with any Dear ImGui backend.
+  This also drops the wrapper default that enabled `DockingEnable`, which
+  call-stream mode does not support. The replay twin still never sees
+  ConfigFlags; streaming them to it is planned for v0.2.
+- Removed the dead `callstream` mode flag from the internal backend init: the
+  legacy draw-data transport is gone, so the parameter (and its `GCallstream`
+  guard) could never be false.
+
 [0.1.1]: https://github.com/n3in2019/imgui_wasm/releases/tag/v0.1.1
 [0.1.0]: https://github.com/n3in2019/imgui_wasm/releases/tag/v0.1.0

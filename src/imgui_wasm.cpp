@@ -16,10 +16,8 @@ class Server::Impl {
         if (initialized) return true;
 
         imgui_wasm_config_t cfg;
-        cfg.host_port = config.host_port;
-        cfg.compression = config.compression ? 1 : 0;
-        cfg.config_flags = config.config_flags;
-        cfg.dark_style = config.dark_style ? 1 : 0;
+        cfg.host = config.host;
+        cfg.port = config.port;
         if (imgui_wasm_init(&cfg) != 0) {
             return false;
         }

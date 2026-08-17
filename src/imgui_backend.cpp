@@ -10,7 +10,6 @@
 #include "imgui_internal.h"  // GImGui/SettingsDirtyTimer: INI refresh signal
 
 static const imgui_wasm_core_api_t* GImGuiWasmCore = nullptr;
-static bool GCallstream = false;
 static unsigned GCallstreamFrameCount = 0;
 static std::string GCallstreamIni;
 
@@ -65,7 +64,7 @@ extern "C" void imgui_wasm_imgui_backend_new_frame(imgui_wasm_backend_t* backend
     // against stale geometry and its clicks miss the server-side windows.
     // SaveIniSettingsToMemory() resets the dirty timer, so each settings
     // change triggers exactly one re-save on the next frame.
-    if (GCallstream && GCallstreamFrameCount++ > 0) {
+    if (GCallstreamFrameCount++ > 0) {
         ImGuiContext& g = *GImGui;
         if (GCallstreamIni.empty() || g.SettingsDirtyTimer > 0.0f) {
             size_t ini_size = 0;
@@ -170,19 +169,13 @@ extern "C" void imgui_wasm_imgui_backend_render_draw_data(imgui_wasm_backend_t* 
     GImGuiWasmCore->end_frame();
 }
 
-extern "C" bool imgui_wasm_imgui_backend_init(int config_flags, int dark_style, int callstream) {
+extern "C" bool imgui_wasm_imgui_backend_init(void) {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
 
     ImGuiIO& io = ImGui::GetIO();
-    io.ConfigFlags |= config_flags;
-    GCallstream = callstream != 0;
     GCallstreamFrameCount = 0;
     GCallstreamIni.clear();
-
-    if (dark_style) {
-        ImGui::StyleColorsDark();
-    }
 
     ImGuiWasmBackendData* bd = IM_NEW(ImGuiWasmBackendData)();
     bd->Core = GImGuiWasmCore->backend_create();
@@ -209,7 +202,6 @@ extern "C" bool imgui_wasm_imgui_backend_init(int config_flags, int dark_style, 
 }
 
 extern "C" void imgui_wasm_imgui_backend_shutdown() {
-    GCallstream = false;
     GCallstreamFrameCount = 0;
     GCallstreamIni.clear();
     ImGuiWasmBackendData* bd = ImGuiWasm_GetBackendData();

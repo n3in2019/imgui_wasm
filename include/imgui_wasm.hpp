@@ -13,14 +13,14 @@
 namespace imgui_wasm {
 
 struct Config {
-    const char* host_port = "127.0.0.1:8888";
-    ImGuiConfigFlags config_flags = ImGuiConfigFlags_NavEnableKeyboard | ImGuiConfigFlags_DockingEnable;
-    bool dark_style = true;
-    bool compression = false;
+    const char* host = "127.0.0.1";  // IPv4 dotted quad
+    uint16_t port = 8888;
     // Transport is call-stream only (protocol 0x07-0x09): ImGui API calls are
     // streamed to the browser and replayed against a WASM Dear ImGui twin.
     // Supported ImGui:: calls are captured transparently through the public
-    // header.
+    // header. ImGui settings (io.ConfigFlags, styles) belong to the
+    // application: set them on the context right after init(), as with any
+    // Dear ImGui backend.
 };
 
 class Server {
