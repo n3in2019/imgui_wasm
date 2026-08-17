@@ -154,6 +154,42 @@ generation rules. Release changes are recorded in [CHANGELOG.md](CHANGELOG.md).
 
 ## Security
 
+### Access control
+
+Auth uses Linux accounts via PAM, configured through `imgui_wasm::Config`
+(or `imgui_wasm_config_t`):
+
+```cpp
+config.pam_service = "imgui_wasm";  // empty = auth disabled (default)
+config.max_clients = 8;             // connection caps; 0 = unlimited
+config.max_clients_per_ip = 2;
+```
+
+With a `pam_service` set, static pages and WebSocket upgrades require HTTP
+Basic credentials verified against that PAM service: the browser shows its
+native login dialog on the page request and forwards the credentials to
+the `/ws` upgrade automatically, so passwords never appear in URLs.
+Rejections carry the `WWW-Authenticate` challenge before the upgrade
+completes, over-cap connections get `503`, and verified usernames are
+logged per connection.
+
+Deploy a service file first, e.g. `/etc/pam.d/imgui_wasm`:
+
+```
+auth     required  pam_unix.so
+account  required  pam_unix.so
+```
+
+Privilege reality: an unprivileged server can verify passwords against
+SSSD/LDAP-backed domains and **its own user's** account (the
+`unix_chkpwd` rule). Verifying *other* local `/etc/shadow` accounts
+requires root, the shadow group, or a small setuid helper — the same trade
+`sshd` makes. If none of those fit your deployment, keep the server on a
+trusted network (LAN, VPN) or behind an authenticating reverse proxy.
+
+libpam is loaded at runtime (`dlopen`), so builds stay dependency-free;
+PAM auth itself is Linux-only.
+
 Please do not report vulnerabilities in public issues. Follow the private
 reporting guidance in [SECURITY.md](SECURITY.md).
 

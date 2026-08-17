@@ -6,6 +6,7 @@
 
 #include <functional>
 #include <memory>
+#include <string>
 #include <utility>
 
 #include "imgui.h"
@@ -15,6 +16,15 @@ namespace imgui_wasm {
 struct Config {
     const char* host = "127.0.0.1";  // IPv4 dotted quad
     uint16_t port = 8888;
+    unsigned max_clients = 0;       // connection caps; 0 = unlimited
+    unsigned max_clients_per_ip = 0;
+    // PAM-backed HTTP Basic login: a non-empty pam_service makes static
+    // pages and WebSocket upgrades require username/password verified via
+    // PAM (libpam loaded at runtime). Deploy /etc/pam.d/<service> first.
+    // Unprivileged verification covers SSSD/LDAP domains and the process's
+    // own user; other local /etc/shadow accounts need root, the shadow
+    // group, or a setuid helper (see README). Linux only.
+    std::string pam_service;
     // Transport is call-stream only (protocol 0x07-0x09): ImGui API calls are
     // streamed to the browser and replayed against a WASM Dear ImGui twin.
     // Supported ImGui:: calls are captured transparently through the public

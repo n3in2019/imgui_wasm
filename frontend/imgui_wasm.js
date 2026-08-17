@@ -472,6 +472,8 @@ function connect() {
     pendingSends = [];
     sendFlushQueued = false;
     const proto = location.protocol === "https:" ? "wss:" : "ws:";
+    // With PAM auth on, the browser forwards the cached Basic credentials
+    // (from the page's login dialog) on this upgrade by itself.
     ws = new WebSocket(`${proto}//${location.host}/ws`);
     ws.binaryType = "arraybuffer";
 

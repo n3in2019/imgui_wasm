@@ -2,8 +2,10 @@
 // and the frame path. Frames are built from the capture buffer.
 
 #include "core.hpp"
+#include "pam_auth.hpp"
 
 #include <algorithm>
+#include <cstdio>
 #include <cstring>
 
 namespace imgui_wasm_core {
@@ -171,13 +173,14 @@ std::vector<uint8_t> make_clipboard_write_msg(const std::string& text) {
 
 // --- State -------------------------------------------------------------------
 
-ClientId State::add_client() {
+ClientId State::add_client(uint32_t peer_addr) {
     ClientId id;
     std::shared_ptr<OutBox> out;
     {
         std::lock_guard<std::mutex> lk(clients_mtx_);
         id = next_client_id_++;
         auto [it, inserted] = clients_.emplace(id, ClientState{});
+        it->second.peer_addr = peer_addr;
         out = it->second.out;
     }
     {
@@ -212,6 +215,54 @@ void State::remove_client(ClientId id) {
 bool State::has_clients() const {
     std::lock_guard<std::mutex> lk(clients_mtx_);
     return !clients_.empty();
+}
+
+void State::set_auth(const AuthConfig& auth) {
+    std::lock_guard<std::mutex> lk(auth_mtx_);
+    auth_ = auth;
+}
+
+bool State::connection_allowed(uint32_t peer_addr) const {
+    uint32_t max_total;
+    uint32_t max_ip;
+    {
+        std::lock_guard<std::mutex> lk(auth_mtx_);
+        max_total = auth_.max_clients;
+        max_ip = auth_.max_clients_per_ip;
+    }
+    if (max_total == 0 && max_ip == 0) return true;
+    std::lock_guard<std::mutex> lk(clients_mtx_);
+    if (max_total != 0 && clients_.size() >= max_total) return false;
+    if (max_ip != 0) {
+        size_t from_peer = 0;
+        for (const auto& [id, cs] : clients_) {
+            if (cs.peer_addr == peer_addr) from_peer++;
+        }
+        if (from_peer >= max_ip) return false;
+    }
+    return true;
+}
+
+bool State::pam_auth_enabled() const {
+    std::lock_guard<std::mutex> lk(auth_mtx_);
+    return !auth_.pam_service.empty() && auth_.pam != nullptr;
+}
+
+bool State::pam_verify(const std::string& user, const std::string& password) {
+    std::string service;
+    std::shared_ptr<PamAuth> pam;
+    {
+        std::lock_guard<std::mutex> lk(auth_mtx_);
+        service = auth_.pam_service;
+        pam = auth_.pam;
+    }
+    if (!pam) return false;
+    std::string err;
+    bool ok = pam->verify(service, user, password, &err);
+    if (!ok) {
+        fprintf(stderr, "[imgui_wasm] PAM rejected user '%s': %s\n", user.c_str(), err.c_str());
+    }
+    return ok;
 }
 
 void State::push_input(ClientId id, const InputEvent& ev) {

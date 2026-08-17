@@ -1,11 +1,14 @@
 // protocol_tests.cpp — parse/handshake/coalescing tests for the wire input
 // path, plus a coalescing test for the OutBox.
 
+#include <arpa/inet.h>
+
 #include <cassert>
 #include <cstdio>
 #include <cstring>
 
 #include "core.hpp"
+#include "net.hpp"
 
 using namespace imgui_wasm_core;
 
@@ -270,6 +273,34 @@ void serialize_roundtrip_layouts() {
     assert(strings[5] == 7);  // id byte 0
 }
 
+void caps_limit_total_and_per_peer() {
+    State state;
+    AuthConfig auth;
+    auth.max_clients = 2;
+    auth.max_clients_per_ip = 1;
+    state.set_auth(auth);
+    const uint32_t peer_a = htonl(0x7f000001);
+    const uint32_t peer_b = htonl(0x7f000002);
+    assert(state.connection_allowed(peer_a));
+    ClientId a = state.add_client(peer_a);
+    assert(!state.connection_allowed(peer_a));  // per-IP cap
+    assert(state.connection_allowed(peer_b));
+    ClientId b = state.add_client(peer_b);
+    assert(!state.connection_allowed(peer_b));  // total cap reached
+    state.remove_client(a);
+    assert(state.connection_allowed(peer_a));
+    state.remove_client(b);
+}
+
+void base64_decode_round_trips_and_rejects_garbage() {
+    std::vector<uint8_t> out;
+    assert(net::base64_decode("dXNlcjpwYXNz", out));
+    assert(out.size() == 9 && memcmp(out.data(), "user:pass", 9) == 0);
+    assert(net::base64_decode("YQ==", out));
+    assert(out.size() == 1 && out[0] == 'a');
+    assert(!net::base64_decode("%%%%", out));
+}
+
 }  // namespace
 
 int main() {
@@ -285,6 +316,8 @@ int main() {
     coalesced_frame_forces_a_resync();
     frame_hash_is_deterministic_and_sensitive();
     serialize_roundtrip_layouts();
+    base64_decode_round_trips_and_rejects_garbage();
+    caps_limit_total_and_per_peer();
     printf("all core_cpp_tests passed\n");
     return 0;
 }

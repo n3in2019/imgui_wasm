@@ -24,6 +24,12 @@ int main(int argc, char** argv) {
             config.port = uint16_t(std::atoi(argv[1]));
         }
     }
+    // Optional PAM-backed Basic auth: IMGUI_WASM_PAM=<service> ./example ...
+    // ("1" selects the default "imgui_wasm" service).
+    if (const char* pam = std::getenv("IMGUI_WASM_PAM")) {
+        config.pam_service = (pam[0] != '\0' && strcmp(pam, "1") != 0) ? pam : "imgui_wasm";
+    }
+
     imgui_wasm::Server app;
     if (!app.init(config)) {
         fprintf(stderr, "Failed to initialize ImGuiWasm (C++ core)\n");

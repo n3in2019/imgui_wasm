@@ -2,6 +2,7 @@
 // shared ImGui backend (src/imgui_backend.cpp).
 
 #include "core.hpp"
+#include "pam_auth.hpp"
 #include "server.hpp"
 
 #include <arpa/inet.h>
@@ -245,6 +246,25 @@ extern "C" int imgui_wasm_init(const imgui_wasm_config_t* config) {
     };
 
     auto state = std::make_shared<imgui_wasm_core::State>();
+
+    imgui_wasm_core::AuthConfig auth;
+    if (config != nullptr) {
+        auth.max_clients = config->max_clients;
+        auth.max_clients_per_ip = config->max_clients_per_ip;
+        if (config->pam_service != nullptr && config->pam_service[0] != '\0') {
+            std::string err;
+            auth.pam = imgui_wasm_core::PamAuth::load(&err);
+            if (!auth.pam) {
+                fprintf(stderr, "[imgui_wasm] PAM auth requested but unavailable: %s\n",
+                        err.c_str());
+                initializing_done();
+                return -4;
+            }
+            auth.pam_service = config->pam_service;
+        }
+    }
+    state->set_auth(auth);
+
     auto server = imgui_wasm_core::run_server(state, host, port);
     if (server == nullptr) {
         initializing_done();
@@ -276,6 +296,10 @@ extern "C" int imgui_wasm_init(const imgui_wasm_config_t* config) {
     imgui_wasm_core::g_initialized.store(true, std::memory_order_seq_cst);
     initializing_done();
 
+    if (!auth.pam_service.empty()) {
+        fprintf(stderr, "[imgui_wasm] PAM Basic auth enabled (service '%s')\n",
+                auth.pam_service.c_str());
+    }
     fprintf(stderr, "[imgui_wasm] Initialized (C++ core, call-stream), open http://%s:%u in your browser\n",
             host, unsigned(port));
     return 0;

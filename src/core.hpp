@@ -105,16 +105,38 @@ struct ClientState {
     size_t force_frames = 3;
     std::string clipboard_text;
     uint32_t capabilities = 0;
+    uint32_t peer_addr = 0;  // network byte order; 0 = unknown
     std::shared_ptr<OutBox> out = std::make_shared<OutBox>();
+};
+
+// --- Connection auth + capacity caps -----------------------------------------
+
+class PamAuth;
+
+struct AuthConfig {
+    uint32_t max_clients = 0;         // 0 = unlimited
+    uint32_t max_clients_per_ip = 0;  // 0 = unlimited
+    // Non-empty + a loaded PamAuth = HTTP Basic credentials are verified
+    // against this PAM service (static pages and WebSocket upgrades).
+    std::string pam_service;
+    std::shared_ptr<PamAuth> pam;
 };
 
 // --- Shared server state (state.cpp) ----------------------------------------
 
 class State {
    public:
-    ClientId add_client();
+    ClientId add_client(uint32_t peer_addr = 0);
     void remove_client(ClientId id);
     bool has_clients() const;
+
+    void set_auth(const AuthConfig& auth);
+    // Within max_clients / max_clients_per_ip. Friction-level: concurrent
+    // handshakes can briefly exceed the cap.
+    bool connection_allowed(uint32_t peer_addr) const;
+    bool pam_auth_enabled() const;
+    // Runs the PAM conversation for the configured service.
+    bool pam_verify(const std::string& user, const std::string& password);
 
     void push_input(ClientId id, const InputEvent& ev);
     std::optional<InputEvent> try_poll_input();
@@ -154,6 +176,9 @@ class State {
     ClientId next_client_id_ = 1;
     mutable std::mutex active_mtx_;
     std::optional<ClientId> active_client_;
+
+    mutable std::mutex auth_mtx_;
+    AuthConfig auth_;
 
     std::mutex input_mtx_;
     std::deque<std::pair<ClientId, InputEvent>> input_;

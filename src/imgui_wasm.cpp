@@ -15,9 +15,12 @@ class Server::Impl {
     bool init(const Config& config) {
         if (initialized) return true;
 
-        imgui_wasm_config_t cfg;
+        imgui_wasm_config_t cfg = {};
         cfg.host = config.host;
         cfg.port = config.port;
+        cfg.max_clients = config.max_clients;
+        cfg.max_clients_per_ip = config.max_clients_per_ip;
+        cfg.pam_service = config.pam_service.empty() ? nullptr : config.pam_service.c_str();
         if (imgui_wasm_init(&cfg) != 0) {
             return false;
         }

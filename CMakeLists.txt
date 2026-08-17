@@ -93,6 +93,7 @@ add_library(imgui_wasm_core_cpp
     src/state.cpp
     src/server.cpp
     src/lib.cpp
+    src/pam_auth.cpp
     # C++ convenience wrapper (Server + on_render).
     src/imgui_wasm.cpp
     "${EMBEDDED_ASSETS_CPP}"
@@ -119,6 +120,8 @@ target_include_directories(imgui_wasm_core_cpp
 target_compile_definitions(imgui_wasm_core_cpp PUBLIC IMGUI_USER_CONFIG="imconfig.h")
 
 target_link_libraries(imgui_wasm_core_cpp PUBLIC Threads::Threads)
+# PAM is loaded at runtime (dlopen); only libdl is needed at link time.
+target_link_libraries(imgui_wasm_core_cpp PRIVATE ${CMAKE_DL_LIBS})
 
 option(IMGUI_WASM_BUILD_EXAMPLES "Build the C++ core examples" OFF)
 option(IMGUI_WASM_BUILD_TESTS "Build the C++ core tests" OFF)

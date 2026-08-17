@@ -216,6 +216,36 @@ std::string ws_accept_key(const std::string& key) {
     return base64_encode(digest, sizeof(digest));
 }
 
+namespace {
+int base64_val(char c) {
+    if (c >= 'A' && c <= 'Z') return c - 'A';
+    if (c >= 'a' && c <= 'z') return c - 'a' + 26;
+    if (c >= '0' && c <= '9') return c - '0' + 52;
+    if (c == '+') return 62;
+    if (c == '/') return 63;
+    return -1;
+}
+}  // namespace
+
+bool base64_decode(const std::string& in, std::vector<uint8_t>& out) {
+    out.clear();
+    if (in.size() % 4 == 1) return false;
+    uint32_t acc = 0;
+    int bits = 0;
+    for (char c : in) {
+        if (c == '=') break;
+        int v = base64_val(c);
+        if (v < 0) return false;
+        acc = (acc << 6) | uint32_t(v);
+        bits += 6;
+        if (bits >= 8) {
+            bits -= 8;
+            out.push_back(uint8_t((acc >> bits) & 0xFF));
+        }
+    }
+    return true;
+}
+
 bool send_ws_upgrade(int fd, const std::string& ws_key) {
     std::string accept = ws_accept_key(ws_key);
     std::string resp = "HTTP/1.1 101 Switching Protocols\r\n"

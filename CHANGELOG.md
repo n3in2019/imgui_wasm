@@ -73,6 +73,16 @@ All notable changes to imgui-wasm are documented here. The format follows
 - Removed the dead `callstream` mode flag from the internal backend init: the
   legacy draw-data transport is gone, so the parameter (and its `GCallstream`
   guard) could never be false.
+- Auth: Linux account login via PAM plus connection caps. Setting
+  `pam_service` in either config struct makes static pages and WebSocket
+  upgrades require HTTP Basic credentials verified against the named PAM
+  service — the browser's native login dialog covers the whole protection
+  space, and credentials ride the upgrade, never URLs.
+  `max_clients`/`max_clients_per_ip` cap connections (over-cap gets 503).
+  libpam is loaded at runtime via dlopen (the build gains no dependency);
+  unprivileged verification covers SSSD/LDAP domains and the server's own
+  user, other local accounts need elevated privileges (documented in the
+  README). Verified usernames are logged per connection. Linux only.
 
 [0.1.1]: https://github.com/n3in2019/imgui_wasm/releases/tag/v0.1.1
 [0.1.0]: https://github.com/n3in2019/imgui_wasm/releases/tag/v0.1.0

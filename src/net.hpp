@@ -67,6 +67,10 @@ struct WsReader {
 // Computes the Sec-WebSocket-Accept value (base64(SHA1(key + GUID))).
 std::string ws_accept_key(const std::string& key);
 
+// Decodes standard base64 (used for HTTP Basic credentials). Returns false
+// on non-base64 input.
+bool base64_decode(const std::string& in, std::vector<uint8_t>& out);
+
 // Socket options shared by client connections: bounded send/recv so a dead
 // peer cannot wedge a thread forever.
 void configure_client_socket(int fd);

@@ -13,6 +13,7 @@
 #include <netinet/in.h>
 #include <netinet/tcp.h>
 #include <string.h>
+#include <strings.h>
 #include <sys/socket.h>
 #include <unistd.h>
 
@@ -46,6 +47,45 @@ void serve_static(int fd, const char* url_path) {
     }
     const char* not_found = "not found";
     net::send_http_response(fd, "404 Not Found", "text/plain; charset=utf-8", not_found, 9);
+}
+
+struct BasicCreds {
+    std::string user;
+    std::string password;
+};
+
+// Parses "Authorization: Basic base64(user:password)".
+std::optional<BasicCreds> request_basic(const net::HttpRequest& req) {
+    auto it = req.headers.find("authorization");
+    if (it == req.headers.end()) return std::nullopt;
+    const std::string& v = it->second;
+    if (v.size() <= 6 || strncasecmp(v.c_str(), "basic ", 6) != 0) return std::nullopt;
+    std::vector<uint8_t> decoded;
+    if (!net::base64_decode(v.substr(6), decoded) || decoded.size() > 512) return std::nullopt;
+    size_t colon = 0;
+    while (colon < decoded.size() && decoded[colon] != ':') colon++;
+    if (colon == decoded.size()) return std::nullopt;  // no password separator
+    BasicCreds creds;
+    creds.user.assign(reinterpret_cast<const char*>(decoded.data()), colon);
+    creds.password.assign(reinterpret_cast<const char*>(decoded.data()) + colon + 1,
+                          decoded.size() - colon - 1);
+    return creds;
+}
+
+// 401 with the Basic challenge: on a page request the browser answers with
+// its native login dialog and caches the credentials for the same
+// protection space — including the /ws upgrade.
+void send_401_basic(int fd) {
+    const char* body = "unauthorized";
+    char head[256];
+    int n = snprintf(head, sizeof(head),
+                     "HTTP/1.1 401 Unauthorized\r\n"
+                     "WWW-Authenticate: Basic realm=\"ImGuiWasm\", charset=\"UTF-8\"\r\n"
+                     "Content-Type: text/plain; charset=utf-8\r\n"
+                     "Content-Length: %zu\r\n"
+                     "Connection: close\r\n\r\n",
+                     strlen(body));
+    if (n > 0 && net::send_all(fd, head, size_t(n))) net::send_all(fd, body, strlen(body));
 }
 
 // --- WebSocket session --------------------------------------------------------
@@ -227,7 +267,8 @@ done:
     conn->send_close();
 }
 
-void connection_thread(std::shared_ptr<State> state, std::shared_ptr<ServerHandle> server, int fd) {
+void connection_thread(std::shared_ptr<State> state, std::shared_ptr<ServerHandle> server, int fd,
+                       uint32_t peer_addr) {
     // RAII ownership of the raw fd until it is handed to a WsConn; guarantees
     // close on every exit path, including exceptions.
     struct FdGuard {
@@ -242,14 +283,34 @@ void connection_thread(std::shared_ptr<State> state, std::shared_ptr<ServerHandl
         auto req = net::read_http_request(fd);
         if (!req) return;
 
-        if (req->path == "/ws" && is_websocket_upgrade(*req)) {
+        std::string ws_path = req->path.substr(0, req->path.find('?'));
+        if (ws_path == "/ws" && is_websocket_upgrade(*req)) {
+            // Capacity and auth run before the 101 so rejected connections
+            // never become WebSocket clients.
+            if (!state->connection_allowed(peer_addr)) {
+                static const char busy[] = "server busy";
+                net::send_http_response(fd, "503 Service Unavailable",
+                                        "text/plain; charset=utf-8", busy, sizeof(busy) - 1);
+                return;
+            }
+            // PAM-backed Basic auth: reject the upgrade before the 101 when
+            // credentials are missing or invalid.
+            if (state->pam_auth_enabled()) {
+                auto creds = request_basic(*req);
+                if (!creds || !state->pam_verify(creds->user, creds->password)) {
+                    send_401_basic(fd);
+                    return;
+                }
+                fprintf(stderr, "[imgui_wasm] WebSocket client authorized (user '%s')\n",
+                        creds->user.c_str());
+            }
             auto key_it = req->headers.find("sec-websocket-key");
             if (key_it == req->headers.end()) return;
             if (!net::send_ws_upgrade(fd, key_it->second)) return;
 
             auto conn = std::make_shared<net::WsConn>(fd);
             guard.fd = -1;  // ownership transferred to the WsConn
-            ClientId client_id = state->add_client();
+            ClientId client_id = state->add_client(peer_addr);
             std::shared_ptr<OutBox> out;
             state->with_clients([&](std::unordered_map<ClientId, ClientState>& clients) {
                 auto it = clients.find(client_id);
@@ -265,7 +326,18 @@ void connection_thread(std::shared_ptr<State> state, std::shared_ptr<ServerHandl
             return;
         }
 
-        serve_static(fd, req->path.c_str());
+        // With PAM auth, static pages sit in the same Basic protection
+        // space: the 401 challenge on the page request triggers the
+        // browser's native login dialog, and the cached credentials ride
+        // the /ws upgrade automatically.
+        if (state->pam_auth_enabled()) {
+            auto creds = request_basic(*req);
+            if (!creds || !state->pam_verify(creds->user, creds->password)) {
+                send_401_basic(fd);
+                return;
+            }
+        }
+        serve_static(fd, ws_path.c_str());
     } catch (...) {
         fprintf(stderr, "[imgui_wasm] connection thread failed\n");
     }
@@ -326,13 +398,18 @@ std::shared_ptr<ServerHandle> run_server(std::shared_ptr<State> state, const cha
 
     std::thread acceptor([state, server, listen_fd] {
         while (!server->stopped.load(std::memory_order_acquire)) {
-            int fd = ::accept(listen_fd, nullptr, nullptr);
+            sockaddr_in peer{};
+            socklen_t peer_len = sizeof(peer);
+            int fd = ::accept(listen_fd, reinterpret_cast<sockaddr*>(&peer), &peer_len);
             if (fd < 0) {
                 if (errno == EINTR) continue;
                 break;  // listener closed (shutdown) or fatal
             }
+            uint32_t peer_addr = peer_len >= sizeof(peer) ? peer.sin_addr.s_addr : 0;
             try {
-                std::thread([state, server, fd] { connection_thread(state, server, fd); }).detach();
+                std::thread([state, server, fd, peer_addr] {
+                    connection_thread(state, server, fd, peer_addr);
+                }).detach();
             } catch (...) {
                 // Thread creation failed (resource exhaustion): drop the
                 // connection rather than terminating the process.
