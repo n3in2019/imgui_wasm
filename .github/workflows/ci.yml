@@ -51,3 +51,76 @@ jobs:
 
       - name: Check whitespace
         run: git diff --check
+
+  vcpkg-port:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      # Builds the port from the checkout (IMGUI_WASM_LOCAL_SOURCE_DIR, the
+      # portfile's pre-release validation branch) and consumes it through a
+      # fresh manifest project, the way end users do.
+      - name: Exercise the vcpkg port with a manifest consumer
+        env:
+          IMGUI_WASM_LOCAL_SOURCE_DIR: ${{ github.workspace }}
+        run: |
+          set -eux
+          D="$RUNNER_TEMP/port-consumer"
+          mkdir -p "$D"
+          cat > "$D/CMakeLists.txt" <<'EOF'
+          cmake_minimum_required(VERSION 3.10)
+          project(imgui_wasm_port_consumer LANGUAGES CXX)
+          set(CMAKE_CXX_STANDARD 17)
+          set(CMAKE_CXX_STANDARD_REQUIRED ON)
+          find_package(imgui_wasm CONFIG REQUIRED)
+          add_executable(consumer main.cpp)
+          target_link_libraries(consumer PRIVATE imgui_wasm::core)
+          EOF
+          cat > "$D/vcpkg.json" <<'EOF'
+          {
+            "name": "imgui-wasm-port-consumer",
+            "version": "0.0.0",
+            "dependencies": [ "imgui-wasm" ]
+          }
+          EOF
+          cat > "$D/vcpkg-configuration.json" <<EOF
+          {
+            "overlay-ports": [ "${{ github.workspace }}/ports" ]
+          }
+          EOF
+          cat > "$D/main.cpp" <<'EOF'
+          #include <chrono>
+          #include <cstdio>
+          #include <thread>
+
+          #include "imgui.h"
+          #include "imgui_wasm.hpp"
+
+          int main() {
+              imgui_wasm::Config config;
+              config.host_port = "127.0.0.1:8897";
+              imgui_wasm::Server app;
+              if (!app.init(config)) {
+                  return 1;
+              }
+              bool running = true;
+              auto render = app.on_render([&]() {
+                  ImGui::Begin("port consumer", &running);
+                  ImGui::TextUnformatted("installed via vcpkg");
+                  ImGui::End();
+              });
+              for (int i = 0; running && render && i < 10; ++i) {
+                  app.render();
+                  std::this_thread::sleep_for(std::chrono::milliseconds(16));
+              }
+              std::puts("vcpkg port consumer ok");
+              return 0;
+          }
+          EOF
+          cmake -S "$D" -B "$D/build" \
+              -DCMAKE_TOOLCHAIN_FILE="$VCPKG_INSTALLATION_ROOT/scripts/buildsystems/vcpkg.cmake"
+          cmake --build "$D/build"
+          "$D/build/consumer"
