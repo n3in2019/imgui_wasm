@@ -8,6 +8,8 @@ Applications run their ImGui context in native C++ while the core streams
 captured API calls over WebSocket to an embedded WebGL frontend that replays
 them in a WASM-compiled Dear ImGui twin.
 
+![Demo: docking the Dear ImGui demo window into a dockspace from the browser, then driving a slider and button — every client's WASM twin replays the same ImGui calls locally](docs/demo.gif)
+
 > [!IMPORTANT]
 > ImGuiWasm is early-stage software. Authentication is opt-in (PAM-backed
 > HTTP Basic, see [Auth](#auth)); without it the server is open, so it should
