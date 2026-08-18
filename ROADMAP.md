@@ -74,17 +74,17 @@ materialized by then.
 
 ## Falsifier
 
-90 days after the repo goes public: if there is no external signal — at least
-one deployment story from a stranger, or sustained issues/PRs from non-authors —
-then the roadmap shrinks to maintenance, and the multi-viewer bet is audited (do
-connected sessions ever exceed one client?). A roadmap that can't fail is a
-wish list.
+Started 2026-08-19, when the repository went public: 90 days end on
+2026-11-17. If there is no external signal — at least one deployment story
+from a stranger, or sustained issues/PRs from non-authors — then the roadmap
+shrinks to maintenance, and the multi-viewer bet is audited (do connected
+sessions ever exceed one client?). A roadmap that can't fail is a wish list.
 
 ## Standing near-term items
 
-1. Make the repo public, then fill the port's source SHA512 in
-   `ports/imgui-wasm/portfile.cmake` and refresh the `versions/` git-tree,
-   push, and publish the v0.2.0 GitHub release (the tag exists locally).
+1. v0.2.0 is published (2026-08-19): repo public, tag pushed, port SHA512
+   filled, versions registry refreshed, GitHub release cut. The falsifier
+   clock above is running.
 2. v0.2.0 is assembled (2026-08-18): version bumped, changelog cut, port and
    registry database updated. Every v0.2 engineering item landed (context,
    twin resolution, cross-size deferral, auth, docking, upstream-bump
