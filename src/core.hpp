@@ -103,9 +103,13 @@ struct ClientState {
     float display_size[2] = {1280.0f, 720.0f};
     float display_scale = 1.0f;  // client devicePixelRatio (layout space stays CSS pixels)
     size_t force_frames = 3;
+    uint32_t last_call_hash = 0;  // hash of the last frame this client received
     std::string clipboard_text;
     uint32_t capabilities = 0;
     uint32_t peer_addr = 0;  // network byte order; 0 = unknown
+    // Pending input with global arrival sequence numbers; the poller takes
+    // the lowest sequence across clients, preserving cross-client FIFO.
+    std::deque<std::pair<uint64_t, InputEvent>> input;
     std::shared_ptr<OutBox> out = std::make_shared<OutBox>();
 };
 
@@ -169,6 +173,7 @@ class State {
     }
 
    private:
+    void send_frame_to(ClientId id, const std::shared_ptr<const std::vector<uint8_t>>& data);
     void send_frame_to_locked(ClientId id, const std::shared_ptr<const std::vector<uint8_t>>& data);
 
     mutable std::mutex clients_mtx_;
@@ -180,17 +185,17 @@ class State {
     mutable std::mutex auth_mtx_;
     AuthConfig auth_;
 
-    std::mutex input_mtx_;
-    std::deque<std::pair<ClientId, InputEvent>> input_;
+    std::atomic<uint64_t> next_input_seq_{1};
 
     mutable std::mutex textures_mtx_;
     std::unordered_map<uint64_t, std::vector<uint8_t>> textures_;
 
     std::mutex header_mtx_;
     FrameHeader header_;
+    // Canvas size the most recent frame was laid out at (draw-data DisplaySize).
+    // Frame-thread only: written by begin_frame, read by try_poll_input.
+    float layout_size_[2] = {1280.0f, 720.0f};
     std::atomic<uint32_t> callstream_frame_id_{1};
-    std::mutex last_hash_mtx_;
-    uint32_t last_callstream_hash_ = 0;
 };
 
 // --- Embedded frontend assets (generated embedded_assets.cpp) ---------------

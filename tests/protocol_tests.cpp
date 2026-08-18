@@ -273,6 +273,107 @@ void serialize_roundtrip_layouts() {
     assert(strings[5] == 7);  // id byte 0
 }
 
+void input_preserves_cross_client_arrival_order() {
+    State state;
+    ClientId a = state.add_client();
+    ClientId b = state.add_client();
+    InputEvent ev;
+    ev.ev_type = 0;
+    ev.x = 1.0f;
+    state.push_input(a, ev);
+    ev.x = 2.0f;
+    state.push_input(b, ev);
+    ev.x = 3.0f;
+    state.push_input(a, ev);
+    auto e1 = state.try_poll_input();
+    auto e2 = state.try_poll_input();
+    auto e3 = state.try_poll_input();
+    assert(e1.has_value() && e2.has_value() && e3.has_value());
+    assert(e1->x == 1.0f && e2->x == 2.0f && e3->x == 3.0f);
+    assert(!state.try_poll_input().has_value());
+}
+
+void suppression_is_per_client_and_force_resends() {
+    State state;
+    ClientId a = state.add_client();
+    ClientId b = state.add_client();
+
+    std::shared_ptr<OutBox> a_out;
+    std::shared_ptr<OutBox> b_out;
+    auto grab = [&](ClientId id, std::shared_ptr<OutBox>& out) {
+        state.with_clients([&](std::unordered_map<ClientId, ClientState>& clients) {
+            out = clients[id].out;
+        });
+    };
+    grab(a, a_out);
+    grab(b, b_out);
+    state.with_clients([&](std::unordered_map<ClientId, ClientState>& clients) {
+        // Neutralize add_client's initial force frames so only the
+        // suppression logic under test decides what is sent.
+        clients[a].force_frames = 0;
+        clients[b].force_frames = 0;
+    });
+
+    // First frame: both receive it (no last hash yet).
+    state.begin_frame(0.0f, 0.0f, 800.0f, 600.0f, 1.0f, 1.0f);
+    state.end_callstream_frame();
+    assert(a_out->frame_seq == 1 && b_out->frame_seq == 1);
+
+    // Identical frame: suppressed for both.
+    state.begin_frame(0.0f, 0.0f, 800.0f, 600.0f, 1.0f, 1.0f);
+    state.end_callstream_frame();
+    assert(a_out->frame_seq == 1 && b_out->frame_seq == 1);
+
+    // A late joiner is forced to resync while established clients stay idle.
+    ClientId c = state.add_client();
+    std::shared_ptr<OutBox> c_out;
+    grab(c, c_out);
+    state.begin_frame(0.0f, 0.0f, 800.0f, 600.0f, 1.0f, 1.0f);
+    state.end_callstream_frame();
+    assert(a_out->frame_seq == 1 && b_out->frame_seq == 1);
+    assert(c_out->frame_seq == 1);
+}
+
+void positional_input_waits_for_matching_layout() {
+    State state;
+    ClientId big = state.add_client();
+    ClientId small = state.add_client();
+    state.set_display_size(big, 1920.0f, 1080.0f);
+    state.set_display_size(small, 1280.0f, 720.0f);  // small is now active
+
+    // Frame still laid out at big's size.
+    state.begin_frame(0.0f, 0.0f, 1920.0f, 1080.0f, 1.0f, 1.0f);
+    InputEvent key;
+    key.ev_type = 4;
+    key.key = 65;
+    state.push_input(small, key);
+    InputEvent click;
+    click.ev_type = 1;
+    click.button = 0;
+    state.push_input(small, click);
+
+    // Keys carry no geometry and flow immediately; the click behind them
+    // waits for a layout computed at the sender's size.
+    auto k = state.try_poll_input();
+    assert(k.has_value() && k->key == 65);
+    assert(!state.try_poll_input().has_value());  // click held
+
+    // The next frame follows the active (small) client's size; the click flows.
+    state.begin_frame(0.0f, 0.0f, 1280.0f, 720.0f, 1.0f, 1.0f);
+    auto c = state.try_poll_input();
+    assert(c.has_value() && c->ev_type == 1 && c->button == 0);
+
+    // Same-size clients interchange: big's move flows against small's layout.
+    state.set_display_size(big, 1280.0f, 720.0f);
+    InputEvent move;
+    move.ev_type = 0;
+    move.x = 10.0f;
+    move.y = 20.0f;
+    state.push_input(big, move);
+    auto m = state.try_poll_input();
+    assert(m.has_value() && m->x == 10.0f && m->y == 20.0f);
+}
+
 void caps_limit_total_and_per_peer() {
     State state;
     AuthConfig auth;
@@ -310,6 +411,9 @@ int main() {
     leading_hello_ack_accepts_envelope_and_bare_batches();
     leading_hello_ack_rejects_non_leading_or_foreign_acks();
     resize_selects_the_active_client();
+    input_preserves_cross_client_arrival_order();
+    positional_input_waits_for_matching_layout();
+    suppression_is_per_client_and_force_resends();
     parses_resize_with_and_without_scale();
     resize_scale_follows_active_client();
     clipboard_write_is_sent_only_to_active_client();

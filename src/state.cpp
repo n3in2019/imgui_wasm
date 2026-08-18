@@ -266,35 +266,60 @@ bool State::pam_verify(const std::string& user, const std::string& password) {
 }
 
 void State::push_input(ClientId id, const InputEvent& ev) {
+    uint64_t seq = next_input_seq_.fetch_add(1, std::memory_order_relaxed);
     {
-        std::lock_guard<std::mutex> lk(input_mtx_);
-        input_.emplace_back(id, ev);
+        std::lock_guard<std::mutex> lk(clients_mtx_);
+        auto it = clients_.find(id);
+        // Events for a vanished client are dropped rather than parked in a
+        // global queue someone else would have to drain.
+        if (it != clients_.end()) it->second.input.emplace_back(seq, ev);
     }
     std::lock_guard<std::mutex> lk(active_mtx_);
     active_client_ = id;
 }
 
 std::optional<InputEvent> State::try_poll_input() {
-    ClientId client_id;
-    InputEvent ev;
-    {
-        std::lock_guard<std::mutex> lk(input_mtx_);
-        if (input_.empty()) return std::nullopt;
-        client_id = input_.front().first;
-        ev = input_.front().second;
-        input_.pop_front();
-    }
+    std::optional<InputEvent> out;
+    ClientId polled = 0;
     {
         std::lock_guard<std::mutex> lk(clients_mtx_);
-        auto it = clients_.find(client_id);
-        if (it != clients_.end()) {
-            ev.display_w = it->second.display_size[0];
-            ev.display_h = it->second.display_size[1];
+        // Lowest arrival sequence across clients: same order the old global
+        // FIFO produced, now without cross-client queue sharing.
+        //
+        // Positional events (move/buttons/wheel, types 0-3) are held until
+        // the authoritative layout was computed at the sender's canvas size:
+        // ImGui hit-tests against the previous frame's geometry, so applying
+        // them earlier — right after a differently-sized client became
+        // active — would misclick. The server re-layouts to the interacting
+        // client each frame, so the wait is exactly one frame. Keyboard and
+        // text events carry no geometry; they are only ever delayed by
+        // in-order queueing behind a held positional event.
+        auto best = clients_.end();
+        for (auto it = clients_.begin(); it != clients_.end(); ++it) {
+            auto& q = it->second.input;
+            if (q.empty()) continue;
+            if (q.front().second.ev_type <= 3) {
+                const float* sz = it->second.display_size;
+                if (sz[0] != layout_size_[0] || sz[1] != layout_size_[1]) continue;
+            }
+            if (best == clients_.end() || q.front().first < best->second.input.front().first) {
+                best = it;
+            }
+        }
+        if (best != clients_.end()) {
+            ClientState& cs = best->second;
+            out = cs.input.front().second;
+            out->display_w = cs.display_size[0];
+            out->display_h = cs.display_size[1];
+            polled = best->first;
+            cs.input.pop_front();
         }
     }
-    std::lock_guard<std::mutex> lk(active_mtx_);
-    active_client_ = client_id;
-    return ev;
+    if (out.has_value()) {
+        std::lock_guard<std::mutex> lk(active_mtx_);
+        active_client_ = polled;
+    }
+    return out;
 }
 
 void State::set_client_capabilities(ClientId id, uint32_t capabilities) {
@@ -416,6 +441,11 @@ void State::send_control_to(ClientId id, const std::vector<uint8_t>& data) {
     out->cv.notify_one();
 }
 
+void State::send_frame_to(ClientId id, const std::shared_ptr<const std::vector<uint8_t>>& data) {
+    std::lock_guard<std::mutex> lk(clients_mtx_);
+    send_frame_to_locked(id, data);
+}
+
 void State::send_frame_to_locked(ClientId id,
                                  const std::shared_ptr<const std::vector<uint8_t>>& data) {
     // Caller holds clients_mtx_.
@@ -463,6 +493,8 @@ bool State::begin_frame(float dpx, float dpy, float dsw, float dsh, float fbsx, 
     // Call-stream gating: only stash the header when clients are connected;
     // add_draw_list is a no-op and end_frame builds the 0x07 envelope.
     if (!has_clients()) return false;
+    layout_size_[0] = dsw;
+    layout_size_[1] = dsh;
     std::lock_guard<std::mutex> lk(header_mtx_);
     header_ = FrameHeader{dpx, dpy, dsw, dsh, fbsx, fbsy};
     return true;
@@ -487,43 +519,35 @@ void State::end_callstream_frame() {
         serialize_callstream_frame(header, frame_id, call_bytes.data(), call_bytes.size(), 0));
     std::vector<uint8_t> string_payload = serialize_string_update(new_strings);
 
-    // Identical-frame skip: suppress re-broadcast when the call sequence +
+    // Identical-frame skip: suppress per receiver when the call sequence +
     // scalars are unchanged and no new strings appeared. The envelope's
     // frame_id changes every frame and must not defeat the suppression, so
     // only the header + call bytes are hashed.
     uint32_t new_hash = callstream_frame_hash(header, call_bytes.data(), call_bytes.size());
 
-    bool force = false;
+    std::vector<ClientId> targets;
     {
         std::lock_guard<std::mutex> lk(clients_mtx_);
         for (auto& [id, cs] : clients_) {
-            if (cs.force_frames > 0) force = true;
-        }
-        if (force) {
-            for (auto& [id, cs] : clients_) {
-                if (cs.force_frames > 0) cs.force_frames--;
-            }
+            bool unchanged = cs.last_call_hash == new_hash && cs.last_call_hash != 0 &&
+                             cs.force_frames == 0 && string_payload.size() <= 5;
+            if (unchanged) continue;  // idle frame for this receiver
+            cs.last_call_hash = new_hash;
+            if (cs.force_frames > 0) cs.force_frames--;
+            targets.push_back(id);
         }
     }
-
-    {
-        std::lock_guard<std::mutex> lk(last_hash_mtx_);
-        bool unchanged = !force && new_hash == last_callstream_hash_ && last_callstream_hash_ != 0 &&
-                         string_payload.size() <= 5;
-        if (unchanged) {
-            // Idle frame: nothing new to send. Clients keep their last
-            // rendered frame.
-            return;
-        }
-        last_callstream_hash_ = new_hash;
-    }
+    if (targets.empty()) return;
 
     // A string update must precede the frame referencing it; control drains
-    // before frames in the sender thread as well.
+    // before frames in the sender thread as well. Suppressed receivers can
+    // safely re-apply it (interned-table upsert).
     if (string_payload.size() > 5) {
         send_control(string_payload);
     }
-    send_frame(frame_payload);
+    for (ClientId id : targets) {
+        send_frame_to(id, frame_payload);
+    }
 }
 
 }  // namespace imgui_wasm_core
