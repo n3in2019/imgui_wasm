@@ -101,7 +101,8 @@ jobs:
 
           int main() {
               imgui_wasm::Config config;
-              config.host_port = "127.0.0.1:8897";
+              config.host = "127.0.0.1";
+              config.port = 8897;
               imgui_wasm::Server app;
               if (!app.init(config)) {
                   return 1;
