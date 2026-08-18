@@ -153,13 +153,13 @@ function buildSyntheticFrame(drawOut, listCount, dpx, dpy, dsw, dsh, fbsx, fbsy)
 // Handle a 0x07 call-stream frame. `canvas` and the `hooks` (parseDrawLists,
 // renderFromParsed, setLastFrame) are provided by imgui_wasm.js.
 async function replaySnapshot(snapshot, canvas, hooks) {
-    const { callBytes, callCount } = snapshot;
+    const { callBytes, callCount, imguiFlags } = snapshot;
     const mod = await ensureReplay(canvas);
 
     const callPtr = copyToHeap(callBytes);
     if (!callPtr) return;
     const drawPtr = mod._imgui_wasm_replay_frame(callPtr, callBytes.length, callCount,
-        0, 0, localDisplay.w, localDisplay.h, localDisplay.dpr, localDisplay.dpr);
+        imguiFlags || 0, 0, 0, localDisplay.w, localDisplay.h, localDisplay.dpr, localDisplay.dpr);
     mod._free(callPtr);
     if (!drawPtr) return;
 
@@ -229,6 +229,9 @@ function handleCallstreamFrame(data, canvas, hooks) {
     const fbsy = dv.getFloat32(off, true); off += 4;
     const frameId = dv.getUint32(off, true); off += 4;
     const callCount = dv.getUint32(off, true); off += 4;
+    // Effective ImGuiIO::ConfigFlags the server frame was produced with; the
+    // twin mirrors the docking bit (see imgui_wasm_replay_frame).
+    const imguiFlags = dv.getUint32(off, true); off += 4;
     // Own the bytes independently of the WebSocket receive buffer so this
     // exact call batch can be replayed locally after server idle suppression.
     let callBytes = data.subarray(off);
@@ -257,7 +260,7 @@ function handleCallstreamFrame(data, canvas, hooks) {
     }
 
     const snapshot = {
-        dpx, dpy, dsw, dsh, fbsx, fbsy, frameId, callCount,
+        dpx, dpy, dsw, dsh, fbsx, fbsy, frameId, callCount, imguiFlags,
         callBytes: new Uint8Array(callBytes),
     };
     lastUiSnapshot = snapshot;
@@ -265,7 +268,7 @@ function handleCallstreamFrame(data, canvas, hooks) {
     lastHooks = hooks;
     if (iniCallBytes) {
         const iniSnapshot = {
-            dpx, dpy, dsw, dsh, fbsx, fbsy, frameId, callCount: 1,
+            dpx, dpy, dsw, dsh, fbsx, fbsy, frameId, callCount: 1, imguiFlags,
             callBytes: iniCallBytes,
         };
         enqueueReplay(iniSnapshot, canvas, hooks, true);

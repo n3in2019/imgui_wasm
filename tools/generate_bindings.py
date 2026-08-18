@@ -70,7 +70,8 @@ def py_ctype(type_name: str) -> str | None:
     t = clean_type(type_name)
     if t in PY_BASE_TYPES:
         return PY_BASE_TYPES[t]
-    if enum_type(t) or t in {"ImGuiDir", "ImGuiKey", "ImGuiMouseButton", "ImGuiMouseCursor", "ImGuiSortDirection"}:
+    if enum_type(t) or t in {"ImGuiDir", "ImGuiKey", "ImGuiMouseButton", "ImGuiMouseCursor", "ImGuiSortDirection",
+                             "ImGuiCond"}:
         return "ctypes.c_int"
     if t in STRUCTS:
         return t
@@ -177,6 +178,17 @@ CS_PTR_OVERRIDES = {
     # Add explicit entries here when an upstream change needs correction.
 }
 
+# Pointer args that are only proxyable when NULL. Nothing is serialized for
+# them; the replay side passes nullptr (for DockSpaceOverViewport's viewport
+# arg that means the twin's OWN main viewport — per-client resolution). Calls
+# passing a non-NULL value run natively on the server but are not captured,
+# so the twin diverges; callers doing that are outside the supported surface.
+CS_NULL_ONLY_PTRS = {
+    ("igDockSpace", "window_class"),
+    ("igDockSpaceOverViewport", "viewport"),
+    ("igDockSpaceOverViewport", "window_class"),
+}
+
 CS_ENUM_NAMES: set[str] = set()
 
 
@@ -281,6 +293,8 @@ def schema_for_arg(arg: dict, symbol: str) -> dict | None:
     Applies the hand-vetted override table."""
     name = arg.get("name", "")
     t = clean_type(arg["type"])
+    if (symbol, name) in CS_NULL_ONLY_PTRS:
+        return {"name": name, "type": arg["type"], "cat": "null_ptr"}
     override = CS_PTR_OVERRIDES.get((symbol, name))
     cat = override if override else classify_arg(t)
     if cat is None:
@@ -454,6 +468,9 @@ def supported(function: dict) -> bool:
 #         floatarr    -> N x f32 (N from schema; server-echoed current values)
 #         ptr_out_scalar -> 1 scalar (server-authoritative current value)
 #         ptr_buf     -> u32 len, then len bytes (server-echoed current content)
+#         null_ptr    -> nothing; the call is only captured when the arg is
+#                       NULL, and replay passes nullptr (a NULL viewport means
+#                       the twin's OWN main viewport — per-client resolution)
 #
 # A frame is: header(6 f32) + frame_id(u32) + call_count(u32) + calls.
 # String tables travel in a separate 0x09 message (or inlined in the first
@@ -568,6 +585,11 @@ def cpp_arg_decl(arg: dict, fn_defaults: dict) -> tuple[str, str]:
         fwd = name
     elif cat == "strarr_in":
         decl_type = "const char* const*"
+        fwd = name
+    elif cat == "null_ptr":
+        # Real ImGui declaration (e.g. const ImGuiWindowClass*); the wrapper
+        # skips capture when a non-null value is passed.
+        decl_type = t
         fwd = name
     else:
         decl_type = t
@@ -692,6 +714,10 @@ const char* lookup_string(unsigned id);
             elif cat == "strarr_in":
                 body.append(f"            static const char* {name}_s[256]; {{ unsigned _n=c.u32(); if(_n>256)_n=256; for(unsigned _i=0;_i<_n;++_i){name}_s[_i]=ImGuiWasm::replay::lookup_string(c.u32()); }}")
                 call_args.append(f"{name}_s")
+            elif cat == "null_ptr":
+                # Nothing on the wire; the capture side only serializes calls
+                # that passed nullptr here (see emit_capture_hpp).
+                call_args.append("nullptr")
         ret = op["ret"]
         ret_prefix = "" if ret == "void" else "(void)"
         lines.append(f"        case {const}: {{")
@@ -747,7 +773,8 @@ def _capture_encode_stmt(arg: dict, index: int) -> str:
         return f"imgui_wasm_capture_ptr((const void*)({name}), {w}u);"
     if cat == "ptr_buf":
         return f"imgui_wasm_capture_buf({name} ? {name} : \"\");"
-    return None  # floatarr_in / strarr_in handled in the wrapper emitter
+    return None  # floatarr_in / strarr_in handled in the wrapper emitter;
+                 # null_ptr serializes nothing (guarded at the wrapper level)
 
 
 def emit_capture_hpp(schema: dict) -> str:
@@ -843,7 +870,18 @@ using namespace ImGui;
             body.append(f"        return ImGui::{funcname}({', '.join(fwds)});")
 
         lines.append(sig + " {")
-        lines.extend(body)
+        null_ptrs = [arg["name"] for arg in op["args"] if arg["cat"] == "null_ptr"]
+        if null_ptrs:
+            # Only calls passing nullptr for every null-only pointer can be
+            # replayed (the twin passes nullptr); anything else runs natively
+            # on the server without capture.
+            cond = " && ".join(f"{n} == nullptr" for n in null_ptrs)
+            lines.append(f"        if ({cond}) {{")
+            lines.extend("    " + b for b in body[:-1])
+            lines.append("        }")
+            lines.append(body[-1])
+        else:
+            lines.extend(body)
         lines.append("    }")
         lines.append("")
 

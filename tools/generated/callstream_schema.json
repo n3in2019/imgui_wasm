@@ -45,6 +45,8 @@
     "igDebugStartItemPicker": 43,
     "igDebugTextEncoding": 44,
     "igDestroyPlatformWindows": 45,
+    "igDockSpace": 205,
+    "igDockSpaceOverViewport": 206,
     "igDragFloat": 46,
     "igDragFloat3": 47,
     "igDragFloat4": 48,
@@ -144,6 +146,7 @@
     "igSetNextItemWidth": 142,
     "igSetNextWindowBgAlpha": 143,
     "igSetNextWindowContentSize": 144,
+    "igSetNextWindowDockID": 207,
     "igSetNextWindowFocus": 145,
     "igSetNextWindowScroll": 146,
     "igSetNextWindowViewport": 147,
@@ -4719,6 +4722,106 @@
       "defaults": {
         "format": "\"%d\"",
         "flags": "0"
+      }
+    },
+    {
+      "opname": "igDockSpace",
+      "opcode": 205,
+      "funcname": "DockSpace",
+      "cimguiname": "igDockSpace",
+      "ret": "ImGuiID",
+      "location": "imgui:989",
+      "args": [
+        {
+          "name": "dockspace_id",
+          "type": "ImGuiID",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int"
+        },
+        {
+          "name": "size",
+          "type": "ImVec2",
+          "cat": "vec2"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiDockNodeFlags",
+          "cat": "enum"
+        },
+        {
+          "name": "window_class",
+          "type": "const ImGuiWindowClass*",
+          "cat": "null_ptr"
+        }
+      ],
+      "defaults": {
+        "size": "ImVec2(0, 0)",
+        "flags": "0",
+        "window_class": "NULL"
+      }
+    },
+    {
+      "opname": "igDockSpaceOverViewport",
+      "opcode": 206,
+      "funcname": "DockSpaceOverViewport",
+      "cimguiname": "igDockSpaceOverViewport",
+      "ret": "ImGuiID",
+      "location": "imgui:990",
+      "args": [
+        {
+          "name": "dockspace_id",
+          "type": "ImGuiID",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int"
+        },
+        {
+          "name": "viewport",
+          "type": "const ImGuiViewport*",
+          "cat": "null_ptr"
+        },
+        {
+          "name": "flags",
+          "type": "ImGuiDockNodeFlags",
+          "cat": "enum"
+        },
+        {
+          "name": "window_class",
+          "type": "const ImGuiWindowClass*",
+          "cat": "null_ptr"
+        }
+      ],
+      "defaults": {
+        "dockspace_id": "0",
+        "viewport": "NULL",
+        "flags": "0",
+        "window_class": "NULL"
+      }
+    },
+    {
+      "opname": "igSetNextWindowDockID",
+      "opcode": 207,
+      "funcname": "SetNextWindowDockID",
+      "cimguiname": "igSetNextWindowDockID",
+      "ret": "void",
+      "location": "imgui:991",
+      "args": [
+        {
+          "name": "dock_id",
+          "type": "ImGuiID",
+          "cat": "scalar",
+          "width": 4,
+          "cpp_type": "unsigned int"
+        },
+        {
+          "name": "cond",
+          "type": "ImGuiCond",
+          "cat": "enum"
+        }
+      ],
+      "defaults": {
+        "cond": "0"
       }
     }
   ]

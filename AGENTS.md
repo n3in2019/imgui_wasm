@@ -121,8 +121,20 @@ native/server-side implementations.
 
 **Additional server-to-client messages (call-stream mode):**
 
-- `0x07` = Call-stream frame: header (6 × `f32`: dpx,dpy,dsw,dsh,fbsx,fbsy) + `frame_id` (`u32`) + `call_count` (`u32`, hint; may be 0 = unknown) + opcoded calls. Each call: `opcode` (`u16`) + args per the schema in `tools/generated/callstream_schema.json`.
+- `0x07` = Call-stream frame: header (6 × `f32`: dpx,dpy,dsw,dsh,fbsx,fbsy) + `frame_id` (`u32`) + `call_count` (`u32`, hint; may be 0 = unknown) + `imgui_flags` (`u32`, effective `ImGuiIO::ConfigFlags`; the twin mirrors the docking bit, rest reserved) + opcoded calls. Each call: `opcode` (`u16`) + args per the schema in `tools/generated/callstream_schema.json`.
 - `0x09` = String-table update: `count` (`u32`) + `count` × { `id` (`u32`), `len` (`u32`), UTF-8 bytes }. Sent on connect (full table replay) and whenever new strings are interned.
+
+**Docking:** the pinned ImGui revision is from the docking branch, and docking
+is supported over the call stream. `DockSpace`, `DockSpaceOverViewport`, and
+`SetNextWindowDockID` are captured and replayed; their pointer args
+(`window_class`, `viewport`) are null-only — calls passing non-null values run
+server-side but are not captured. The server's effective `io.ConfigFlags`
+rides the 0x07 header and the twin mirrors the docking bit, so `DockSpace*`
+semantics match exactly (docking off on the server = off on the twin). Live
+dock drags work through the twin's input mirroring; committed layouts and
+late joiners resync via the authoritative INI snapshot (`[Docking][Data]`).
+`DockBuilder*` (internal API) and `io.Config*` behavior knobs beyond
+ConfigFlags (e.g. `ConfigDockingWithShift`) are not streamed.
 
 **WASM twin build:** regenerating `wasm/imgui_wasm_replay.{wasm,js}`
 requires Emscripten (`em++` on PATH, or set `IMGUI_WASM_EMCC` to an

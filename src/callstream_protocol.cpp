@@ -2,7 +2,8 @@
 //
 // Wire messages:
 //   0x07  call-stream frame: header (6 x f32) + frame_id (u32) + call_count
-//         (u32, hint; 0 = unknown) + call bytes
+//         (u32, hint; 0 = unknown) + imgui_flags (u32, effective
+//         ImGuiIO::ConfigFlags; the twin mirrors the docking bit) + call bytes
 //   0x09  string-table update: count (u32) + { id, len, utf-8 } entries
 //   0x02  texture (replayed on connect)
 // LZ4/0x08 compression is intentionally not ported: it is dead code upstream.
@@ -36,7 +37,7 @@ std::vector<uint8_t> serialize_callstream_frame(FrameHeader header, uint32_t fra
                                                 const uint8_t* call_bytes, size_t call_len,
                                                 uint32_t call_count) {
     std::vector<uint8_t> out;
-    out.reserve(1 + 24 + 4 + 4 + call_len);
+    out.reserve(1 + 24 + 4 + 4 + 4 + call_len);
     out.push_back(0x07);
     push_f32(out, header.dpx);
     push_f32(out, header.dpy);
@@ -46,6 +47,7 @@ std::vector<uint8_t> serialize_callstream_frame(FrameHeader header, uint32_t fra
     push_f32(out, header.fbsy);
     push_u32(out, frame_id);
     push_u32(out, call_count);
+    push_u32(out, header.imgui_flags);
     out.insert(out.end(), call_bytes, call_bytes + call_len);
     return out;
 }
@@ -82,6 +84,11 @@ uint32_t callstream_frame_hash(FrameHeader header, const uint8_t* call_bytes, si
                             uint8_t(bits >> 24)};
         mix(bytes, 4);
     }
+    // Flags are part of the frame identity: toggling docking (or any future
+    // mirrored bit) must break identical-frame suppression.
+    uint8_t flags_b[4] = {uint8_t(header.imgui_flags), uint8_t(header.imgui_flags >> 8),
+                          uint8_t(header.imgui_flags >> 16), uint8_t(header.imgui_flags >> 24)};
+    mix(flags_b, 4);
     mix(call_bytes, call_len);
     return h;
 }

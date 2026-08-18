@@ -36,12 +36,13 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    // Keyboard nav on; docking off (fresh contexts enable nothing). Docking
-    // creates an implicit dockspace host window that shifts the main viewport
-    // layout; since the dockspace itself isn't part of the captured widget
-    // surface, server and twin would diverge in window placement, making
-    // clicks miss.
-    ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+    // Keyboard nav + docking. Docking works over the call stream:
+    // DockSpaceOverViewport() and SetNextWindowDockID() are captured and
+    // replayed, the effective ConfigFlags ride the 0x07 frame header (the
+    // twin mirrors the docking bit), and docking layout changes re-sync
+    // through the authoritative INI snapshot.
+    ImGuiIO& io = ImGui::GetIO();
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard | ImGuiConfigFlags_DockingEnable;
 
     float f = 0.0f;
     int counter = 0;
@@ -49,9 +50,15 @@ int main(int argc, char** argv) {
     bool running = true;
 
     auto main_render = app.on_render([&]() {
+        // Submit the dockspace before any window it may host.
+        ImGuiID dockspace_id = ImGui::DockSpaceOverViewport();
         if (show_demo) {
             ImGui::ShowDemoWindow(&show_demo);
         }
+        // Initial layout: dock the example window into the central node once
+        // (FirstUseEver); after that the user rearranges freely and the INI
+        // snapshot carries the layout to every client.
+        ImGui::SetNextWindowDockID(dockspace_id, ImGuiCond_FirstUseEver);
         ImGui::Begin("ImGuiWasm Example (C++ core)", &running);
         ImGui::TextUnformatted("Hello from the pure-C++ core!");
         ImGui::Checkbox("Show Demo Window", &show_demo);

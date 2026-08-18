@@ -96,12 +96,13 @@ uint64_t backend_alloc_texture_id(imgui_wasm_backend_t* backend_ptr) {
     return backend->next_texture_id++;
 }
 
-int begin_frame(float dpx, float dpy, float dsw, float dsh, float fbsx, float fbsy) {
+int begin_frame(float dpx, float dpy, float dsw, float dsh, float fbsx, float fbsy,
+                unsigned int imgui_flags) {
     GlobalCtx* g = global();
     if (g == nullptr) return 0;
     // Call-stream gating: stash the frame header and proceed only when
     // clients are connected.
-    return g->state->begin_frame(dpx, dpy, dsw, dsh, fbsx, fbsy) ? 1 : 0;
+    return g->state->begin_frame(dpx, dpy, dsw, dsh, fbsx, fbsy, imgui_flags) ? 1 : 0;
 }
 
 void add_draw_list(const void*, uint32_t, const void*, uint32_t, int, const imgui_wasm_draw_cmd_t*,

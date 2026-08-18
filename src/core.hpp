@@ -55,6 +55,11 @@ std::vector<uint8_t> make_clipboard_write_msg(const std::string& text);
 
 struct FrameHeader {
     float dpx = 0.0f, dpy = 0.0f, dsw = 0.0f, dsh = 0.0f, fbsx = 1.0f, fbsy = 1.0f;
+    // Effective ImGuiIO::ConfigFlags the frame was produced with. The replay
+    // twin mirrors the docking bit so DockSpace* calls replay with identical
+    // semantics (off server-side = off twin-side, and vice versa). Other bits
+    // are reserved.
+    uint32_t imgui_flags = 0;
 };
 
 std::vector<uint8_t> serialize_callstream_frame(FrameHeader header, uint32_t frame_id,
@@ -162,7 +167,8 @@ class State {
     std::vector<std::vector<uint8_t>> snapshot_textures() const;
 
     // Render-path entry points.
-    bool begin_frame(float dpx, float dpy, float dsw, float dsh, float fbsx, float fbsy);
+    bool begin_frame(float dpx, float dpy, float dsw, float dsh, float fbsx, float fbsy,
+                     uint32_t imgui_flags = 0);
     void end_callstream_frame();
 
     // Test seam: direct access to the client table under its lock.

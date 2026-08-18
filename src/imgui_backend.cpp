@@ -159,7 +159,8 @@ extern "C" void imgui_wasm_imgui_backend_render_draw_data(imgui_wasm_backend_t* 
 
     if (!GImGuiWasmCore->begin_frame(draw_data->DisplayPos.x, draw_data->DisplayPos.y,
                                  draw_data->DisplaySize.x, draw_data->DisplaySize.y,
-                                 draw_data->FramebufferScale.x, draw_data->FramebufferScale.y)) {
+                                 draw_data->FramebufferScale.x, draw_data->FramebufferScale.y,
+                                 ImGui::GetIO().ConfigFlags)) {
         return;
     }
 

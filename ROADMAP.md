@@ -23,8 +23,9 @@ client's input drives the shared state. Secondary clients are not view-only.
 | 1 | Product identity | Multi-viewer now | v0.2 theme is session-ification of the core; breaking API change allowed (0.x) |
 | 2 | Security | Auth in core, narrow scope | Timing-safe tokens checked at the WebSocket upgrade, per-IP connection caps, token-bucket rate limiting. No IdP, no cookies, no TLS in-process; reverse proxy remains the documented TLS path |
 | 3 | Platforms | Neither in v0.2 | Docker/headless Linux and the winsock port move to v0.3 |
-| 4 | Docking | Time-boxed spike (2–3 days) | Full sync, initial-layout-only, or documented wontfix are all acceptable outcomes |
+| 4 | Docking | Full sync (2026-08-18) | `DockSpace`/`DockSpaceOverViewport`/`SetNextWindowDockID` captured + replayed; effective ConfigFlags mirrored via the 0x07 header; INI snapshot carries committed layouts to late joiners. Not streamed: `DockBuilder*` internals, `io.Config*` knobs beyond ConfigFlags |
 | 5 | UI-state authority (2026-08-18) | Server-authoritative single context; display size stays a per-client twin concern | Multi-context sessions and the frame_fn API break are cancelled; the remaining stage is cross-size input mapping. Interaction is shared (one mouse/scroll, like tmux) by design |
+| 6 | Cross-size input mapping (2026-08-18) | Resolved by the tmux-style deferral; explicit coordinate mapping rejected | Positional input is held one frame while the server re-layouts to the sender's canvas size, so every event lands against geometry matching its sender. Rescaling coordinates across differing sizes would target a layout that is not the sender's — contrary to decision 5's shared-console model |
 
 ## v0.2.0 — The networked console
 
@@ -33,23 +34,24 @@ client's input drives the shared state. Secondary clients are not view-only.
   `imgui_wasm_new_frame`/`render` stay as they are — the planned per-session
   contexts and `frame_fn` API break are cancelled. Per-client input queues,
   frame suppression, and auth identity (stage 2 + PAM) remain underneath.
-- **Per-client twin resolution**: each browser twin keeps rendering at its
-  own canvas size and DPR; display size is a client concern. Cross-size
-  input mapping — landing a non-active client's clicks against the server's
-  authoritative geometry (`dsw`/`dsh` ride every `0x07` header) — is the
-  remaining time-boxed work: linear canvas scale vs. window-relative mapping
-  through the twin's local geometry.
+- **Per-client twin resolution (done)**: each browser twin renders at its own
+  canvas size and DPR; display size is a client concern. Cross-size input is
+  handled by the tmux-style deferral: the server re-layouts to the interacting
+  client and holds its positional input for one frame, so every event lands
+  against geometry matching its sender (decision 6).
 - **Auth (done)**: PAM-backed HTTP Basic auth + connection caps, scope as in
   decision 2.
-- **Docking spike**: 2–3 days, time-boxed; full sync, initial-layout-only, or
-  documented wontfix are all acceptable outcomes.
-- **Upstream-bump automation**: one command bumps the ImGui pin, regenerates
-  bindings, rebuilds the twin, runs tests, refreshes the port. Promoted from
-  v0.3 — without it the revision-coupled project rots in place.
-- **Drift smoke test**: run the server and the twin over the same golden call
-  stream at pinned scale 1 and compare vertex counts / clip rects per frame.
-  A smoke test, not a correctness proof. Spike-first: requires the twin runnable
-  headless under node in CI.
+- **Docking (done — full sync)**: `DockSpace`/`DockSpaceOverViewport`/
+  `SetNextWindowDockID` are captured and replayed (opcodes 205–207; pointer
+  args null-only), the effective `io.ConfigFlags` rides the 0x07 header and
+  the twin mirrors the docking bit, live drags work via input mirroring, and
+  committed layouts + late joiners resync via the INI snapshot. Verified
+  end-to-end in headless Chrome: programmatic initial docking, interactive
+  drag-to-dock tab merge, and late-joiner layout restore. Not streamed:
+  `DockBuilder*` internals and `io.Config*` knobs beyond ConfigFlags.
+- **Upstream-bump automation (done)**: one command bumps the ImGui pin,
+  regenerates bindings, rebuilds the twin, runs tests, refreshes the port.
+  Promoted from v0.3 — without it the revision-coupled project rots in place.
 
 Explicitly cut from v0.2: platform work (→ v0.3), a protocol-version field (the
 twin is embedded in the server binary and served by it; skew is structurally
@@ -64,8 +66,10 @@ server-authoritative UI state.
 
 Docker/headless Linux first (example Dockerfile, SIGTERM graceful shutdown,
 healthcheck endpoint, non-root image), the winsock port of `src/net.cpp` after,
-touch input for mobile browsers, plus any v0.2 spike outcomes that earned
-promotion.
+touch input for mobile browsers, plus the drift smoke test (server + twin over
+a golden call stream at pinned scale 1, comparing vertex counts / clip rects
+per frame — hardening, not correctness proof; needs the twin runnable headless
+under node in CI).
 
 ## v1.0.0 — Launch
 
@@ -85,7 +89,7 @@ wish list.
 
 1. Make the repo public, then fill the port's source SHA512 in
    `ports/imgui-wasm/portfile.cmake` and refresh the `versions/` git-tree.
-2. Cross-size input mapping spike: land a non-active client's clicks against
-   the server's authoritative geometry (`dsw`/`dsh` from the `0x07` header) —
-   linear canvas scale vs. window-relative mapping via the twin's local
-   geometry.
+2. v0.2.0 release assembly: changelog top-up, version bump, tag. Every v0.2
+   engineering item is done (context, twin resolution, cross-size deferral,
+   auth, docking, upstream-bump automation); the drift smoke test moved to
+   v0.3 (nice-to-have hardening, not release-gating).

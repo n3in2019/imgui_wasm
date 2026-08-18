@@ -14,6 +14,10 @@ using namespace imgui_wasm_core;
 
 namespace {
 
+// ImGuiConfigFlags_DockingEnable (1 << 6); spelled out so the protocol tests
+// stay independent of imgui.h.
+constexpr uint32_t kDockingEnable = 1u << 6;
+
 void push_u32b(std::vector<uint8_t>& v, uint32_t x) {
     for (int i = 0; i < 4; i++) v.push_back(uint8_t(x >> (8 * i)));
 }
@@ -255,17 +259,27 @@ void frame_hash_is_deterministic_and_sensitive() {
            callstream_frame_hash(h, calls_a, sizeof(calls_a)));
     assert(callstream_frame_hash(h, calls_a, sizeof(calls_a)) !=
            callstream_frame_hash(h, calls_b, sizeof(calls_b)));
+    // Flags are part of the frame identity: toggling docking must break
+    // identical-frame suppression.
+    FrameHeader h_dock = h;
+    h_dock.imgui_flags = kDockingEnable;
+    assert(callstream_frame_hash(h, calls_a, sizeof(calls_a)) !=
+           callstream_frame_hash(h_dock, calls_a, sizeof(calls_a)));
 }
 
 void serialize_roundtrip_layouts() {
     FrameHeader h{1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f};
+    h.imgui_flags = kDockingEnable;
     const uint8_t calls[] = {0xAA, 0xBB};
     auto frame = serialize_callstream_frame(h, 77, calls, sizeof(calls), 0);
-    assert(frame.size() == 1 + 24 + 4 + 4 + 2);
+    assert(frame.size() == 1 + 24 + 4 + 4 + 4 + 2);
     assert(frame[0] == 0x07);
     assert(frame[25] == 77);        // frame_id byte 0
-    assert(frame[33] == 0xAA);      // first call byte
-    assert(frame[34] == 0xBB);
+    assert(frame[37] == 0xAA);      // first call byte
+    assert(frame[38] == 0xBB);
+    // imgui_flags: byte 33 = low byte of the u32 after frame_id + call_count.
+    assert(frame[33] == (kDockingEnable & 0xFF));
+    assert(frame[34] == 0 && frame[35] == 0 && frame[36] == 0);
 
     auto strings = serialize_string_update({{7, {'h', 'i'}}});
     assert(strings.size() == 1 + 4 + 4 + 4 + 2);

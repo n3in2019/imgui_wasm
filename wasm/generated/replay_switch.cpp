@@ -1210,6 +1210,25 @@ extern "C" void imweb_replay_calls(const unsigned char* body, unsigned body_len,
             (void)ImGui::VSliderInt(label, ImVec2(size_x,size_y), &v_s, v_min, v_max, format, (ImGuiSliderFlags)flags_v);
             break;
         }
+        case OP_IG_DOCK_SPACE: {
+            unsigned int dockspace_id; { unsigned _v=c.u32(); __builtin_memcpy(&dockspace_id,&_v,sizeof(dockspace_id)); }
+            float size_x=c.f32(), size_y=c.f32();
+            int flags_v = (int)c.u32();
+            (void)ImGui::DockSpace(dockspace_id, ImVec2(size_x,size_y), (ImGuiDockNodeFlags)flags_v, nullptr);
+            break;
+        }
+        case OP_IG_DOCK_SPACE_OVER_VIEWPORT: {
+            unsigned int dockspace_id; { unsigned _v=c.u32(); __builtin_memcpy(&dockspace_id,&_v,sizeof(dockspace_id)); }
+            int flags_v = (int)c.u32();
+            (void)ImGui::DockSpaceOverViewport(dockspace_id, nullptr, (ImGuiDockNodeFlags)flags_v, nullptr);
+            break;
+        }
+        case OP_IG_SET_NEXT_WINDOW_DOCK_ID: {
+            unsigned int dock_id; { unsigned _v=c.u32(); __builtin_memcpy(&dock_id,&_v,sizeof(dock_id)); }
+            int cond_v = (int)c.u32();
+            ImGui::SetNextWindowDockID(dock_id, (ImGuiCond)cond_v);
+            break;
+        }
             default:
                 // Unknown opcode: cannot resync a byte stream. Abort.
                 return;

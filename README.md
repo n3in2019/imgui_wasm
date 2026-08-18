@@ -9,16 +9,20 @@ captured API calls over WebSocket to an embedded WebGL frontend that replays
 them in a WASM-compiled Dear ImGui twin.
 
 > [!IMPORTANT]
-> ImGuiWasm is early-stage software. It does not provide authentication or
-> authorization and should not be exposed directly to an untrusted network.
+> ImGuiWasm is early-stage software. Authentication is opt-in (PAM-backed
+> HTTP Basic, see [Auth](#auth)); without it the server is open, so it should
+> not be exposed directly to an untrusted network.
 
 ## Features
 
 - Native Dear ImGui rendering streamed to a browser
 - Embedded HTTP, WebSocket, and WebGL frontend
 - Semantic call-stream transport with the ordinary Dear ImGui `ImGui::` API
+- Dear ImGui docking, synced to every client (dockspaces, tab merges, and
+  layouts reach late joiners through the authoritative INI snapshot)
 - C lifecycle API with a thin C++ wrapper
-- Multi-client input and clipboard support
+- Multi-client input and clipboard support, each client rendering at its own
+  native resolution
 
 ## Architecture
 

@@ -489,14 +489,15 @@ std::vector<std::vector<uint8_t>> State::snapshot_textures() const {
     return out;
 }
 
-bool State::begin_frame(float dpx, float dpy, float dsw, float dsh, float fbsx, float fbsy) {
+bool State::begin_frame(float dpx, float dpy, float dsw, float dsh, float fbsx, float fbsy,
+                        uint32_t imgui_flags) {
     // Call-stream gating: only stash the header when clients are connected;
     // add_draw_list is a no-op and end_frame builds the 0x07 envelope.
     if (!has_clients()) return false;
     layout_size_[0] = dsw;
     layout_size_[1] = dsh;
     std::lock_guard<std::mutex> lk(header_mtx_);
-    header_ = FrameHeader{dpx, dpy, dsw, dsh, fbsx, fbsy};
+    header_ = FrameHeader{dpx, dpy, dsw, dsh, fbsx, fbsy, imgui_flags};
     return true;
 }
 

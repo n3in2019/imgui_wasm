@@ -50,7 +50,8 @@ typedef struct {
                               imgui_wasm_frame_info_t* out_info);
     uint64_t (*backend_alloc_texture_id)(imgui_wasm_backend_t* backend);
     int (*backend_poll_event)(imgui_wasm_backend_t* backend, imgui_wasm_event_t* event);
-    int (*begin_frame)(float dpx, float dpy, float dsw, float dsh, float fbsx, float fbsy);
+    int (*begin_frame)(float dpx, float dpy, float dsw, float dsh, float fbsx, float fbsy,
+                       unsigned int imgui_flags);
     void (*add_draw_list)(const void* vtx_buffer, uint32_t vtx_count,
                           const void* idx_buffer, uint32_t idx_count, int idx_size,
                           const imgui_wasm_draw_cmd_t* cmd_buffer, uint32_t cmd_count);

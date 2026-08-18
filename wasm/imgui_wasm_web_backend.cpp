@@ -18,12 +18,15 @@
 //       Counter bumped whenever the font atlas is re-baked; the frontend
 //       re-uploads the texture pixels when it changes.
 //
-//   imgui_wasm_replay_frame(call_bytes, call_len, call_count,
+//   imgui_wasm_replay_frame(call_bytes, call_len, call_count, imgui_flags,
 //                       dpx,dpy,dsw,dsh,fbsx,fbsy)
 //       Run one replay frame: ImGui::NewFrame(), dispatch the captured calls
 //       via the generated replay switch (replay_switch.cpp), ImGui::Render(),
 //       then return a pointer to the serialized ImDrawData in the same flat
 //       vtx/idx/cmd byte format the existing frontend already renders.
+//       imgui_flags is the server's effective ImGuiIO::ConfigFlags; the twin
+//       mirrors the docking bit so DockSpace* calls replay with identical
+//       semantics to the server (docking off there = off here).
 //
 //   imgui_wasm_replay_set_string(id, bytes, len)
 //       Install/replace an interned string in the string table (from 0x09).
@@ -276,6 +279,7 @@ EMSCRIPTEN_KEEPALIVE
 const unsigned char* imgui_wasm_replay_frame(const unsigned char* call_bytes,
                                          unsigned call_len,
                                          unsigned call_count,
+                                         unsigned imgui_flags,
                                          float dpx, float dpy,
                                          float dsw, float dsh,
                                          float fbsx, float fbsy) {
@@ -290,6 +294,12 @@ const unsigned char* imgui_wasm_replay_frame(const unsigned char* call_bytes,
     // skips rendering all windows (the server does the same via
     // io.AddFocusEvent(true)).
     (void)dpx; (void)dpy; (void)dsw; (void)dsh; (void)fbsx; (void)fbsy;
+    // Mirror the server's docking flag BEFORE NewFrame: DockSpace* and
+    // window-to-window docking behave differently with it set, so the twin
+    // must agree with the server or layouts diverge. Only the docking bit is
+    // honored today; the rest are reserved.
+    const unsigned mirrored = imgui_flags & ImGuiConfigFlags_DockingEnable;
+    g_io->ConfigFlags = (g_io->ConfigFlags & ~ImGuiConfigFlags_DockingEnable) | mirrored;
     g_io->AddFocusEvent(true);
 
     ImGui::NewFrame();

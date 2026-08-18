@@ -96,6 +96,22 @@ All notable changes to imgui-wasm are documented here. The format follows
   tests the core. Verified end-to-end by re-running against the current
   pin: every regenerated artifact, including the Emscripten twin, came out
   byte-identical to the committed files.
+- Docking (full sync): Dear ImGui docking now works over the call stream.
+  `DockSpace`, `DockSpaceOverViewport`, and `SetNextWindowDockID` are captured
+  and replayed (opcodes 205–207; their pointer args are null-only — non-null
+  `window_class`/`viewport` calls run server-side uncaptured). The server's
+  effective `ImGuiIO::ConfigFlags` rides every `0x07` frame header as a new
+  trailing `u32`, and the replay twin mirrors the docking bit so `DockSpace*`
+  semantics match the server exactly; the header change also feeds the frame
+  hash, so a flag toggle always breaks identical-frame suppression. Live dock
+  drags work through the twin's input mirroring, and committed layouts reach
+  every client (including late joiners) via the authoritative INI snapshot's
+  `[Docking][Data]`. The bindings generator also learned the `ImGuiCond`
+  argument type (it had silently excluded `SetNextWindowDockID`). Not
+  streamed: `DockBuilder*` internals and `io.Config*` behavior knobs beyond
+  ConfigFlags. Verified end-to-end in headless Chrome (programmatic initial
+  docking, interactive drag-to-dock tab merge, late-joiner layout restore);
+  the example app now enables docking and submits a dockspace.
 
 [0.1.1]: https://github.com/n3in2019/imgui_wasm/releases/tag/v0.1.1
 [0.1.0]: https://github.com/n3in2019/imgui_wasm/releases/tag/v0.1.0
