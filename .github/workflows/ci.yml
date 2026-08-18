@@ -50,7 +50,11 @@ jobs:
           python3 -m py_compile tools/dear_bindings/generate.py
 
       - name: Check whitespace
-        run: git diff --check
+        # The rebuilt twin artifacts are toolchain-dependent: CI's apt
+        # emscripten differs from whichever driver produced the committed
+        # files, and the regenerated glue is not a source-hygiene concern.
+        # Exclude them so the check polices everything else.
+        run: git diff --check -- . ':(exclude)wasm/imgui_wasm_replay.js' ':(exclude)wasm/imgui_wasm_replay.wasm'
 
   vcpkg-port:
     runs-on: ubuntu-latest
