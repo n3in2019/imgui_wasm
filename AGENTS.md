@@ -28,6 +28,18 @@ cmake --build build
 
 Requires an `em++`-style Emscripten driver on `PATH` (or `IMGUI_WASM_EMCC`).
 
+### Upstream Bumps
+
+```bash
+python3 tools/bump_upstream.py <imgui-tag-or-sha>
+```
+
+Fetches the revision, re-pins it in CMakeLists.txt, the bindings generator,
+and the vcpkg port, regenerates the bindings, rebuilds the twin, and runs
+the tests. Re-running with the current pin is a full end-to-end pipeline
+check (expect no diffs beyond the twin artifacts if the generators are
+deterministic).
+
 ## Project Structure
 
 | Component | Path | Description |
@@ -100,7 +112,7 @@ All client messages include a `u32` client ID at offset 1 (after the message typ
 
 The server streams the sequence of ImGui API calls instead of rendered draw data. The browser replays them against a WASM-compiled Dear ImGui twin to regenerate draw data locally. This drops per-frame bandwidth from KB of vertices to tens of bytes of calls, and idle frames cost ~nothing.
 
-**Resolution model:** each browser twin replays at its own real resolution — `DisplaySize` is its canvas in CSS pixels and fonts rasterize at its `devicePixelRatio` (`ImFontConfig::RasterizerDensity`; density does not alter metrics, so layout matches the server's). The server-side layout (header `dsw/dsh`) follows the most recently active client's resize and stays authoritative for input hit-testing; `fbsx/fbsy` carry that client's scale. Secondary clients with different window sizes render their own native layout, but their input maps correctly only against the active client's geometry.
+**Resolution model:** each browser twin replays at its own real resolution — `DisplaySize` is its canvas in CSS pixels and fonts rasterize at its `devicePixelRatio` (`ImFontConfig::RasterizerDensity`; density does not alter metrics, so layout matches the server's). The server-side layout (header `dsw/dsh`) follows the most recently active client's resize and stays authoritative for input hit-testing; `fbsx/fbsy` carry that client's scale. Secondary clients with different window sizes render their own native layout. Positional input (mouse move/buttons/wheel) from a client is held for one frame whenever the current layout was computed at a different canvas size: the server re-layouts to the interacting client (tmux-style) and ImGui hit-tests against the previous frame's geometry, so every positional event is applied against a layout that already matches its sender's window. Keyboard and text input never wait on geometry.
 
 **Host integration:** C++ hosts use the ordinary Dear ImGui `ImGui::` API.
 `imgui_wasm.hpp` transparently redirects supported rendering calls through the

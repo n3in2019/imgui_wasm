@@ -83,6 +83,19 @@ All notable changes to imgui-wasm are documented here. The format follows
   unprivileged verification covers SSSD/LDAP domains and the server's own
   user, other local accounts need elevated privileges (documented in the
   README). Verified usernames are logged per connection. Linux only.
+- Cross-size input correctness: positional input (mouse move/buttons/wheel)
+  from a client is deferred for one frame when the authoritative layout was
+  computed at a different canvas size. The server re-layouts to the
+  interacting client each frame, so every positional event is now applied
+  against geometry matching its sender's window — previously such events
+  could misclick. Keyboard and text input never wait on geometry.
+- Upstream-bump automation: `python3 tools/bump_upstream.py <imgui-tag-or-sha>`
+  resolves and fetches the revision, re-pins it in CMakeLists.txt, the
+  bindings generator, and the vcpkg port, regenerates all bindings and
+  call-stream artifacts, rebuilds the WASM replay twin, and rebuilds and
+  tests the core. Verified end-to-end by re-running against the current
+  pin: every regenerated artifact, including the Emscripten twin, came out
+  byte-identical to the committed files.
 
 [0.1.1]: https://github.com/n3in2019/imgui_wasm/releases/tag/v0.1.1
 [0.1.0]: https://github.com/n3in2019/imgui_wasm/releases/tag/v0.1.0
