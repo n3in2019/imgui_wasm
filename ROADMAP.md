@@ -1,6 +1,7 @@
 # ImGuiWasm Roadmap
 
-_Last revised: 2026-08-17. The four decisions below were locked on this date._
+_Last revised: 2026-08-19. Decisions 1–4 were locked 2026-08-17; later
+decisions carry their own dates._
 
 ## Vision
 
@@ -22,7 +23,7 @@ client's input drives the shared state. Secondary clients are not view-only.
 |---|----------|--------|-------------|
 | 1 | Product identity | Multi-viewer now | v0.2 theme is session-ification of the core; breaking API change allowed (0.x) |
 | 2 | Security | Auth in core, narrow scope | Timing-safe tokens checked at the WebSocket upgrade, per-IP connection caps, token-bucket rate limiting. No IdP, no cookies, no TLS in-process; reverse proxy remains the documented TLS path |
-| 3 | Platforms | Neither in v0.2 | Docker/headless Linux and the winsock port move to v0.3 |
+| 3 | Platforms | Neither in v0.2 | Docker/headless packaging and the winsock port were deferred, then removed from the roadmap entirely (2026-08-19); Linux-only until demand says otherwise |
 | 4 | Docking | Full sync (2026-08-18) | `DockSpace`/`DockSpaceOverViewport`/`SetNextWindowDockID` captured + replayed; effective ConfigFlags mirrored via the 0x07 header; INI snapshot carries committed layouts to late joiners. Not streamed: `DockBuilder*` internals, `io.Config*` knobs beyond ConfigFlags |
 | 5 | UI-state authority (2026-08-18) | Server-authoritative single context; display size stays a per-client twin concern | Multi-context sessions and the frame_fn API break are cancelled; the remaining stage is cross-size input mapping. Interaction is shared (one mouse/scroll, like tmux) by design |
 | 6 | Cross-size input mapping (2026-08-18) | Resolved by the tmux-style deferral; explicit coordinate mapping rejected | Positional input is held one frame while the server re-layouts to the sender's canvas size, so every event lands against geometry matching its sender. Rescaling coordinates across differing sizes would target a layout that is not the sender's — contrary to decision 5's shared-console model |
@@ -51,25 +52,19 @@ client's input drives the shared state. Secondary clients are not view-only.
   `DockBuilder*` internals and `io.Config*` knobs beyond ConfigFlags.
 - **Upstream-bump automation (done)**: one command bumps the ImGui pin,
   regenerates bindings, rebuilds the twin, runs tests, refreshes the port.
-  Promoted from v0.3 — without it the revision-coupled project rots in place.
+  Promoted from a later milestone into v0.2 — without it the revision-coupled
+  project rots in place.
 
-Explicitly cut from v0.2: platform work (→ v0.3), a protocol-version field (the
-twin is embedded in the server binary and served by it; skew is structurally
-impossible), Rust bindings (→ v1.0-era, only on demand), per-viewer ImGui
-contexts (cancelled 2026-08-18: UI state is server-authoritative).
+Explicitly cut from v0.2: platform work (Docker/headless packaging and the
+winsock port — removed from the roadmap entirely, 2026-08-19), a
+protocol-version field (the twin is embedded in the server binary and served by
+it; skew is structurally impossible), Rust bindings (→ v1.0-era, only on
+demand), per-viewer ImGui contexts (cancelled 2026-08-18: UI state is
+server-authoritative).
 
 Interaction is shared by design: simultaneous viewers share one mouse and
 scroll — a shared console, like tmux — the direct consequence of
 server-authoritative UI state.
-
-## v0.3.0 — Deployable & broader
-
-Docker/headless Linux first (example Dockerfile, SIGTERM graceful shutdown,
-healthcheck endpoint, non-root image), the winsock port of `src/net.cpp` after,
-touch input for mobile browsers, plus the drift smoke test (server + twin over
-a golden call stream at pinned scale 1, comparing vertex counts / clip rects
-per frame — hardening, not correctness proof; needs the twin runnable headless
-under node in CI).
 
 ## v1.0.0 — Launch
 
@@ -81,7 +76,7 @@ materialized by then.
 
 90 days after the repo goes public: if there is no external signal — at least
 one deployment story from a stranger, or sustained issues/PRs from non-authors —
-then v0.3+ shrinks to maintenance, and the multi-viewer bet is audited (do
+then the roadmap shrinks to maintenance, and the multi-viewer bet is audited (do
 connected sessions ever exceed one client?). A roadmap that can't fail is a
 wish list.
 
@@ -93,5 +88,4 @@ wish list.
 2. v0.2.0 is assembled (2026-08-18): version bumped, changelog cut, port and
    registry database updated. Every v0.2 engineering item landed (context,
    twin resolution, cross-size deferral, auth, docking, upstream-bump
-   automation); the drift smoke test moved to v0.3 (hardening, not
-   release-gating).
+   automation).
