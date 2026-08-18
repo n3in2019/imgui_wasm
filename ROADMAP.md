@@ -88,8 +88,10 @@ wish list.
 ## Standing near-term items
 
 1. Make the repo public, then fill the port's source SHA512 in
-   `ports/imgui-wasm/portfile.cmake` and refresh the `versions/` git-tree.
-2. v0.2.0 release assembly: changelog top-up, version bump, tag. Every v0.2
-   engineering item is done (context, twin resolution, cross-size deferral,
-   auth, docking, upstream-bump automation); the drift smoke test moved to
-   v0.3 (nice-to-have hardening, not release-gating).
+   `ports/imgui-wasm/portfile.cmake` and refresh the `versions/` git-tree,
+   push, and publish the v0.2.0 GitHub release (the tag exists locally).
+2. v0.2.0 is assembled (2026-08-18): version bumped, changelog cut, port and
+   registry database updated. Every v0.2 engineering item landed (context,
+   twin resolution, cross-size deferral, auth, docking, upstream-bump
+   automation); the drift smoke test moved to v0.3 (hardening, not
+   release-gating).

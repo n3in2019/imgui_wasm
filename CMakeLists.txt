@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(imgui_wasm VERSION 0.1.1 LANGUAGES CXX)
+project(imgui_wasm VERSION 0.2.0 LANGUAGES CXX)
 
 # Pure-C++ core (call-stream transport) for ImGuiWasm.
 

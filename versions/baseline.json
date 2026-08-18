@@ -1,7 +1,7 @@
 {
   "default": {
     "imgui-wasm": {
-      "baseline": "0.1.1",
+      "baseline": "0.2.0",
       "port-version": 0
     }
   }

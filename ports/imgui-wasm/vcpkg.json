@@ -1,6 +1,6 @@
 {
   "name": "imgui-wasm",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Dear ImGui web backend: streams captured ImGui API calls to the browser, where a WASM replay twin regenerates draw data locally",
   "homepage": "https://github.com/n3in2019/imgui_wasm",
   "license": "MIT",

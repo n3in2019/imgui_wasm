@@ -49,7 +49,7 @@ All notable changes to imgui-wasm are documented here. The format follows
   options (`IMGUI_WASM_BUILD_EXAMPLES`/`IMGUI_WASM_BUILD_TESTS`) use the
   `imgui_wasm` spelling throughout; the previous `imgui_ws` spellings are gone.
 
-## [Unreleased]
+## [0.2.0] - 2026-08-18 — The networked console
 
 - Breaking: removed the `compression` field from `imgui_wasm_config_t` and
   `imgui_wasm::Config`. It had been a compatibility no-op since the call-stream
@@ -113,5 +113,6 @@ All notable changes to imgui-wasm are documented here. The format follows
   docking, interactive drag-to-dock tab merge, late-joiner layout restore);
   the example app now enables docking and submits a dockspace.
 
+[0.2.0]: https://github.com/n3in2019/imgui_wasm/releases/tag/v0.2.0
 [0.1.1]: https://github.com/n3in2019/imgui_wasm/releases/tag/v0.1.1
 [0.1.0]: https://github.com/n3in2019/imgui_wasm/releases/tag/v0.1.0
